@@ -24,90 +24,82 @@ class _LoginScreenViewState extends ConsumerState<LoginScreenView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ProjectColors.whiteBackground,
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: 20.h,
-              ),
-              SizedBox(
-                width: 350.w,
-                height: 60.h,
-                child: Image.asset(
-                  'assets/images/logo.png',
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 20.h),
+                SizedBox(
+                  width: 350.w,
+                  height: 60.h,
+                  child: Image.asset('assets/images/logo.png'),
                 ),
-              ),
-              SizedBox(
-                height: 115.h,
-              ),
-              Column(
-                spacing: 24,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    spacing: 10,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        TextConstants.welcomeBackText,
-                        style: TextStyles.semiBoldHeader(context),
-                      ),
-                      Text(
-                        TextConstants.loginToYourAccountText,
-                        style: TextStyles.bold20Header(context),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 80.h,
-                  ),
-                  const AuthTextField(
-                    isPassword: false,
-                    labelTextString: TextConstants.emailLabelText,
-                    hintTextString: TextConstants.emailHintText,
-                  ),
-                  Column(
-                    children: [
-                      const AuthTextField(
-                        isPassword: true,
-                        labelTextString: TextConstants.passwordLabelText,
-                        hintTextString: TextConstants.passwordHintText,
-                      ),
-                      Row(
-                        children: [
-                          RememberMeCheckbox(),
-                          const Spacer(),
-                          AuthTextButton(
+                Spacer(),
+                Row(
+                  children: [
+                    Column(
+                      spacing: 10,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          TextConstants.welcomeBackText,
+                          style: TextStyles.semiBoldHeader(context),
+                        ),
+                        Text(
+                          TextConstants.loginToYourAccountText,
+                          style: TextStyles.bold20Header(context),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Spacer(),
+                Column(
+                  spacing: 24,
+                  children: [
+                    const AuthTextField(
+                      isPassword: false,
+                      labelTextString: TextConstants.emailLabelText,
+                      hintTextString: TextConstants.emailHintText,
+                    ),
+                    Column(
+                      children: [
+                        const AuthTextField(
+                          isPassword: true,
+                          labelTextString: TextConstants.passwordLabelText,
+                          hintTextString: TextConstants.passwordHintText,
+                        ),
+                        Row(
+                          children: [
+                            RememberMeCheckbox(),
+                            const Spacer(),
+                            AuthTextButton(
                               onPressed: () => Navigator.pushNamed(
-                                    context,
-                                    AppRouter.register,
-                                  ),
-                              buttonText: TextConstants.registerText)
-                        ],
-                      ),
-                    ],
+                                  context, AppRouter.register),
+                              buttonText: TextConstants.registerText,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Spacer(),
+                SizedBox(height: 20.h),
+                SizedBox(
+                  width: 350.w,
+                  height: 60.h,
+                  child: ElevatedLoginButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, AppRouter.login),
+                    buttonText: TextConstants.authButtonTextLoginText,
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              Column(
-                children: [
-                  SizedBox(
-                      width: 350.w,
-                      height: 60.h,
-                      child: ElevatedLoginButton(
-                        onPressed: () =>
-                            Navigator.pushNamed(context, AppRouter.login),
-                        buttonText: TextConstants.authButtonTextLoginText,
-                      )),
-                ],
-              )
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
