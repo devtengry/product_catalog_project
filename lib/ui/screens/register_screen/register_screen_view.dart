@@ -8,18 +8,16 @@ import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/ui/widgets/auth_text_button.dart';
 import 'package:product_catalog_project/ui/widgets/auth_text_field.dart';
 import 'package:product_catalog_project/ui/widgets/login_button.dart';
-import 'package:product_catalog_project/ui/widgets/remember_me_checkbox.dart';
 
-final rememberMeProvider = StateProvider<bool>((ref) => false);
-
-class LoginScreenView extends ConsumerStatefulWidget {
-  const LoginScreenView({super.key});
+class RegisterScreenView extends ConsumerStatefulWidget {
+  const RegisterScreenView({super.key});
 
   @override
-  _LoginScreenViewState createState() => _LoginScreenViewState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _RegisterScreenViewState();
 }
 
-class _LoginScreenViewState extends ConsumerState<LoginScreenView> {
+class _RegisterScreenViewState extends ConsumerState<RegisterScreenView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,11 +50,11 @@ class _LoginScreenViewState extends ConsumerState<LoginScreenView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        TextConstants.welcomeBackText,
+                        TextConstants.welcomeText,
                         style: TextStyles.semiBoldHeader(context),
                       ),
                       Text(
-                        TextConstants.loginToYourAccountText,
+                        TextConstants.registerAnAccountText,
                         style: TextStyles.bold20Header(context),
                       ),
                     ],
@@ -64,47 +62,49 @@ class _LoginScreenViewState extends ConsumerState<LoginScreenView> {
                   SizedBox(
                     height: 80.h,
                   ),
-                  const AuthTextField(
+                  AuthTextField(
+                    hintTextString: TextConstants.nameHintText,
+                    labelTextString: TextConstants.nameLabelText,
                     isPassword: false,
-                    labelTextString: TextConstants.emailLabelText,
+                  ),
+                  AuthTextField(
                     hintTextString: TextConstants.emailHintText,
+                    labelTextString: TextConstants.emailLabelText,
+                    isPassword: false,
                   ),
                   Column(
                     children: [
-                      const AuthTextField(
-                        isPassword: true,
-                        labelTextString: TextConstants.passwordLabelText,
+                      AuthTextField(
                         hintTextString: TextConstants.passwordHintText,
+                        labelTextString: TextConstants.passwordLabelText,
+                        isPassword: true,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          RememberMeCheckbox(),
-                          const Spacer(),
                           AuthTextButton(
                               onPressed: () => Navigator.pushNamed(
                                     context,
-                                    AppRouter.register,
+                                    AppRouter.login,
                                   ),
-                              buttonText: TextConstants.registerText)
+                              buttonText: TextConstants.loginText),
                         ],
                       ),
                     ],
                   ),
                 ],
               ),
-              SizedBox(
-                height: 20.h,
-              ),
               Column(
                 children: [
                   SizedBox(
-                      width: 350.w,
-                      height: 60.h,
-                      child: ElevatedLoginButton(
-                        onPressed: () =>
-                            Navigator.pushNamed(context, AppRouter.login),
-                        buttonText: TextConstants.authButtonTextLoginText,
-                      )),
+                    width: 350.w,
+                    height: 60.h,
+                    child: ElevatedLoginButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, AppRouter.register),
+                      buttonText: TextConstants.authButtonTextRegisterText,
+                    ),
+                  ),
                 ],
               )
             ],
