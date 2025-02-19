@@ -1,0 +1,45 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/core/theme/text_style/text_styles.dart';
+
+class MainAppBar extends ConsumerWidget implements PreferredSizeWidget {
+  final IconButton leadingIcon;
+  final String suffixText;
+
+  const MainAppBar({
+    super.key,
+    required this.leadingIcon,
+    required this.suffixText,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return AppBar(
+      backgroundColor: ProjectColors.whiteBackground,
+      surfaceTintColor: ProjectColors.whiteBackground,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 20.0), // Sol tarafa padding ekle
+        child: SizedBox(
+          width: 50.w, // IconButton için sabit bir genişlik belirle
+          height: 32.h,
+          child: leadingIcon,
+        ),
+      ),
+      title: Padding(
+        padding: const EdgeInsets.only(right: 20.0), // Sağ tarafa padding ekle
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Text(
+            suffixText,
+            style: TextStyles.bold20Header(context),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}

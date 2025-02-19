@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 
-class ElevatedLoginButton extends ConsumerWidget {
+class AuthElevatedButton extends ConsumerWidget {
   final String buttonText;
   final VoidCallback? onPressed;
 
-  const ElevatedLoginButton(
+  const AuthElevatedButton(
       {super.key, required this.buttonText, required this.onPressed});
 
   @override
