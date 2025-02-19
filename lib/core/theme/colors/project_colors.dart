@@ -17,6 +17,6 @@ class ProjectColors {
   // text field colors
   static const Color textFieldBackground = Color(0xFFF4F4FF);
   // card colors
-  static const Color cardBackground = Color(0xFFEF6B4A);
+  static const Color cardBackground = Color(0xFFF4F4FF);
   //
 }

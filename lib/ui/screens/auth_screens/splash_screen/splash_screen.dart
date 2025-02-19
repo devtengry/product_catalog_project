@@ -4,18 +4,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/localizations/text_constants.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/router/app_router.dart';
-import 'package:product_catalog_project/ui/widgets/login_button.dart';
-import 'package:product_catalog_project/ui/widgets/skip_text_button.dart';
+import 'package:product_catalog_project/ui/widgets/auth_widgets/auth_elevated_button.dart';
+import 'package:product_catalog_project/ui/widgets/auth_widgets/skip_text_button.dart';
 
-class SplashScreenView extends ConsumerStatefulWidget {
-  const SplashScreenView({super.key});
+class SplashScreen extends ConsumerStatefulWidget {
+  const SplashScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _SplashScreenViewState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SplashScreenState();
 }
 
-class _SplashScreenViewState extends ConsumerState<SplashScreenView> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +38,7 @@ class _SplashScreenViewState extends ConsumerState<SplashScreenView> {
                   SizedBox(
                     width: 350,
                     height: 60,
-                    child: ElevatedLoginButton(
+                    child: AuthElevatedButton(
                         onPressed: () =>
                             Navigator.pushNamed(context, AppRouter.login),
                         buttonText: TextConstants.authButtonTextLoginText),

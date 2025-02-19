@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:product_catalog_project/core/localizations/text_constants.dart';
 import 'package:product_catalog_project/core/theme/text_style/text_styles.dart';
-import 'package:product_catalog_project/ui/widgets/auth_text_button.dart';
+import 'package:product_catalog_project/ui/widgets/auth_widgets/auth_text_button.dart';
 
 final rememberMeProvider = StateProvider<bool>((ref) => false);
 
