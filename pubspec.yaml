@@ -28,5 +28,6 @@ flutter:
   assets:
     - assets/images/logo.png
     - assets/images/dune_book.png
+    - assets/search_bar/search_bar_icon.png
     
 

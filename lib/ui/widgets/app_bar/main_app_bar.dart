@@ -5,12 +5,12 @@ import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/core/theme/text_style/text_styles.dart';
 
 class MainAppBar extends ConsumerWidget implements PreferredSizeWidget {
-  final IconButton leadingIcon;
+  final Image? leadingIcon;
   final String suffixText;
 
   const MainAppBar({
     super.key,
-    required this.leadingIcon,
+    this.leadingIcon,
     required this.suffixText,
   });
 
@@ -37,6 +37,12 @@ class MainAppBar extends ConsumerWidget implements PreferredSizeWidget {
           ),
         ),
       ),
+      bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1.h),
+          child: Container(
+            color: ProjectColors.cardBackground,
+            height: 1.0.h,
+          )),
     );
   }
 
