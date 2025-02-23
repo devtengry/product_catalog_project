@@ -7,10 +7,11 @@ class ProjectColors {
   // text colors
   static const Color whiteForText = Color(0xFFFFFFFF);
   static const Color darkPurpleText = Color(0xFF090937);
+  static const Color authorPurpleText = Color(0xFF090937);
   static const Color priceText = Color(0xFF6251DD);
   // button colors
   static const Color purpleTextButton = Color(0xFF6251DD);
-  static const Color orangeTextButton = Color(0xFFFFA500);
+  static const Color orangeTextButton = Color(0xFFEF6B4A);
   static const Color elevatedButton = Color(0xFFEF6B4A);
   static const Color filterBackground = Color(0xFF6251DD);
   static const Color checkboxColor = Color(0xFF6251DD);
@@ -18,5 +19,6 @@ class ProjectColors {
   static const Color textFieldBackground = Color(0xFFF4F4FF);
   // card colors
   static const Color cardBackground = Color(0xFFF4F4FF);
-  //
+  //icon colors
+  static const Color iconColor = Color(0xFF090937);
 }
