@@ -30,7 +30,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [
+              children: <Widget>[
                 SizedBox(height: 20.h),
                 SizedBox(
                   width: 350.w,

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:product_catalog_project/core/theme/text_style/text_styles.dart';
 
-class _CategoryHeader extends ConsumerWidget {
-  const _CategoryHeader({
+class CategoryHeader extends ConsumerWidget {
+  const CategoryHeader({
     required this.categoryName,
   });
 

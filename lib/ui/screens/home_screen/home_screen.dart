@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
-import 'package:product_catalog_project/ui/screens/home_screen/home_widgets/category_card.dart';
+import 'package:product_catalog_project/ui/screens/home_screen/home_widgets/category_section/category_card.dart';
 import 'package:product_catalog_project/ui/screens/home_screen/home_widgets/home_filter_chip.dart';
 import 'package:product_catalog_project/ui/screens/home_screen/home_widgets/search_bar.dart'
     as custom;
