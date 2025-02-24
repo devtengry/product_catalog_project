@@ -90,7 +90,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   height: 60.h,
                   child: AuthElevatedButton(
                     onPressed: () =>
-                        Navigator.pushNamed(context, AppRouter.register),
+                        Navigator.pushNamed(context, AppRouter.login),
                     buttonText: TextConstants.authButtonTextRegisterText,
                   ),
                 ),

@@ -96,7 +96,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   height: 60.h,
                   child: AuthElevatedButton(
                     onPressed: () =>
-                        Navigator.pushNamed(context, AppRouter.login),
+                        Navigator.pushNamed(context, AppRouter.home),
                     buttonText: TextConstants.authButtonTextLoginText,
                   ),
                 ),
