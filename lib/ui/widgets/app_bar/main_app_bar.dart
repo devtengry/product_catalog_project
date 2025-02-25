@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
-import 'package:product_catalog_project/core/theme/text_style/text_styles.dart';
 
 class MainAppBar extends ConsumerWidget implements PreferredSizeWidget {
-  final Image? leadingIcon;
+  final Widget? leadingIcon;
   final String suffixText;
 
   const MainAppBar({
@@ -33,7 +32,10 @@ class MainAppBar extends ConsumerWidget implements PreferredSizeWidget {
           alignment: Alignment.centerRight,
           child: Text(
             suffixText,
-            style: TextStyles.bold20Header(context),
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: ProjectColors.darkPurpleText),
           ),
         ),
       ),
