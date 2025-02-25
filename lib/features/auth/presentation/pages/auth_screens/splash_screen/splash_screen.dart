@@ -1,12 +1,16 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/localizations/text_constants.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
-import 'package:product_catalog_project/router/app_router.dart';
+import 'package:product_catalog_project/router/.app_router.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_elevated_button.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/skip_text_button.dart';
+import 'package:product_catalog_project/router/app_router.dart';
 
+@RoutePage()
 class SplashScreen extends StatelessWidget {
+  static const page = SplashRoute.new;
   const SplashScreen({super.key});
 
   @override
@@ -33,14 +37,13 @@ class SplashScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   AuthElevatedButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, AppRouter.login),
+                    onPressed: () => router.push(LoginRoute()),
                     buttonText: TextConstants.authButtonTextLoginText,
                   ),
                   const SizedBox(height: 10),
                   SkipTextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, AppRouter.login);
+                      router.push(LoginRoute());
                     },
                     skipTextButton: TextConstants.skipText,
                   ),

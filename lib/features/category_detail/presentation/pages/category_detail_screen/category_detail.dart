@@ -1,15 +1,20 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/router/.app_router.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
 import 'package:product_catalog_project/ui/widgets/search_bar/search_bar.dart'
     as custom;
 
-class CategoryDetail extends ConsumerWidget {
-  const CategoryDetail({super.key});
+@RoutePage()
+class CategoryDetailScreen extends ConsumerWidget {
+  static var page;
+
+  const CategoryDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -63,7 +68,7 @@ class _CategoryDetailBookState extends ConsumerState<_CategoryDetailBook> {
 
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, AppRouter.bookDetail),
+      onTap: () => router.push(BookDetailRoute()),
       child: Container(
         width: 170.w,
         height: 284.h,

@@ -1,18 +1,23 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/localizations/text_constants.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
-import 'package:product_catalog_project/router/app_router.dart';
+import 'package:product_catalog_project/router/.app_router.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_button.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_field.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_elevated_button.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/remember_me_checkbox.dart';
+import 'package:product_catalog_project/router/app_router.dart';
 
 final rememberMeProvider = StateProvider<bool>((ref) => false);
 
+@RoutePage()
 class LoginScreen extends ConsumerStatefulWidget {
+  static var page;
+
   const LoginScreen({super.key});
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -84,7 +89,7 @@ class _LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthElevatedButton(
-      onPressed: () => Navigator.pushNamed(context, AppRouter.home),
+      onPressed: () => router.push(HomeRoute()),
       buttonText: TextConstants.authButtonTextLoginText,
     );
   }
@@ -98,7 +103,7 @@ class _RegisterTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthTextButton(
-      onPressed: () => Navigator.pushNamed(context, AppRouter.register),
+      onPressed: () => router.push(RegisterRoute()),
       buttonText: TextConstants.registerText,
     );
   }

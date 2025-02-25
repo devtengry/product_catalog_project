@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/router/.app_router.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 
 class CategoryCard extends ConsumerWidget {
@@ -160,7 +161,7 @@ class _CategoryTextButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return TextButton(
-      onPressed: () => Navigator.pushNamed(context, AppRouter.categoryDetail),
+      onPressed: () => router.push(CategoryDetailRoute()),
       child: Text(
         'View All',
         style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -218,7 +219,7 @@ class _ScrollableBookRow extends ConsumerWidget {
     return AspectRatio(
       aspectRatio: 210.h / 140.h,
       child: GestureDetector(
-        onTap: () => Navigator.pushNamed(context, AppRouter.bookDetail),
+        onTap: () => router.push(BookDetailRoute()),
         child: Container(
           width: 210.w,
           constraints: BoxConstraints(minHeight: 140.h),
