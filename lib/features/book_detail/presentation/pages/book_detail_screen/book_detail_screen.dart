@@ -6,12 +6,9 @@ import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/pages/widgets/buy_button.dart';
 import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_elevated_button.dart';
 
 @RoutePage()
 class BookDetailScreen extends ConsumerStatefulWidget {
-  static var page;
-
   const BookDetailScreen({super.key});
 
   @override
@@ -20,8 +17,8 @@ class BookDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _BookDetailScreenState extends ConsumerState<BookDetailScreen> {
-  @override
   final String _bookPhotoAsset = AssetsPath().bookAssetPath;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ProjectColors.whiteBackground,
@@ -85,9 +82,7 @@ class _BookDetailScreenState extends ConsumerState<BookDetailScreen> {
 }
 
 class _BookSummary extends StatelessWidget {
-  const _BookSummary({
-    super.key,
-  });
+  const _BookSummary();
 
   @override
   Widget build(BuildContext context) {
@@ -118,9 +113,7 @@ class _BookSummary extends StatelessWidget {
 }
 
 class _BookAuthor extends StatelessWidget {
-  const _BookAuthor({
-    super.key,
-  });
+  const _BookAuthor();
 
   @override
   Widget build(BuildContext context) {
@@ -136,9 +129,7 @@ class _BookAuthor extends StatelessWidget {
 }
 
 class _BookTitle extends StatelessWidget {
-  const _BookTitle({
-    super.key,
-  });
+  const _BookTitle();
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +146,6 @@ class _BookTitle extends StatelessWidget {
 
 class _BookImage extends StatelessWidget {
   const _BookImage({
-    super.key,
     required String bookPhotoAsset,
   }) : _bookPhotoAsset = bookPhotoAsset;
 

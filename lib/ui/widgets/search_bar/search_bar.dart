@@ -21,7 +21,6 @@ class SearchBar extends ConsumerWidget {
 
 class _SearchField extends ConsumerWidget {
   const _SearchField({
-    super.key,
     required this.controller,
   });
 
@@ -55,7 +54,6 @@ class _SearchField extends ConsumerWidget {
 
 class _SearchIcons extends ConsumerWidget {
   const _SearchIcons({
-    super.key,
     required this.icon,
   });
 

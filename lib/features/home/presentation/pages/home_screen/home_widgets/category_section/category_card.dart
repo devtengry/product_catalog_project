@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
-import 'package:product_catalog_project/router/.app_router.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 
 class CategoryCard extends ConsumerWidget {
@@ -38,7 +37,7 @@ class CategoryCard extends ConsumerWidget {
 }
 
 class _BookRow extends ConsumerWidget {
-  const _BookRow({super.key});
+  const _BookRow();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -68,9 +67,7 @@ class _BookRow extends ConsumerWidget {
 }
 
 class _BookPrice extends StatelessWidget {
-  const _BookPrice({
-    super.key,
-  });
+  const _BookPrice();
 
   @override
   Widget build(BuildContext context) {
@@ -85,9 +82,7 @@ class _BookPrice extends StatelessWidget {
 }
 
 class _BookAuthor extends StatelessWidget {
-  const _BookAuthor({
-    super.key,
-  });
+  const _BookAuthor();
 
   @override
   Widget build(BuildContext context) {
@@ -103,9 +98,7 @@ class _BookAuthor extends StatelessWidget {
 }
 
 class _BookTitle extends StatelessWidget {
-  const _BookTitle({
-    super.key,
-  });
+  const _BookTitle();
 
   @override
   Widget build(BuildContext context) {
@@ -121,9 +114,7 @@ class _BookTitle extends StatelessWidget {
 }
 
 class _BookCoverImage extends StatelessWidget {
-  const _BookCoverImage({
-    super.key,
-  });
+  const _BookCoverImage();
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +128,6 @@ class _BookCoverImage extends StatelessWidget {
 
 class _CategoryHeader extends ConsumerWidget {
   const _CategoryHeader({
-    super.key,
     required this.categoryName,
   });
 
@@ -156,7 +146,7 @@ class _CategoryHeader extends ConsumerWidget {
 }
 
 class _CategoryTextButton extends ConsumerWidget {
-  const _CategoryTextButton({super.key});
+  const _CategoryTextButton();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -174,7 +164,7 @@ class _CategoryTextButton extends ConsumerWidget {
 }
 
 class _CategoryText extends ConsumerWidget {
-  const _CategoryText({super.key, required this.categoryName});
+  const _CategoryText({required this.categoryName});
 
   final String categoryName;
 
@@ -192,7 +182,7 @@ class _CategoryText extends ConsumerWidget {
 }
 
 class _HorizontalBookList extends ConsumerWidget {
-  const _HorizontalBookList({super.key});
+  const _HorizontalBookList();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -212,7 +202,7 @@ class _HorizontalBookList extends ConsumerWidget {
 }
 
 class _ScrollableBookRow extends ConsumerWidget {
-  const _ScrollableBookRow({super.key});
+  const _ScrollableBookRow();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

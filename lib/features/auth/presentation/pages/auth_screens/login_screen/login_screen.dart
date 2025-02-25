@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/localizations/text_constants.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
-import 'package:product_catalog_project/router/.app_router.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_button.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_field.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_elevated_button.dart';
@@ -16,10 +15,9 @@ final rememberMeProvider = StateProvider<bool>((ref) => false);
 
 @RoutePage()
 class LoginScreen extends ConsumerStatefulWidget {
-  static var page;
-
   const LoginScreen({super.key});
   @override
+  // ignore: library_private_types_in_public_api
   _LoginScreenState createState() => _LoginScreenState();
 }
 
@@ -82,9 +80,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 }
 
 class _LoginButton extends StatelessWidget {
-  const _LoginButton({
-    super.key,
-  });
+  const _LoginButton();
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +92,7 @@ class _LoginButton extends StatelessWidget {
 }
 
 class _RegisterTextButton extends StatelessWidget {
-  const _RegisterTextButton({
-    super.key,
-  });
+  const _RegisterTextButton();
 
   @override
   Widget build(BuildContext context) {
@@ -110,9 +104,7 @@ class _RegisterTextButton extends StatelessWidget {
 }
 
 class _PasswordTextBox extends StatelessWidget {
-  const _PasswordTextBox({
-    super.key,
-  });
+  const _PasswordTextBox();
 
   @override
   Widget build(BuildContext context) {
@@ -125,9 +117,7 @@ class _PasswordTextBox extends StatelessWidget {
 }
 
 class _EmailTextBox extends StatelessWidget {
-  const _EmailTextBox({
-    super.key,
-  });
+  const _EmailTextBox();
 
   @override
   Widget build(BuildContext context) {
@@ -140,9 +130,7 @@ class _EmailTextBox extends StatelessWidget {
 }
 
 class _LoginToYourAccount extends StatelessWidget {
-  const _LoginToYourAccount({
-    super.key,
-  });
+  const _LoginToYourAccount();
 
   @override
   Widget build(BuildContext context) {
@@ -157,9 +145,7 @@ class _LoginToYourAccount extends StatelessWidget {
 }
 
 class _WelcomeBackText extends StatelessWidget {
-  const _WelcomeBackText({
-    super.key,
-  });
+  const _WelcomeBackText();
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +164,6 @@ class _WelcomeBackText extends StatelessWidget {
 
 class _LoginIcon extends StatelessWidget {
   const _LoginIcon({
-    super.key,
     required String logoAssetPath,
   }) : _logoAssetPath = logoAssetPath;
 

@@ -12,8 +12,6 @@ import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
 
 @RoutePage()
 class HomeScreen extends ConsumerStatefulWidget {
-  static var page;
-
   const HomeScreen({super.key});
 
   @override
