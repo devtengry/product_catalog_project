@@ -27,10 +27,10 @@ class AuthTextField extends ConsumerWidget {
       children: [
         Text(
           labelTextString,
-          style: Theme.of(context)
-              .textTheme
-              .labelLarge
-              ?.copyWith(fontSize: 14, fontWeight: FontWeight.w600),
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: ProjectColors.darkPurpleText),
         ),
         TextField(
           obscureText: isPassword,

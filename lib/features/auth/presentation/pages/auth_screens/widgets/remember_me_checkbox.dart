@@ -17,22 +17,47 @@ class RememberMeCheckbox extends ConsumerWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Checkbox(
-            activeColor: ProjectColors.purpleTextButton,
-            side: BorderSide(color: ProjectColors.purpleTextButton, width: 2),
-            value: rememberMe,
-            onChanged: (value) =>
-                ref.read(rememberMeProvider.notifier).state = value!,
-          ),
-          Text(
-            TextConstants.rememberMeText,
-            style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: ProjectColors.purpleTextButton),
-          ),
+          _LoginCheckbox(rememberMe: rememberMe),
+          _RememberMeText(),
         ],
       ),
+    );
+  }
+}
+
+class _RememberMeText extends StatelessWidget {
+  const _RememberMeText({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      TextConstants.rememberMeText,
+      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+          color: ProjectColors.purpleTextButton),
+    );
+  }
+}
+
+class _LoginCheckbox extends ConsumerWidget {
+  const _LoginCheckbox({
+    super.key,
+    required this.rememberMe,
+  });
+
+  final bool rememberMe;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Checkbox(
+      activeColor: ProjectColors.purpleTextButton,
+      side: BorderSide(color: ProjectColors.purpleTextButton, width: 2),
+      value: rememberMe,
+      onChanged: (value) =>
+          ref.read(rememberMeProvider.notifier).state = value!,
     );
   }
 }
