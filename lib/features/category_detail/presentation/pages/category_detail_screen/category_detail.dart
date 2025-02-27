@@ -73,8 +73,9 @@ class _CategoryDetailBookState extends ConsumerState<_CategoryDetailBook> {
         width: 170.w,
         height: 284.h,
         decoration: BoxDecoration(
-            color: ProjectColors.cardBackground,
-            borderRadius: BorderRadius.circular(4.0)),
+          color: ProjectColors.cardBackground,
+          borderRadius: BorderRadius.circular(4.0),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -82,14 +83,7 @@ class _CategoryDetailBookState extends ConsumerState<_CategoryDetailBook> {
               Flexible(
                 child: AspectRatio(
                   aspectRatio: 150.h / 225.w,
-                  child: SizedBox(
-                    width: 150.w,
-                    height: 225.h,
-                    child: Image.asset(
-                      _bookAssetImage,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                  child: _BookCoverImage(bookAssetImage: _bookAssetImage),
                 ),
               ),
               Row(
@@ -100,32 +94,16 @@ class _CategoryDetailBookState extends ConsumerState<_CategoryDetailBook> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Dune',
-                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: ProjectColors.darkPurpleText,
-                            ),
+                      _TitleText(
+                        bookTitle: 'Dune',
                       ),
-                      Text(
-                        'Frank Herbert',
-                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              fontSize: 8,
-                              fontWeight: FontWeight.w700,
-                              color: ProjectColors.darkPurpleText
-                                  .withValues(alpha: 0.6),
-                            ),
+                      _AuthorText(
+                        bookAuthor: 'Frank Herbert',
                       ),
                     ],
                   ),
-                  Text(
-                    '87,75',
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: ProjectColors.priceText,
-                        ),
+                  _PriceText(
+                    bookPrice: '87,75',
                   ),
                 ],
               ),
@@ -133,6 +111,87 @@ class _CategoryDetailBookState extends ConsumerState<_CategoryDetailBook> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _BookCoverImage extends StatelessWidget {
+  const _BookCoverImage({
+    super.key,
+    required String bookAssetImage,
+  }) : _bookAssetImage = bookAssetImage;
+
+  final String _bookAssetImage;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 150.w,
+      height: 225.h,
+      child: Image.asset(
+        _bookAssetImage,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+}
+
+class _TitleText extends StatelessWidget {
+  final String bookTitle;
+
+  const _TitleText({super.key, required this.bookTitle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      bookTitle,
+      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            fontSize: 10,
+            fontWeight: FontWeight.w600,
+            color: ProjectColors.darkPurpleText,
+          ),
+    );
+  }
+}
+
+class _AuthorText extends StatelessWidget {
+  final String bookAuthor;
+
+  const _AuthorText({
+    super.key,
+    required this.bookAuthor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      bookAuthor,
+      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            fontSize: 8,
+            fontWeight: FontWeight.w700,
+            color: ProjectColors.darkPurpleText.withValues(alpha: 0.6),
+          ),
+    );
+  }
+}
+
+class _PriceText extends StatelessWidget {
+  final String bookPrice;
+
+  const _PriceText({
+    super.key,
+    required this.bookPrice,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      '${bookPrice} \$',
+      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: ProjectColors.priceText,
+          ),
     );
   }
 }

@@ -106,6 +106,7 @@ class _PasswordTextBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthTextField(
+      textInputType: TextInputType.name,
       isPassword: true,
       labelTextString: TextConstants.passwordLabelText,
       hintTextString: TextConstants.passwordHintText,
@@ -119,6 +120,7 @@ class _EmailTextBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthTextField(
+      textInputType: TextInputType.emailAddress,
       hintTextString: TextConstants.emailHintText,
       labelTextString: TextConstants.emailLabelText,
       isPassword: false,
@@ -132,6 +134,7 @@ class _NameTextBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthTextField(
+      textInputType: TextInputType.none,
       hintTextString: TextConstants.nameHintText,
       labelTextString: TextConstants.nameLabelText,
       isPassword: false,

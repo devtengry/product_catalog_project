@@ -25,16 +25,6 @@ class AuthElevatedButton extends ConsumerWidget {
       height: 60.h,
       child: ElevatedButton(
         onPressed: onPressed,
-        style: ButtonStyle(
-          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
-            ),
-          ),
-          backgroundColor: WidgetStateProperty.all(
-            ProjectColors.elevatedButton,
-          ),
-        ),
         child: Text(
           buttonText,
           style: TextStyle(

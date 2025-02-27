@@ -7,6 +7,7 @@ class AuthTextField extends ConsumerWidget {
   final String labelTextString;
   final bool isPassword;
   final TextButton? counterText;
+  final TextInputType? textInputType;
 
   const AuthTextField({
     super.key,
@@ -14,6 +15,7 @@ class AuthTextField extends ConsumerWidget {
     required this.labelTextString,
     required this.isPassword,
     this.counterText,
+    required this.textInputType,
   });
 
   @override
@@ -33,6 +35,7 @@ class AuthTextField extends ConsumerWidget {
               color: ProjectColors.darkPurpleText),
         ),
         TextField(
+          keyboardType: textInputType,
           obscureText: isPassword,
           decoration: InputDecoration(
             filled: true,

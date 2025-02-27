@@ -14,21 +14,24 @@ class SearchBar extends ConsumerWidget {
     final searchController = ref.watch(searchControllerProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
-      child: _SearchField(controller: searchController),
+      child: _SearchField(
+        controller: searchController,
+        textInputType: TextInputType.none,
+      ),
     );
   }
 }
 
 class _SearchField extends ConsumerWidget {
-  const _SearchField({
-    required this.controller,
-  });
+  final TextInputType textInputType;
+  const _SearchField({required this.controller, required this.textInputType});
 
   final TextEditingController controller;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return TextField(
+      keyboardType: TextInputType.numberWithOptions(),
       controller: controller,
       decoration: InputDecoration(
         filled: true,

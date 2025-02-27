@@ -17,20 +17,34 @@ class CategoryCard extends ConsumerWidget {
     return SizedBox(
       width: 350.w,
       height: 187.h,
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-        color: Colors.transparent,
-        shadowColor: Colors.transparent,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _CategoryHeader(categoryName: categoryName),
-            const Expanded(
-              child: _HorizontalBookList(),
-            ),
-          ],
-        ),
+      child: _CategoryCard(categoryName: categoryName),
+    );
+  }
+}
+
+class _CategoryCard extends StatelessWidget {
+  const _CategoryCard({
+    super.key,
+    required this.categoryName,
+  });
+
+  final String categoryName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+      color: Colors.transparent,
+      shadowColor: Colors.transparent,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _CategoryHeader(categoryName: categoryName),
+          const Expanded(
+            child: _HorizontalBookList(),
+          ),
+        ],
       ),
     );
   }
@@ -53,11 +67,17 @@ class _BookRow extends ConsumerWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _BookTitle(),
-                  _BookAuthor(),
+                  _BookTitle(
+                    bookTitle: 'Dune',
+                  ),
+                  _BookAuthor(
+                    bookAuthor: 'Frank Herbert',
+                  ),
                 ],
               ),
-              _BookPrice(),
+              _BookPrice(
+                bookPrice: '87.75',
+              ),
             ],
           ),
         ),
@@ -67,12 +87,14 @@ class _BookRow extends ConsumerWidget {
 }
 
 class _BookPrice extends StatelessWidget {
-  const _BookPrice();
+  final String bookPrice;
+
+  const _BookPrice({required this.bookPrice});
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      '87,75',
+      '$bookPrice \$',
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
           fontSize: 16,
           fontWeight: FontWeight.w700,
@@ -82,12 +104,14 @@ class _BookPrice extends StatelessWidget {
 }
 
 class _BookAuthor extends StatelessWidget {
-  const _BookAuthor();
+  final String bookAuthor;
+
+  const _BookAuthor({required this.bookAuthor});
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Frank Herbert',
+      bookAuthor,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
             fontSize: 10,
             fontWeight: FontWeight.w600,
@@ -98,12 +122,13 @@ class _BookAuthor extends StatelessWidget {
 }
 
 class _BookTitle extends StatelessWidget {
-  const _BookTitle();
+  final String bookTitle;
+  const _BookTitle({required this.bookTitle});
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Dune',
+      bookTitle,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
             fontSize: 12,
             fontWeight: FontWeight.w600,
@@ -214,10 +239,6 @@ class _ScrollableBookRow extends ConsumerWidget {
           width: 210.w,
           constraints: BoxConstraints(minHeight: 140.h),
           child: Card(
-            shadowColor: Colors.transparent,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            color: ProjectColors.cardBackground,
             child: const _BookRow(),
           ),
         ),

@@ -17,6 +17,9 @@ class ProjectColors {
   static const Color checkboxColor = Color(0xFF6251DD);
   // text field colors
   static const Color textFieldBackground = Color(0xFFF4F4FF);
+  // like button
+  static const Color likeButtonContainer = Color(0xFFF4F4FF);
+  static const Color likeButtonHeart = Color(0xFF6251DD);
   // card colors
   static const Color cardBackground = Color(0xFFF4F4FF);
   //icon colors
