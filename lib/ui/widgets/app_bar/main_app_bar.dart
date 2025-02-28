@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,7 +35,7 @@ class MainAppBar extends ConsumerWidget implements PreferredSizeWidget {
           child: Text(
             suffixText,
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontSize: 20,
+                fontSize: min(20.sp, 20),
                 fontWeight: FontWeight.w700,
                 color: ProjectColors.darkPurpleText),
           ),

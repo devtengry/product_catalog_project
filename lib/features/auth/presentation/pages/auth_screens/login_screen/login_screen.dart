@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -109,7 +111,7 @@ class _PasswordTextBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const AuthTextField(
-      textInputType: TextInputType.none,
+      textInputType: TextInputType.text,
       isPassword: true,
       labelTextString: TextConstants.passwordLabelText,
       hintTextString: TextConstants.passwordHintText,
@@ -140,7 +142,7 @@ class _LoginToYourAccount extends StatelessWidget {
       TextConstants.loginToYourAccountText,
       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
           fontWeight: FontWeight.w700,
-          fontSize: 20,
+          fontSize: min(20.sp, 20),
           color: ProjectColors.darkPurpleText),
     );
   }
@@ -154,7 +156,7 @@ class _WelcomeBackText extends StatelessWidget {
     return Text(
       TextConstants.welcomeBackText,
       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            fontSize: 16,
+            fontSize: min(16.sp, 16),
             fontWeight: FontWeight.w600,
             color: ProjectColors.darkPurpleText.withValues(
               alpha: 0.6,

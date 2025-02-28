@@ -106,7 +106,7 @@ class _PasswordTextBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthTextField(
-      textInputType: TextInputType.name,
+      textInputType: TextInputType.text,
       isPassword: true,
       labelTextString: TextConstants.passwordLabelText,
       hintTextString: TextConstants.passwordHintText,
@@ -134,7 +134,7 @@ class _NameTextBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthTextField(
-      textInputType: TextInputType.none,
+      textInputType: TextInputType.text,
       hintTextString: TextConstants.nameHintText,
       labelTextString: TextConstants.nameLabelText,
       isPassword: false,
@@ -150,7 +150,7 @@ class _RegirsterAnAccountText extends StatelessWidget {
     return Text(
       TextConstants.registerAnAccountText,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-          fontSize: 20,
+          fontSize: 20.sp,
           fontWeight: FontWeight.w600,
           color: ProjectColors.darkPurpleText),
     );
@@ -165,7 +165,7 @@ class _WelcomeText extends StatelessWidget {
     return Text(
       TextConstants.welcomeText,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontSize: 16,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w600,
             color: ProjectColors.darkPurpleText.withValues(
               alpha: 0.6,

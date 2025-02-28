@@ -1,5 +1,7 @@
 // ignore_for_file: unused_element
 
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -126,11 +128,14 @@ class _BookCoverImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 150.w,
-      height: 225.h,
-      child: Image.asset(
-        _bookAssetImage,
-        fit: BoxFit.cover,
+      width: min(150.w, 150),
+      height: min(225.h, 225),
+      child: AspectRatio(
+        aspectRatio: 120.h / 80.w,
+        child: Image.asset(
+          _bookAssetImage,
+          fit: BoxFit.contain,
+        ),
       ),
     );
   }
@@ -146,7 +151,7 @@ class _TitleText extends StatelessWidget {
     return Text(
       bookTitle,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontSize: 10,
+            fontSize: min(10.sp, 10),
             fontWeight: FontWeight.w600,
             color: ProjectColors.darkPurpleText,
           ),
@@ -167,7 +172,7 @@ class _AuthorText extends StatelessWidget {
     return Text(
       bookAuthor,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontSize: 8,
+            fontSize: min(8.sp, 8),
             fontWeight: FontWeight.w700,
             color: ProjectColors.darkPurpleText.withValues(alpha: 0.6),
           ),
@@ -188,7 +193,7 @@ class _PriceText extends StatelessWidget {
     return Text(
       '${bookPrice} \$',
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontSize: 12,
+            fontSize: min(12.sp, 12),
             fontWeight: FontWeight.w700,
             color: ProjectColors.priceText,
           ),

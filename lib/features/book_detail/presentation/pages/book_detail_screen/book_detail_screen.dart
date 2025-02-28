@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -72,8 +74,8 @@ class _BookDetailScreenState extends ConsumerState<BookDetailScreen> {
                       ),
                     ),
                     Positioned(
-                      top: 20.h,
-                      right: 20.w,
+                      top: 0.h,
+                      right: 0.w,
                       child: _LikeButton(),
                     ),
                   ],
@@ -163,7 +165,7 @@ class _BookSummary extends StatelessWidget {
         Text(
           summaryTitle,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                fontSize: 20,
+                fontSize: min(20.sp, 20),
                 fontWeight: FontWeight.w700,
                 color: ProjectColors.darkPurpleText,
               ),
@@ -171,7 +173,7 @@ class _BookSummary extends StatelessWidget {
         Text(
           bookSummary,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                fontSize: 16,
+                fontSize: min(16.sp, 16),
                 height: 1.6,
                 fontWeight: FontWeight.w400,
                 color: ProjectColors.darkPurpleText.withValues(alpha: 0.6),
@@ -191,7 +193,7 @@ class _BookAuthor extends StatelessWidget {
     return Text(
       bookAuthor,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontSize: 16,
+            fontSize: min(16.sp, 16),
             fontWeight: FontWeight.w600,
             color: ProjectColors.darkPurpleText.withValues(alpha: 0.6),
           ),
@@ -209,7 +211,7 @@ class _BookTitle extends StatelessWidget {
     return Text(
       bookTitle,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontSize: 20,
+            fontSize: min(20.sp, 20),
             fontWeight: FontWeight.w700,
             color: ProjectColors.darkPurpleText,
           ),
@@ -232,7 +234,7 @@ class _BookImage extends StatelessWidget {
       //make it dynamic later
       child: Image.asset(
         _bookPhotoAsset,
-        fit: BoxFit.cover,
+        fit: BoxFit.contain,
       ),
     );
   }

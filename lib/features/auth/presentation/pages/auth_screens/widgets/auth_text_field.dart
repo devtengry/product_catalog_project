@@ -1,5 +1,7 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 
 class AuthTextField extends ConsumerWidget {
@@ -14,8 +16,8 @@ class AuthTextField extends ConsumerWidget {
     required this.hintTextString,
     required this.labelTextString,
     required this.isPassword,
-    this.counterText,
     required this.textInputType,
+    this.counterText,
   });
 
   @override
@@ -24,30 +26,36 @@ class AuthTextField extends ConsumerWidget {
     WidgetRef ref,
   ) {
     return Column(
-      spacing: 8,
+      spacing: 8.h,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           labelTextString,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              fontSize: 14,
+              fontSize: min(14.sp, 14),
               fontWeight: FontWeight.w600,
               color: ProjectColors.darkPurpleText),
         ),
-        TextField(
-          keyboardType: textInputType,
-          obscureText: isPassword,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: ProjectColors.textFieldBackground,
-            hintText: hintTextString,
-            hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: ProjectColors.darkPurpleText.withValues(alpha: 0.4)),
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(4),
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: 350.w,
+            maxHeight: 50.h,
+          ),
+          child: TextField(
+            keyboardType: textInputType,
+            obscureText: isPassword,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: ProjectColors.textFieldBackground,
+              hintText: hintTextString,
+              hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  fontSize: min(16.sp, 16),
+                  fontWeight: FontWeight.w700,
+                  color: ProjectColors.darkPurpleText.withValues(alpha: 0.4)),
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(4),
+              ),
             ),
           ),
         ),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -180,7 +182,7 @@ class _CategoryTextButton extends ConsumerWidget {
       child: Text(
         'View All',
         style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontSize: 12,
+            fontSize: min(12.sp, 12),
             fontWeight: FontWeight.w600,
             color: ProjectColors.orangeTextButton),
       ),
@@ -198,7 +200,7 @@ class _CategoryText extends ConsumerWidget {
     return Text(
       categoryName,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontSize: 20,
+            fontSize: min(20.sp, 20),
             fontWeight: FontWeight.w600,
             color: ProjectColors.darkPurpleText,
           ),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -62,7 +64,7 @@ class _FilterChipWidgetState extends ConsumerState<FilterChipWidget> {
         label: Text(
           widget.filterText,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              fontSize: 16,
+              fontSize: min(16.sp, 16),
               fontWeight: FontWeight.w400,
               color: isSelected
                   ? ProjectColors.whiteText
