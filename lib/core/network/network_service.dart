@@ -6,7 +6,7 @@ class NetworkService {
   NetworkService() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: "https://assign-api.piton.com.tr/api/rest/",
+        baseUrl: "https://assign-api.piton.com.tr/api/rest",
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 10),
         headers: {

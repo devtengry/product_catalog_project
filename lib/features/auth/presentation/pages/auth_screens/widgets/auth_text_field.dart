@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:validators2/validators2.dart';
 
 class AuthTextField extends ConsumerWidget {
   final String hintTextString;
@@ -10,6 +11,8 @@ class AuthTextField extends ConsumerWidget {
   final bool isPassword;
   final TextButton? counterText;
   final TextInputType? textInputType;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   const AuthTextField({
     super.key,
@@ -17,7 +20,9 @@ class AuthTextField extends ConsumerWidget {
     required this.labelTextString,
     required this.isPassword,
     required this.textInputType,
+    this.controller,
     this.counterText,
+    this.validator,
   });
 
   @override
@@ -41,7 +46,8 @@ class AuthTextField extends ConsumerWidget {
             maxWidth: 350.w,
             maxHeight: 50.h,
           ),
-          child: TextField(
+          child: TextFormField(
+            controller: controller,
             keyboardType: textInputType,
             obscureText: isPassword,
             decoration: InputDecoration(
@@ -57,6 +63,7 @@ class AuthTextField extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(4),
               ),
             ),
+            validator: validator,
           ),
         ),
       ],

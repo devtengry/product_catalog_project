@@ -1,17 +1,18 @@
 import 'dart:math';
-
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:validators2/validators2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
-import 'package:product_catalog_project/core/localizations/text_constants.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_button.dart';
+import 'package:product_catalog_project/core/localizations/text_constants.dart';
+import 'package:product_catalog_project/features/auth/data/notifier/auth_notifier.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_field.dart';
+import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_button.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_elevated_button.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/remember_me_checkbox.dart';
-import 'package:product_catalog_project/router/app_router.dart';
 
 final rememberMeProvider = StateProvider<bool>((ref) => false);
 
@@ -26,8 +27,26 @@ class LoginScreen extends ConsumerStatefulWidget {
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final String _logoAssetPath = AssetsPath().logoAssetPath;
 
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  void _onLoginPressed() async {
+    if (_formKey.currentState!.validate()) {
+      final authNotifier = ref.read(authNotifierProvider.notifier);
+      await authNotifier.login(_emailController.text, _passwordController.text);
+
+      final authState = ref.read(authNotifierProvider);
+      if (authState.isAuthenticated && _formKey.currentState!.validate()) {
+        router.replace(const HomeRoute());
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authNotifierProvider);
     return Scaffold(
       backgroundColor: ProjectColors.whiteBackground,
       body: SafeArea(
@@ -35,44 +54,53 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           child: SingleChildScrollView(
             padding: EdgeInsets.all(20),
             physics: BouncingScrollPhysics(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: 20.h),
-                _LoginIcon(logoAssetPath: _logoAssetPath),
-                SizedBox(height: 115.h),
-                Row(
-                  children: [
-                    Column(
-                      spacing: 10,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _WelcomeBackText(),
-                        _LoginToYourAccount(),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 80.h),
-                Column(
-                  spacing: 24,
-                  children: [
-                    _EmailTextBox(),
-                    _PasswordTextBox(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RememberMeCheckbox(),
-                        _RegisterTextButton(),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 55.h,
-                ),
-                _LoginButton(),
-              ],
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 20.h),
+                  _LoginIcon(logoAssetPath: _logoAssetPath),
+                  SizedBox(height: 115.h),
+                  Row(
+                    children: [
+                      Column(
+                        spacing: 10,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _WelcomeBackText(),
+                          _LoginToYourAccount(),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 80.h),
+                  Column(
+                    spacing: 24,
+                    children: [
+                      _EmailTextBox(
+                        controller: _emailController,
+                      ),
+                      _PasswordTextBox(
+                        controller: _passwordController,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          RememberMeCheckbox(),
+                          _RegisterTextButton(),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 55.h,
+                  ),
+                  _LoginButton(
+                    onPressed: authState.isLoading ? null : _onLoginPressed,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -81,13 +109,23 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 }
 
+//---------------------------------- WIDGETS ----------------------------------
+//---------------------------------- WIDGETS ----------------------------------
+//---------------------------------- WIDGETS ----------------------------------
+//---------------------------------- WIDGETS ----------------------------------
+//---------------------------------- WIDGETS ----------------------------------
+//---------------------------------- WIDGETS ----------------------------------
+//---------------------------------- WIDGETS ----------------------------------
+
 class _LoginButton extends StatelessWidget {
-  const _LoginButton();
+  const _LoginButton({required this.onPressed});
+
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return AuthElevatedButton(
-      onPressed: () => router.push(HomeRoute()),
+      onPressed: onPressed,
       buttonText: TextConstants.authButtonTextLoginText,
     );
   }
@@ -106,29 +144,49 @@ class _RegisterTextButton extends StatelessWidget {
 }
 
 class _PasswordTextBox extends StatelessWidget {
-  const _PasswordTextBox();
+  const _PasswordTextBox({required this.controller});
+
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
-    return const AuthTextField(
+    return AuthTextField(
+      controller: controller,
       textInputType: TextInputType.text,
       isPassword: true,
       labelTextString: TextConstants.passwordLabelText,
       hintTextString: TextConstants.passwordHintText,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Password cannot be empty!';
+        }
+
+        return null;
+      },
     );
   }
 }
 
 class _EmailTextBox extends StatelessWidget {
-  const _EmailTextBox();
-
+  const _EmailTextBox({required this.controller});
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
-    return const AuthTextField(
+    return AuthTextField(
+      controller: controller,
       textInputType: TextInputType.emailAddress,
       isPassword: false,
       labelTextString: TextConstants.emailLabelText,
       hintTextString: TextConstants.emailHintText,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'E-Mail cant be empty!';
+        } else if (!isEmail(value)) {
+          return 'Please enter a valid e-mail!';
+        }
+
+        return null;
+      },
     );
   }
 }

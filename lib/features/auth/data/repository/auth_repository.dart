@@ -7,14 +7,14 @@ class AuthRepository {
   AuthRepository(this._networkService);
 
   Future<Response> login(String email, String password) async {
-    return await _networkService.postRequest('/auth/login', {
+    return await _networkService.postRequest('/login', {
       'email': email,
       'password': password,
     });
   }
 
   Future<Response> register(String email, String password, String name) async {
-    return await _networkService.postRequest('/auth/register', {
+    return await _networkService.postRequest('/register', {
       'name': name,
       'email': email,
       'password': password,
