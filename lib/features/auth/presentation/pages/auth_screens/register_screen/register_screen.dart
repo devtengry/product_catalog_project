@@ -1,16 +1,16 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:product_catalog_project/aaa.dart';
-import 'package:product_catalog_project/core/constants/assets_path.dart';
-import 'package:product_catalog_project/core/localizations/text_constants.dart';
-import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_button.dart';
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_field.dart';
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_elevated_button.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:product_catalog_project/router/app_router.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:validators2/validators2.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:product_catalog_project/router/app_router.dart';
+import 'package:product_catalog_project/core/constants/assets_path.dart';
+import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/core/localizations/text_constants.dart';
+import 'package:product_catalog_project/features/auth/data/notifier/auth_notifier.dart';
+import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_field.dart';
+import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_button.dart';
+import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_elevated_button.dart';
 
 @RoutePage()
 class RegisterScreen extends ConsumerStatefulWidget {

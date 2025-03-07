@@ -1,10 +1,9 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:product_catalog_project/core/localizations/text_constants.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/core/localizations/text_constants.dart';
 
 final rememberMeProvider = StateProvider<bool>((ref) => false);
 
@@ -29,10 +28,6 @@ class RememberMeCheckbox extends ConsumerWidget {
 }
 
 class _RememberMeText extends StatelessWidget {
-  const _RememberMeText({
-    super.key,
-  });
-
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -47,7 +42,6 @@ class _RememberMeText extends StatelessWidget {
 
 class _LoginCheckbox extends ConsumerWidget {
   const _LoginCheckbox({
-    super.key,
     required this.rememberMe,
   });
 

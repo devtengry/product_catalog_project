@@ -26,7 +26,6 @@ class CategoryCard extends ConsumerWidget {
 
 class _CategoryCard extends StatelessWidget {
   const _CategoryCard({
-    super.key,
     required this.categoryName,
   });
 

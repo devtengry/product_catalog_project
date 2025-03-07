@@ -57,8 +57,6 @@ class CategoryDetailScreen extends ConsumerWidget {
 }
 
 class _CategoryDetailBook extends ConsumerStatefulWidget {
-  const _CategoryDetailBook({super.key});
-
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _CategoryDetailBookState();
@@ -119,7 +117,6 @@ class _CategoryDetailBookState extends ConsumerState<_CategoryDetailBook> {
 
 class _BookCoverImage extends StatelessWidget {
   const _BookCoverImage({
-    super.key,
     required String bookAssetImage,
   }) : _bookAssetImage = bookAssetImage;
 
@@ -144,7 +141,7 @@ class _BookCoverImage extends StatelessWidget {
 class _TitleText extends StatelessWidget {
   final String bookTitle;
 
-  const _TitleText({super.key, required this.bookTitle});
+  const _TitleText({required this.bookTitle});
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +160,6 @@ class _AuthorText extends StatelessWidget {
   final String bookAuthor;
 
   const _AuthorText({
-    super.key,
     required this.bookAuthor,
   });
 
@@ -184,14 +180,13 @@ class _PriceText extends StatelessWidget {
   final String bookPrice;
 
   const _PriceText({
-    super.key,
     required this.bookPrice,
   });
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      '${bookPrice} \$',
+      '$bookPrice \$',
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
             fontSize: min(12.sp, 12),
             fontWeight: FontWeight.w700,

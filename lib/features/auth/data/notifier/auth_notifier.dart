@@ -1,10 +1,7 @@
 import 'dart:io';
-
-import 'package:product_catalog_project/aaa.dart';
-import 'package:product_catalog_project/features/auth/data/repository/auth_repository.dart';
-import 'package:product_catalog_project/core/network/network_service.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:dio/dio.dart';
+import 'package:product_catalog_project/core/network/network_service.dart';
+import 'package:product_catalog_project/features/auth/data/repository/auth_repository.dart';
 
 class AuthState {
   final bool isLoading;

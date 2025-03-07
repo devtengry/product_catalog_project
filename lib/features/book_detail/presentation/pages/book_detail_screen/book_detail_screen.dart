@@ -129,7 +129,6 @@ class _BuyButton extends StatelessWidget {
   final String buttonText;
   final String bookPrice;
   const _BuyButton({
-    super.key,
     required this.buttonText,
     required this.bookPrice,
   });
@@ -141,7 +140,7 @@ class _BuyButton extends StatelessWidget {
       height: 60.h,
       child: BuyButton(
         buttonText: buttonText,
-        bookPrice: '${bookPrice} \$',
+        bookPrice: '$bookPrice \$',
         onPressed: () => router.push(
           HomeRoute(),
         ),
