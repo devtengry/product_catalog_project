@@ -1,0 +1,1 @@
+/Users/devtengry/flutter_projects/product_catalog_project/build/app/intermediates/cxx/RelWithDebInfo/5g1y6hs2/obj/x86
