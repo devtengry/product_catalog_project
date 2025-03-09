@@ -1,38 +1,38 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/features/home/data/models/category_model.dart';
+import 'package:product_catalog_project/features/home/presentation/pages/home_screen/home_widgets/book_section/horizontal_book_list.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 
 class CategoryCard extends ConsumerWidget {
   const CategoryCard({
     super.key,
-    required this.categoryName,
+    required this.category,
   });
 
-  final String categoryName;
-
+  final Category category;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       width: 350.w,
       height: 187.h,
-      child: _CategoryCard(categoryName: categoryName),
+      child: _CategoryCard(category: category),
     );
   }
 }
 
-class _CategoryCard extends StatelessWidget {
+class _CategoryCard extends ConsumerWidget {
   const _CategoryCard({
-    required this.categoryName,
+    required this.category,
   });
 
-  final String categoryName;
+  final Category category;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       color: Colors.transparent,
@@ -41,9 +41,9 @@ class _CategoryCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _CategoryHeader(categoryName: categoryName),
+          _CategoryHeader(category: category),
           const Expanded(
-            child: _HorizontalBookList(),
+            child: HorizontalBookList(),
           ),
         ],
       ),
@@ -51,122 +51,39 @@ class _CategoryCard extends StatelessWidget {
   }
 }
 
-class _BookRow extends ConsumerWidget {
-  const _BookRow();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Row(
-      children: [
-        _BookCoverImage(),
-        Padding(
-          padding: const EdgeInsets.only(top: 20, bottom: 25),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _BookTitle(
-                    bookTitle: 'Dune',
-                  ),
-                  _BookAuthor(
-                    bookAuthor: 'Frank Herbert',
-                  ),
-                ],
-              ),
-              _BookPrice(
-                bookPrice: '87.75',
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _BookPrice extends StatelessWidget {
-  final String bookPrice;
-
-  const _BookPrice({required this.bookPrice});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      '$bookPrice \$',
-      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-          fontSize: 16,
-          fontWeight: FontWeight.w700,
-          color: ProjectColors.priceText),
-    );
-  }
-}
-
-class _BookAuthor extends StatelessWidget {
-  final String bookAuthor;
-
-  const _BookAuthor({required this.bookAuthor});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      bookAuthor,
-      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
-            color: ProjectColors.darkPurpleText.withValues(alpha: 0.6),
-          ),
-    );
-  }
-}
-
-class _BookTitle extends StatelessWidget {
-  final String bookTitle;
-  const _BookTitle({required this.bookTitle});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      bookTitle,
-      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            color: ProjectColors.darkPurpleText,
-          ),
-    );
-  }
-}
-
-class _BookCoverImage extends StatelessWidget {
-  const _BookCoverImage();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 80.w,
-      height: 120.h,
-      child: Image.asset('assets/images/dune_book.png'),
-    );
-  }
-}
-
 class _CategoryHeader extends ConsumerWidget {
   const _CategoryHeader({
-    required this.categoryName,
+    required this.category,
   });
 
-  final String categoryName;
+  final Category category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _CategoryText(categoryName: categoryName),
+        _CategoryText(category: category),
         const _CategoryTextButton(),
       ],
+    );
+  }
+}
+
+class _CategoryText extends ConsumerWidget {
+  const _CategoryText({required this.category});
+
+  final Category category;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Text(
+      category.name ?? 'No Data',
+      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            fontSize: min(20.sp, 20),
+            fontWeight: FontWeight.w600,
+            color: ProjectColors.darkPurpleText,
+          ),
     );
   }
 }
@@ -184,65 +101,6 @@ class _CategoryTextButton extends ConsumerWidget {
             fontSize: min(12.sp, 12),
             fontWeight: FontWeight.w600,
             color: ProjectColors.orangeTextButton),
-      ),
-    );
-  }
-}
-
-class _CategoryText extends ConsumerWidget {
-  const _CategoryText({required this.categoryName});
-
-  final String categoryName;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Text(
-      categoryName,
-      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontSize: min(20.sp, 20),
-            fontWeight: FontWeight.w600,
-            color: ProjectColors.darkPurpleText,
-          ),
-    );
-  }
-}
-
-class _HorizontalBookList extends ConsumerWidget {
-  const _HorizontalBookList();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(
-          5,
-          (index) => const Padding(
-            padding: EdgeInsets.only(right: 10),
-            child: _ScrollableBookRow(),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _ScrollableBookRow extends ConsumerWidget {
-  const _ScrollableBookRow();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return AspectRatio(
-      aspectRatio: 210.h / 140.h,
-      child: GestureDetector(
-        onTap: () => router.push(BookDetailRoute()),
-        child: Container(
-          width: 210.w,
-          constraints: BoxConstraints(minHeight: 140.h),
-          child: Card(
-            child: const _BookRow(),
-          ),
-        ),
       ),
     );
   }
