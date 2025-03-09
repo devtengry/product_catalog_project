@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:product_catalog_project/config/secrets.dart';
 
 class NetworkService {
   late final Dio _dio;
@@ -6,7 +7,7 @@ class NetworkService {
   NetworkService() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: "https://assign-api.piton.com.tr/api/rest",
+        baseUrl: Secrets.baseUrl,
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 10),
         headers: {
