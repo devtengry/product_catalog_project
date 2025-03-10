@@ -25,11 +25,11 @@ class CategoryCard extends ConsumerWidget {
 }
 
 class _CategoryCard extends ConsumerWidget {
+  final Category category;
+
   const _CategoryCard({
     required this.category,
   });
-
-  final Category category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -42,8 +42,8 @@ class _CategoryCard extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _CategoryHeader(category: category),
-          const Expanded(
-            child: HorizontalBookList(),
+          Expanded(
+            child: HorizontalBookList(categoryId: category.id!),
           ),
         ],
       ),

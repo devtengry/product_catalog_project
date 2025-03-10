@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/features/home/data/models/product_model.dart';
 
 class BookRow extends ConsumerWidget {
-  const BookRow({super.key});
+  const BookRow({super.key, required this.product});
 
+  final Product product;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       children: [
-        _BookCoverImage(),
+        _BookCoverImage(
+          coverUrl: product.cover,
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 25),
           child: Column(
@@ -21,15 +25,15 @@ class BookRow extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _BookTitle(
-                    bookTitle: 'Dune',
+                    bookTitle: product.name,
                   ),
                   _BookAuthor(
-                    bookAuthor: 'Frank Herbert',
+                    bookAuthor: product.author,
                   ),
                 ],
               ),
               _BookPrice(
-                bookPrice: '87.75',
+                bookPrice: product.price.toString(),
               ),
             ],
           ),
@@ -92,14 +96,17 @@ class _BookTitle extends ConsumerWidget {
 }
 
 class _BookCoverImage extends ConsumerWidget {
-  const _BookCoverImage();
-
+  const _BookCoverImage({required this.coverUrl});
+  final String coverUrl;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       width: 80.w,
       height: 120.h,
-      child: Image.asset('assets/images/dune_book.png'),
+      child: Image.network(
+        'https://assign-api.piton.com.tr/assets/$coverUrl',
+        errorBuilder: (_, __, ___) => const Icon(Icons.error),
+      ),
     );
   }
 }
