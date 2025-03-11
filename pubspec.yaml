@@ -18,6 +18,7 @@ dependencies:
   google_fonts: ^6.2.1
   provider: ^6.1.2
   riverpod: ^2.6.1
+  shared_preferences: ^2.5.2
   validators2: ^5.0.0
 
 dev_dependencies:

@@ -8,7 +8,7 @@ import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/core/localizations/text_constants.dart';
-import 'package:product_catalog_project/features/auth/providers/auth_notifier.dart';
+import 'package:product_catalog_project/features/auth/notifier/auth_notifier.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_field.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_button.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_elevated_button.dart';
@@ -37,9 +37,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       final authNotifier = ref.read(authNotifierProvider.notifier);
       await authNotifier.login(_emailController.text, _passwordController.text);
 
-      final authState = ref.read(authNotifierProvider);
-      if (authState.isAuthenticated && _formKey.currentState!.validate()) {
-        router.replace(const HomeRoute());
+      await authNotifier.login(_emailController.text, _passwordController.text);
+
+      if (ref.read(authNotifierProvider).isAuthenticated) {
+        if (mounted) {
+          context.router.replace(const HomeRoute());
+        }
       }
     }
   }
@@ -47,6 +50,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
+
+    ref.listen<AuthState>(authNotifierProvider, (previous, next) {
+      if (next.isAuthenticated) {
+        context.router.replace(const HomeRoute());
+      } else if (next.errorMessage != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(next.errorMessage!)),
+        );
+      }
+    });
     return Scaffold(
       backgroundColor: ProjectColors.whiteBackground,
       body: SafeArea(
