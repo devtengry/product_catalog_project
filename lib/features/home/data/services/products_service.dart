@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:product_catalog_project/config/secrets.dart';
 import 'package:product_catalog_project/core/network/network_service.dart';
 import 'package:product_catalog_project/features/home/data/models/cover_image_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
