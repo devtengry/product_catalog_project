@@ -21,7 +21,9 @@ class Product {
     return Product(
       id: json['id'],
       name: json['name'],
-      price: json['price'].toDouble(),
+      price: json['price'] is int
+          ? (json['price'] as int).toDouble()
+          : json['price'] as double,
       cover: json['cover'],
       author: json['author'],
       description: json['description'],

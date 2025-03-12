@@ -4,7 +4,7 @@ import 'package:product_catalog_project/config/secrets.dart';
 class NetworkService {
   late final Dio _dio;
 
-  NetworkService() {
+  NetworkService._internal() {
     _dio = Dio(
       BaseOptions(
         baseUrl: Secrets.baseUrl,
@@ -16,6 +16,14 @@ class NetworkService {
       ),
     );
   }
+
+  static final NetworkService _instance = NetworkService._internal();
+
+  factory NetworkService() {
+    return _instance;
+  }
+  Dio get dio => _dio;
+
   Future<Response> getRequest(String endpoint) async {
     try {
       return await _dio.get(endpoint);

@@ -104,7 +104,7 @@ class _BookCoverImage extends ConsumerWidget {
       width: 80.w,
       height: 120.h,
       child: Image.network(
-        'https://assign-api.piton.com.tr/assets/$coverUrl',
+        coverUrl,
         errorBuilder: (_, __, ___) => const Icon(Icons.error),
       ),
     );

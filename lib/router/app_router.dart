@@ -4,7 +4,7 @@ import 'package:product_catalog_project/features/auth/presentation/pages/auth_sc
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/splash_screen/splash_screen.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/pages/book_detail_screen/book_detail_screen.dart';
 import 'package:product_catalog_project/features/category_detail/presentation/pages/category_detail_screen/category_detail.dart';
-import 'package:product_catalog_project/features/home/presentation/pages/home_screen/home_screen.dart';
+import 'package:product_catalog_project/features/home/presentation/pages/home_screen.dart';
 
 part 'app_router.gr.dart';
 

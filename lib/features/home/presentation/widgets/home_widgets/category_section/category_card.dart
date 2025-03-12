@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/home/data/models/category_model.dart';
-import 'package:product_catalog_project/features/home/presentation/pages/home_screen/home_widgets/book_section/horizontal_book_list.dart';
+import 'package:product_catalog_project/features/home/presentation/widgets/home_widgets/book_section/horizontal_book_list.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 
 class CategoryCard extends ConsumerWidget {

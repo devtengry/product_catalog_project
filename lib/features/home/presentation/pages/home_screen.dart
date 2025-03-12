@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
-import 'package:product_catalog_project/features/home/presentation/pages/home_screen/home_widgets/category_section/category_card.dart';
-import 'package:product_catalog_project/features/home/provider/category_provider.dart';
+import 'package:product_catalog_project/features/home/presentation/widgets/home_widgets/category_section/category_card.dart';
+import 'package:product_catalog_project/features/home/presentation/provider/category_provider.dart';
 import 'package:product_catalog_project/ui/widgets/search_bar/search_bar.dart'
     as custom;
 import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';

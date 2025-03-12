@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:product_catalog_project/features/home/data/models/cover_image_response.dart';
 import 'package:product_catalog_project/features/home/data/models/product_model.dart';
 import 'package:product_catalog_project/features/home/data/services/products_service.dart';
 
@@ -21,4 +22,9 @@ final allProductsProvider = FutureProvider<List<Product>>((ref) async {
   }
 
   return allProducts;
+});
+
+final coverImageProvider = FutureProvider<CoverImageResponse>((ref) async {
+  final service = ref.read(productsServiceProvider); // Service instance'ını al
+  return service.fetchImage(); // Service üzerinden metodu çağır
 });
