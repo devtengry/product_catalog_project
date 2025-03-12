@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ProductsService {
   final Dio dio = Dio(
     BaseOptions(
-      baseUrl: Secrets.productByCategoryUrl,
+      baseUrl: Secrets.baseUrl,
       connectTimeout: const Duration(seconds: 10),
     ),
   );
@@ -16,12 +16,12 @@ class ProductsService {
       final token = prefs.getString('token');
 
       final response = await dio.get(
-        '$categoryId',
+        '/products/$categoryId',
         options: Options(
           headers: {'Authorization': 'Bearer $token'},
         ),
       );
-      return response.data['product'];
+      return response.data;
     } on DioException catch (e) {
       throw Exception('Api Error: ${e.message}');
     }
