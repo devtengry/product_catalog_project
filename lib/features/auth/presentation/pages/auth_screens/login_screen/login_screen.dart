@@ -36,9 +36,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     if (_formKey.currentState!.validate()) {
       final authNotifier = ref.read(authNotifierProvider.notifier);
       await authNotifier.login(_emailController.text, _passwordController.text);
-
-      await authNotifier.login(_emailController.text, _passwordController.text);
-
       if (ref.read(authNotifierProvider).isAuthenticated) {
         if (mounted) {
           context.router.replace(const HomeRoute());
