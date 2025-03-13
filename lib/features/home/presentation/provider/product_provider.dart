@@ -23,8 +23,3 @@ final allProductsProvider = FutureProvider<List<Product>>((ref) async {
 
   return allProducts;
 });
-
-final coverImageProvider = FutureProvider<CoverImageResponse>((ref) async {
-  final service = ref.read(productsServiceProvider); // Service instance'ını al
-  return service.fetchImage(); // Service üzerinden metodu çağır
-});

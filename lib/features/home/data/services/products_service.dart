@@ -22,22 +22,4 @@ class ProductsService {
       throw Exception('Api Error: ${e.message}');
     }
   }
-
-  Future<CoverImageResponse> fetchImage() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
-
-    try {
-      final response = await dio.get(
-        '/cover_image',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
-
-      // Model nesnesi oluşturarak döndür
-      return CoverImageResponse.fromJson(response.data);
-    } on DioException catch (e) {
-      final errorMessage = e.response?.data?['message'] ?? e.message;
-      throw Exception('Api Error: $errorMessage');
-    }
-  }
 }
