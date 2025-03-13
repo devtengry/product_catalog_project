@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:product_catalog_project/features/home/data/models/cover_image_response.dart';
 import 'package:product_catalog_project/features/home/data/models/product_model.dart';
 import 'package:product_catalog_project/features/home/data/services/products_service.dart';
 
