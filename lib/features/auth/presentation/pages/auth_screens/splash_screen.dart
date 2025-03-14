@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/localizations/text_constants.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_elevated_button.dart';
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/skip_text_button.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/auth_elevated_button.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/skip_text_button.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 
 @RoutePage()

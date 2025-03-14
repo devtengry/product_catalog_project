@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:product_catalog_project/features/auth/presentation/provider/auth_provider.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:validators2/validators2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,13 +11,12 @@ import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/core/localizations/text_constants.dart';
-import 'package:product_catalog_project/features/auth/presentation/notifier/auth_notifier.dart';
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_field.dart';
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_button.dart';
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_elevated_button.dart';
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/remember_me_checkbox.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/auth_text_field.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/auth_text_button.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/auth_elevated_button.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/remember_me_checkbox.dart';
 
-import '../../../states/auth_state.dart';
+import '../../states/auth_state.dart';
 
 final rememberMeProvider = StateProvider<bool>((ref) => false);
 
@@ -34,6 +36,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _snackBarTimer?.cancel();
+    super.dispose();
+  }
+
   void _onLoginPressed() async {
     if (_formKey.currentState!.validate()) {
       final authNotifier = ref.read(authNotifierProvider.notifier);
@@ -46,17 +56,23 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     }
   }
 
+  Timer? _snackBarTimer;
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
 
+    final snackBarManager = SnackBarManager(context);
+
     ref.listen<AuthState>(authNotifierProvider, (previous, next) {
-      if (next.isAuthenticated) {
-        context.router.replace(const HomeRoute());
-      } else if (next.errorMessage != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(next.errorMessage!)),
-        );
+      if (mounted &&
+          next.errorMessage != null &&
+          next.errorMessage != previous?.errorMessage) {
+        _snackBarTimer?.cancel();
+        _snackBarTimer = Timer(const Duration(seconds: 2), () {
+          if (mounted) {
+            snackBarManager.showErrorSnackBar(next.errorMessage!);
+          }
+        });
       }
     });
     return Scaffold(

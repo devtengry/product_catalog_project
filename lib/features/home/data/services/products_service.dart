@@ -1,14 +1,15 @@
 import 'package:dio/dio.dart';
+import 'package:product_catalog_project/core/constants/app_constants.dart';
 import 'package:product_catalog_project/core/network/network_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:product_catalog_project/utils/shared_preferences_helper.dart';
 
 class ProductsService {
   final Dio dio = NetworkService().dio;
 
   Future<List<dynamic>> fetchProductsByCategory(int categoryId) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('token');
+      final prefs = await getSharedPreferences();
+      final token = prefs.getString(AppConstants.tokenKey);
 
       final response = await dio.get(
         '/products/$categoryId',

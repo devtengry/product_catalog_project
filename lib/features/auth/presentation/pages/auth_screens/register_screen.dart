@@ -1,5 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:product_catalog_project/features/auth/presentation/provider/auth_provider.dart';
+import 'package:product_catalog_project/features/auth/presentation/states/auth_state.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:validators2/validators2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,10 +11,9 @@ import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/core/localizations/text_constants.dart';
-import 'package:product_catalog_project/features/auth/presentation/notifier/auth_notifier.dart';
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_field.dart';
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_text_button.dart';
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/widgets/auth_elevated_button.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/auth_text_field.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/auth_text_button.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/auth_elevated_button.dart';
 
 @RoutePage()
 class RegisterScreen extends ConsumerStatefulWidget {
@@ -29,6 +32,16 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _snackBarTimer?.cancel();
+
+    super.dispose();
+  }
+
   void _onRegisterPressed() async {
     if (_formKey.currentState!.validate()) {
       final authNotifier = ref.read(authNotifierProvider.notifier);
@@ -46,9 +59,24 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     }
   }
 
+  Timer? _snackBarTimer;
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
+    final snackBarManager = SnackBarManager(context);
+    ref.listen<AuthState>(authNotifierProvider, (previous, next) {
+      if (mounted &&
+          next.errorMessage != null &&
+          next.errorMessage != previous?.errorMessage) {
+        _snackBarTimer?.cancel();
+        _snackBarTimer = Timer(const Duration(seconds: 2), () {
+          if (mounted) {
+            snackBarManager.showErrorSnackBar(next.errorMessage!);
+          }
+        });
+      }
+    });
+
     return Scaffold(
       backgroundColor: ProjectColors.whiteBackground,
       body: SafeArea(

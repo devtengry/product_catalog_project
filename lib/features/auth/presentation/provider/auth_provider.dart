@@ -1,49 +1,38 @@
 import 'dart:io';
+import 'package:product_catalog_project/core/constants/app_constants.dart';
+import 'package:product_catalog_project/features/auth/repos/auth_repository.dart';
+import 'package:product_catalog_project/utils/shared_preferences_helper.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:product_catalog_project/core/network/network_service.dart';
-import 'package:product_catalog_project/features/auth/data/repository/auth_repository.dart';
 
-class AuthState {
-  final bool isLoading;
-  final String? errorMessage;
-  final bool isAuthenticated;
+import '../states/auth_state.dart';
 
-  AuthState({
-    this.isLoading = false,
-    this.errorMessage,
-    this.isAuthenticated = false,
-  });
-
-  AuthState copyWith({
-    bool? isLoading,
-    String? errorMessage,
-    bool? isAuthenticated,
-  }) {
-    return AuthState(
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage ?? this.errorMessage,
-      isAuthenticated: isAuthenticated ?? this.isAuthenticated,
-    );
-  }
-}
-
-class AuthNotifier extends StateNotifier<AuthState> {
+class AuthProvider extends StateNotifier<AuthState> {
   final AuthRepository _authRepository;
+  Future<void> saveToken(String token) async {
+    final prefs = await getSharedPreferences();
+    await prefs.setString(AppConstants.tokenKey, token);
+  }
 
-  AuthNotifier(this._authRepository) : super(AuthState());
+  AuthProvider(this._authRepository) : super(AuthState());
 
   Future<void> login(String email, String password) async {
     state = state.copyWith(isLoading: true, errorMessage: null);
 
     try {
       final response = await _authRepository.login(email, password);
-      if (response.statusCode == HttpStatus.ok) {
+      final data = response.data;
+
+      final token = data[AppConstants.actionLoginDataKey]
+          ?[AppConstants.tokenKey] as String?;
+      if (response.statusCode == HttpStatus.ok && token != null) {
+        await saveToken(token);
         state = state.copyWith(isAuthenticated: true);
       } else {
-        state = state.copyWith(errorMessage: 'Login failed!');
+        state = state.copyWith(errorMessage: 'Login failed or token is null!');
       }
     } catch (e) {
-      state = state.copyWith(errorMessage: 'An error occurred');
+      state = state.copyWith(errorMessage: 'An error occurred: $e');
     } finally {
       state = state.copyWith(isLoading: false);
     }
@@ -72,10 +61,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 }
 
-final authNotifierProvider = StateNotifierProvider<AuthNotifier, AuthState>(
+final authNotifierProvider = StateNotifierProvider<AuthProvider, AuthState>(
   (ref) {
     final authRepository = ref.watch(authRepositoryProvider);
-    return AuthNotifier(authRepository);
+    return AuthProvider(authRepository);
   },
 );
 
