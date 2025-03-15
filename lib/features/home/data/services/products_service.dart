@@ -22,4 +22,17 @@ class ProductsService {
       throw Exception('Api Error: ${e.message}');
     }
   }
+
+  Future<String> fetchCoverImage(String fileName) async {
+    try {
+      final response = await dio.post(
+        '/cover_image',
+        data: {"fileName": fileName},
+      );
+
+      return response.data["action_product_image"]["url"];
+    } on DioException catch (e) {
+      throw Exception('Failed to load cover image: ${e.message}');
+    }
+  }
 }

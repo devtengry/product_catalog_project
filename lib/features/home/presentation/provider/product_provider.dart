@@ -22,3 +22,9 @@ final allProductsProvider = FutureProvider<List<Product>>((ref) async {
 
   return allProducts;
 });
+
+final coverImageProvider =
+    FutureProvider.family<String, String>((ref, fileName) async {
+  final service = ref.read(productsServiceProvider);
+  return service.fetchCoverImage(fileName);
+});

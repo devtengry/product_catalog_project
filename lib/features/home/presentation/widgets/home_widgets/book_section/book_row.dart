@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/home/data/models/product_model.dart';
+import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
 
 class BookRow extends ConsumerWidget {
   const BookRow({super.key, required this.product});
@@ -13,7 +14,7 @@ class BookRow extends ConsumerWidget {
     return Row(
       children: [
         _BookCoverImage(
-          coverUrl: product.cover,
+          fileName: product.cover,
         ),
         Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 25),
@@ -96,16 +97,23 @@ class _BookTitle extends ConsumerWidget {
 }
 
 class _BookCoverImage extends ConsumerWidget {
-  const _BookCoverImage({required this.coverUrl});
-  final String coverUrl;
+  const _BookCoverImage({required this.fileName});
+  final String fileName;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final coverUrl = ref.watch(coverImageProvider(fileName));
+
     return SizedBox(
       width: 80.w,
       height: 120.h,
-      child: Image.network(
-        coverUrl,
-        errorBuilder: (_, __, ___) => const Icon(Icons.error),
+      child: coverUrl.when(
+        data: (url) => Image.network(
+          url,
+          errorBuilder: (_, __, ___) => const Icon(Icons.error),
+        ),
+        loading: () => Center(child: const CircularProgressIndicator()),
+        error: (_, __) => const Icon(Icons.error),
       ),
     );
   }
