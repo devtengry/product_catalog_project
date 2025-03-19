@@ -11,30 +11,24 @@ import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
 
 @RoutePage()
-class BookDetailScreen extends ConsumerStatefulWidget {
+class BookDetailScreen extends ConsumerWidget {
   const BookDetailScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _BookDetailScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final String bookPhotoAsset = AssetsPath().bookAssetPath;
 
-class _BookDetailScreenState extends ConsumerState<BookDetailScreen> {
-  final String _bookPhotoAsset = AssetsPath().bookAssetPath;
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ProjectColors.whiteBackground,
       appBar: MainAppBar(
         suffixText: 'Book Details',
         leadingIcon: IconButton(
           onPressed: () => context.router.popForced(),
-          icon: Icon(Icons.arrow_back_ios_new_outlined),
+          icon: const Icon(Icons.arrow_back_ios_new_outlined),
         ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
           child: Padding(
             padding: EdgeInsets.all(20),
             child: Column(
@@ -45,25 +39,18 @@ class _BookDetailScreenState extends ConsumerState<BookDetailScreen> {
                       child: Center(
                         child: Column(
                           spacing: 40.h,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
                               children: [
-                                SizedBox(
-                                    child: _BookImage(
-                                        bookPhotoAsset: _bookPhotoAsset)),
-                                _BookTitle(
-                                  bookTitle: 'Dune',
-                                ),
-                                _BookAuthor(
-                                  bookAuthor: 'Frank Herbert',
-                                ),
+                                _BookImage(bookPhotoAsset: bookPhotoAsset),
+                                _BookTitle(bookTitle: 'Dune'),
+                                _BookAuthor(bookAuthor: 'Frank Herbert'),
                               ],
                             ),
                             _BookSummary(
                               summaryTitle: 'Summary',
                               bookSummary:
-                                  'Dune is set in the distant future amidst a feudal interstellar society in which various noble houses control planetary fiefs. It tells the story of young Paul Atreides, whose family accepts the stewardship of the planet Arrakis. While the planet is an inhospitable and sparsely populated desert wasteland, it is the only source of melange, or "spice", a drug that...',
+                                  'Dune is set in the distant future...',
                             ),
                             _BuyButton(
                               buttonText: 'Buy Now',
@@ -91,75 +78,66 @@ class _BookDetailScreenState extends ConsumerState<BookDetailScreen> {
 
 final likeButtonProvider = StateProvider<bool>((ref) => false);
 
-class _LikeButton extends ConsumerStatefulWidget {
+class _LikeButton extends ConsumerWidget {
   @override
-  ConsumerState<_LikeButton> createState() => _LikeButtonState();
-}
-
-class _LikeButtonState extends ConsumerState<_LikeButton> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isClicked = ref.watch(likeButtonProvider);
 
-    final likeIcon = isClicked
-        ? Icon(
-            Icons.favorite_rounded,
-            color: ProjectColors.likeButtonHeart,
-          )
-        : Icon(
-            Icons.favorite_border_rounded,
-            color: ProjectColors.likeButtonHeart,
-          );
     return Container(
       width: 44.w,
       height: 44.h,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         shape: BoxShape.circle,
         color: ProjectColors.likeButtonContainer,
       ),
       child: IconButton(
-          onPressed: () =>
-              ref.read(likeButtonProvider.notifier).state = !isClicked,
-          icon: likeIcon),
+        icon: Icon(
+          isClicked ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+          color: ProjectColors.likeButtonHeart,
+        ),
+        onPressed: () =>
+            ref.read(likeButtonProvider.notifier).state = !isClicked,
+      ),
     );
   }
 }
 
-class _BuyButton extends StatelessWidget {
+class _BuyButton extends ConsumerWidget {
   final String buttonText;
   final String bookPrice;
+
   const _BuyButton({
     required this.buttonText,
     required this.bookPrice,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       width: 350.w,
       height: 60.h,
       child: BuyButton(
         buttonText: buttonText,
         bookPrice: '$bookPrice \$',
-        onPressed: () => router.push(
-          HomeRoute(),
-        ),
+        onPressed: () => router.push(HomeRoute()),
       ),
     );
   }
 }
 
-class _BookSummary extends StatelessWidget {
+class _BookSummary extends ConsumerWidget {
   final String bookSummary;
   final String summaryTitle;
-  const _BookSummary({required this.bookSummary, required this.summaryTitle});
+
+  const _BookSummary({
+    required this.bookSummary,
+    required this.summaryTitle,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 10,
       children: [
         Text(
           summaryTitle,
@@ -169,6 +147,7 @@ class _BookSummary extends StatelessWidget {
                 color: ProjectColors.darkPurpleText,
               ),
         ),
+        SizedBox(height: 10.h),
         Text(
           bookSummary,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -183,12 +162,13 @@ class _BookSummary extends StatelessWidget {
   }
 }
 
-class _BookAuthor extends StatelessWidget {
+class _BookAuthor extends ConsumerWidget {
   final String bookAuthor;
+
   const _BookAuthor({required this.bookAuthor});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Text(
       bookAuthor,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -200,13 +180,13 @@ class _BookAuthor extends StatelessWidget {
   }
 }
 
-class _BookTitle extends StatelessWidget {
+class _BookTitle extends ConsumerWidget {
   final String bookTitle;
 
   const _BookTitle({required this.bookTitle});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Text(
       bookTitle,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -218,21 +198,18 @@ class _BookTitle extends StatelessWidget {
   }
 }
 
-class _BookImage extends StatelessWidget {
-  const _BookImage({
-    required String bookPhotoAsset,
-  }) : _bookPhotoAsset = bookPhotoAsset;
+class _BookImage extends ConsumerWidget {
+  final String bookPhotoAsset;
 
-  final String _bookPhotoAsset;
+  const _BookImage({required this.bookPhotoAsset});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       width: 150.w,
       height: 225.h,
-      //make it dynamic later
       child: Image.asset(
-        _bookPhotoAsset,
+        bookPhotoAsset,
         fit: BoxFit.contain,
       ),
     );
