@@ -14,7 +14,7 @@ part of 'app_router.dart';
 /// [BookDetailScreen]
 class BookDetailRoute extends PageRouteInfo<void> {
   const BookDetailRoute({List<PageRouteInfo>? children})
-    : super(BookDetailRoute.name, initialChildren: children);
+      : super(BookDetailRoute.name, initialChildren: children);
 
   static const String name = 'BookDetailRoute';
 
@@ -30,7 +30,7 @@ class BookDetailRoute extends PageRouteInfo<void> {
 /// [CategoryDetailScreen]
 class CategoryDetailRoute extends PageRouteInfo<void> {
   const CategoryDetailRoute({List<PageRouteInfo>? children})
-    : super(CategoryDetailRoute.name, initialChildren: children);
+      : super(CategoryDetailRoute.name, initialChildren: children);
 
   static const String name = 'CategoryDetailRoute';
 
@@ -46,7 +46,7 @@ class CategoryDetailRoute extends PageRouteInfo<void> {
 /// [HomeScreen]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
-    : super(HomeRoute.name, initialChildren: children);
+      : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
@@ -62,7 +62,7 @@ class HomeRoute extends PageRouteInfo<void> {
 /// [LoginScreen]
 class LoginRoute extends PageRouteInfo<void> {
   const LoginRoute({List<PageRouteInfo>? children})
-    : super(LoginRoute.name, initialChildren: children);
+      : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
@@ -78,7 +78,7 @@ class LoginRoute extends PageRouteInfo<void> {
 /// [RegisterScreen]
 class RegisterRoute extends PageRouteInfo<void> {
   const RegisterRoute({List<PageRouteInfo>? children})
-    : super(RegisterRoute.name, initialChildren: children);
+      : super(RegisterRoute.name, initialChildren: children);
 
   static const String name = 'RegisterRoute';
 
@@ -94,7 +94,7 @@ class RegisterRoute extends PageRouteInfo<void> {
 /// [SplashScreen]
 class SplashRoute extends PageRouteInfo<void> {
   const SplashRoute({List<PageRouteInfo>? children})
-    : super(SplashRoute.name, initialChildren: children);
+      : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
