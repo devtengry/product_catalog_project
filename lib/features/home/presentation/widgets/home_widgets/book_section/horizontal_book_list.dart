@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/features/home/presentation/widgets/home_widgets/book_section/scrollable_book_row.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
 
@@ -25,7 +26,9 @@ class HorizontalBookList extends ConsumerWidget {
                   .map(
                     (produtcs) => Padding(
                       padding: const EdgeInsets.only(right: 10),
-                      child: ScrollableBookRow(product: produtcs),
+                      child: AspectRatio(
+                          aspectRatio: 240.w / 150.h,
+                          child: ScrollableBookRow(product: produtcs)),
                     ),
                   )
                   .toList(),

@@ -93,14 +93,16 @@ class _CategoryTextButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return TextButton(
-      onPressed: () => router.push(CategoryDetailRoute()),
-      child: Text(
-        'View All',
-        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontSize: min(12.sp, 12),
-            fontWeight: FontWeight.w600,
-            color: ProjectColors.orangeTextButton),
+    return SizedBox(
+      child: TextButton(
+        onPressed: () => router.push(CategoryDetailRoute()),
+        child: Text(
+          'View All',
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              fontSize: min(12.sp, 12),
+              fontWeight: FontWeight.w600,
+              color: ProjectColors.orangeTextButton),
+        ),
       ),
     );
   }

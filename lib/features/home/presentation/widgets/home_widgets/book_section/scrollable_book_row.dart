@@ -11,8 +11,9 @@ class ScrollableBookRow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return AspectRatio(
-      aspectRatio: 210.h / 140.h,
+    return SizedBox(
+      width: 210.w,
+      height: 140.h,
       child: GestureDetector(
         onTap: () => router.push(BookDetailRoute()),
         child: Container(

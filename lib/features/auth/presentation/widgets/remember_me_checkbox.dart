@@ -36,6 +36,7 @@ class _RememberMeText extends StatelessWidget {
           fontSize: min(12.sp, 12),
           fontWeight: FontWeight.w700,
           color: ProjectColors.purpleTextButton),
+      overflow: TextOverflow.visible,
     );
   }
 }
