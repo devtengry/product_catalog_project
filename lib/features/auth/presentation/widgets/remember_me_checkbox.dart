@@ -4,8 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/core/localizations/text_constants.dart';
-
-final rememberMeProvider = StateProvider<bool>((ref) => false);
+import 'package:product_catalog_project/features/auth/presentation/provider/remember_me_provider.dart';
 
 class RememberMeCheckbox extends ConsumerWidget {
   const RememberMeCheckbox({super.key});
