@@ -8,6 +8,7 @@ import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/pages/widgets/buy_button.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/provider/product_detail_provider.dart';
+import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
 
@@ -58,7 +59,7 @@ class BookDetailScreen extends ConsumerWidget {
                             children: [
                               Column(
                                 children: [
-                                  _BookImage(bookCoverUrl: product.cover ?? ''),
+                                  _BookImage(fileName: product.cover ?? ''),
                                   _BookTitle(bookTitle: product.name ?? ''),
                                   _BookAuthor(bookAuthor: product.author ?? ''),
                                 ],
@@ -95,19 +96,26 @@ class BookDetailScreen extends ConsumerWidget {
 }
 
 class _BookImage extends ConsumerWidget {
-  final String bookCoverUrl;
+  final String fileName;
 
-  const _BookImage({required this.bookCoverUrl});
+  const _BookImage({required this.fileName});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final coverUrl = ref.watch(coverImageProvider(fileName));
+
     return SizedBox(
       width: 150.w,
       height: 225.h,
-      child: bookCoverUrl.isNotEmpty
-          ? Image.network(bookCoverUrl, fit: BoxFit.contain)
-          : Image.asset(AssetsPath().bookAssetPath,
-              fit: BoxFit.contain), // Default resim
+      child: coverUrl.when(
+        data: (url) => Image.network(
+          url,
+          fit: BoxFit.contain,
+          errorBuilder: (_, __, ___) => const Icon(Icons.error),
+        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (_, __) => const Icon(Icons.error),
+      ),
     );
   }
 }
