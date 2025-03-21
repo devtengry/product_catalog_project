@@ -42,7 +42,7 @@ class CategoryDetailScreen extends ConsumerWidget {
                 ),
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.all(5),
-                  // child
+                  child: _CategoryDetailBook(productId: index),
                 ),
               ),
             )
