@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +16,7 @@ class ScrollableBookRow extends ConsumerWidget {
       width: 210.w,
       height: 140.h,
       child: GestureDetector(
-        onTap: () => router.push(BookDetailRoute()),
+        onTap: () => context.pushRoute(BookDetailRoute(productId: product.id)),
         child: Container(
           width: 210.w,
           constraints: BoxConstraints(minHeight: 140.h),

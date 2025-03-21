@@ -42,7 +42,7 @@ class CategoryDetailScreen extends ConsumerWidget {
                 ),
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.all(5),
-                  child: _CategoryDetailBook(),
+                  // child
                 ),
               ),
             )
@@ -53,19 +53,18 @@ class CategoryDetailScreen extends ConsumerWidget {
   }
 }
 
-class _CategoryDetailBook extends ConsumerStatefulWidget {
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _CategoryDetailBookState();
-}
+class _CategoryDetailBook extends ConsumerWidget {
+  final int productId; // ✅ productId parametresi eklendi!
 
-class _CategoryDetailBookState extends ConsumerState<_CategoryDetailBook> {
-  final String _bookAssetImage = AssetsPath().bookAssetPath;
+  const _CategoryDetailBook({required this.productId});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final String bookAssetImage = AssetsPath().bookAssetPath;
+
     return GestureDetector(
-      onTap: () => router.push(BookDetailRoute()),
+      onTap: () => router
+          .push(BookDetailRoute(productId: productId)), // ✅ productId eklendi!
       child: Container(
         width: 170.w,
         height: 284.h,
@@ -80,7 +79,7 @@ class _CategoryDetailBookState extends ConsumerState<_CategoryDetailBook> {
               Flexible(
                 child: AspectRatio(
                   aspectRatio: 150.h / 225.w,
-                  child: _BookCoverImage(bookAssetImage: _bookAssetImage),
+                  child: _BookCoverImage(bookAssetImage: bookAssetImage),
                 ),
               ),
               Row(

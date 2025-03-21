@@ -7,16 +7,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/pages/widgets/buy_button.dart';
+import 'package:product_catalog_project/features/book_detail/presentation/provider/product_detail_provider.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
 
 @RoutePage()
 class BookDetailScreen extends ConsumerWidget {
-  const BookDetailScreen({super.key});
+  final int productId;
+
+  const BookDetailScreen({
+    super.key,
+    @PathParam('productId') required this.productId,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String bookPhotoAsset = AssetsPath().bookAssetPath;
+    final productDetailAsync = ref.watch(productDetailProvider(productId));
 
     return Scaffold(
       backgroundColor: ProjectColors.whiteBackground,
@@ -27,51 +33,81 @@ class BookDetailScreen extends ConsumerWidget {
           icon: const Icon(Icons.arrow_back_ios_new_outlined),
         ),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Stack(
-                  children: [
-                    Positioned(
-                      child: Center(
-                        child: Column(
-                          spacing: 40.h,
-                          children: [
-                            Column(
-                              children: [
-                                _BookImage(bookPhotoAsset: bookPhotoAsset),
-                                _BookTitle(bookTitle: 'Dune'),
-                                _BookAuthor(bookAuthor: 'Frank Herbert'),
-                              ],
-                            ),
-                            _BookSummary(
-                              summaryTitle: 'Summary',
-                              bookSummary:
-                                  'Dune is set in the distant future...',
-                            ),
-                            _BuyButton(
-                              buttonText: 'Buy Now',
-                              bookPrice: '87.75',
-                            ),
-                          ],
+      body: productDetailAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) =>
+            Center(child: Text('Error: $error')), // Hata durumunu göster
+        data: (productDetail) {
+          final product = productDetail.productByPk;
+
+          if (product == null) {
+            return const Center(child: Text('Product not found.'));
+          }
+
+          return SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Stack(
+                    children: [
+                      Positioned(
+                        child: Center(
+                          child: Column(
+                            spacing: 40.h,
+                            children: [
+                              Column(
+                                children: [
+                                  _BookImage(bookCoverUrl: product.cover ?? ''),
+                                  _BookTitle(bookTitle: product.name ?? ''),
+                                  _BookAuthor(bookAuthor: product.author ?? ''),
+                                ],
+                              ),
+                              _BookSummary(
+                                summaryTitle: 'Summary',
+                                bookSummary: product.description ??
+                                    'No description available.',
+                              ),
+                              _BuyButton(
+                                buttonText: 'Buy Now',
+                                bookPrice:
+                                    product.price?.toStringAsFixed(2) ?? '0.00',
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      top: 0.h,
-                      right: 0.w,
-                      child: _LikeButton(),
-                    ),
-                  ],
-                ),
-              ],
+                      Positioned(
+                        top: 0.h,
+                        right: 0.w,
+                        child: _LikeButton(),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
+    );
+  }
+}
+
+class _BookImage extends ConsumerWidget {
+  final String bookCoverUrl;
+
+  const _BookImage({required this.bookCoverUrl});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return SizedBox(
+      width: 150.w,
+      height: 225.h,
+      child: bookCoverUrl.isNotEmpty
+          ? Image.network(bookCoverUrl, fit: BoxFit.contain)
+          : Image.asset(AssetsPath().bookAssetPath,
+              fit: BoxFit.contain), // Default resim
     );
   }
 }
@@ -194,24 +230,6 @@ class _BookTitle extends ConsumerWidget {
             fontWeight: FontWeight.w700,
             color: ProjectColors.darkPurpleText,
           ),
-    );
-  }
-}
-
-class _BookImage extends ConsumerWidget {
-  final String bookPhotoAsset;
-
-  const _BookImage({required this.bookPhotoAsset});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-      width: 150.w,
-      height: 225.h,
-      child: Image.asset(
-        bookPhotoAsset,
-        fit: BoxFit.contain,
-      ),
     );
   }
 }
