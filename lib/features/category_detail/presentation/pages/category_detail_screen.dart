@@ -64,15 +64,14 @@ class CategoryDetailScreen extends ConsumerWidget {
 }
 
 class _CategoryDetailBook extends ConsumerWidget {
-  final Product product; // ✅ product modeli ile güncellendi!
+  final Product product;
 
   const _CategoryDetailBook({required this.product});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-      onTap: () => router.push(
-          BookDetailRoute(productId: product.id)), // ✅ product id kullanıldı
+      onTap: () => router.push(BookDetailRoute(productId: product.id)),
       child: Container(
         width: 170.w,
         height: 284.h,
@@ -141,13 +140,13 @@ class _BookCoverImage extends ConsumerWidget {
   }
 }
 
-class _TitleText extends StatelessWidget {
+class _TitleText extends ConsumerWidget {
   final String bookTitle;
 
   const _TitleText({required this.bookTitle});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Text(
       bookTitle,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -159,7 +158,7 @@ class _TitleText extends StatelessWidget {
   }
 }
 
-class _AuthorText extends StatelessWidget {
+class _AuthorText extends ConsumerWidget {
   final String bookAuthor;
 
   const _AuthorText({
@@ -167,7 +166,7 @@ class _AuthorText extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Text(
       bookAuthor,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -179,7 +178,7 @@ class _AuthorText extends StatelessWidget {
   }
 }
 
-class _PriceText extends StatelessWidget {
+class _PriceText extends ConsumerWidget {
   final String bookPrice;
 
   const _PriceText({
@@ -187,7 +186,7 @@ class _PriceText extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Text(
       '$bookPrice \$',
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
