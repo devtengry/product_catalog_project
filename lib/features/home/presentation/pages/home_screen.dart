@@ -6,8 +6,8 @@ import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/home/presentation/widgets/home_widgets/category_section/category_card.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/category_provider.dart';
-import 'package:product_catalog_project/ui/widgets/search_bar/search_bar.dart'
-    as custom;
+import 'package:product_catalog_project/features/home/presentation/widgets/home_widgets/filter_section/home_filter_chip.dart';
+import 'package:product_catalog_project/ui/widgets/search_bar/search_bar.dart';
 import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
 
 @RoutePage()
@@ -41,10 +41,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   spacing: 10.w,
                   children: [
                     //dummy filter
+                    HomeFilterChip(filterText: 'All'),
+                    HomeFilterChip(filterText: 'Best Seller'),
+                    HomeFilterChip(filterText: 'Classics'),
+                    HomeFilterChip(filterText: 'Children'),
+                    HomeFilterChip(filterText: 'Philosophy'),
                   ],
                 ),
               ),
-              custom.SearchBar(),
+              HomeSearchBar(),
               Column(
                 spacing: 20,
                 children: ref.watch(categoryProvider).when(

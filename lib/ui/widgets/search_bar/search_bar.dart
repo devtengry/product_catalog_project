@@ -9,8 +9,8 @@ final searchControllerProvider = StateProvider<TextEditingController>(
   (ref) => TextEditingController(),
 );
 
-class SearchBar extends ConsumerWidget {
-  const SearchBar({super.key});
+class HomeSearchBar extends ConsumerWidget {
+  const HomeSearchBar({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,7 +19,7 @@ class SearchBar extends ConsumerWidget {
       padding: const EdgeInsets.only(bottom: 30),
       child: _SearchField(
         controller: searchController,
-        textInputType: TextInputType.none,
+        textInputType: TextInputType.text,
       ),
     );
   }
@@ -34,7 +34,7 @@ class _SearchField extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return TextField(
-      keyboardType: TextInputType.numberWithOptions(),
+      keyboardType: textInputType,
       controller: controller,
       decoration: InputDecoration(
         filled: true,

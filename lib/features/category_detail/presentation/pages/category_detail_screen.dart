@@ -3,19 +3,23 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/features/home/data/models/product_model.dart';
+import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
-import 'package:product_catalog_project/ui/widgets/search_bar/search_bar.dart'
-    as custom;
+import 'package:product_catalog_project/ui/widgets/search_bar/search_bar.dart';
 
 @RoutePage()
 class CategoryDetailScreen extends ConsumerWidget {
-  const CategoryDetailScreen({super.key});
+  final int categoryId;
+
+  const CategoryDetailScreen({super.key, required this.categoryId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final productAsync = ref.watch(categoryProductsProvider(categoryId));
+
     return Scaffold(
       backgroundColor: ProjectColors.whiteBackground,
       appBar: MainAppBar(
@@ -28,43 +32,47 @@ class CategoryDetailScreen extends ConsumerWidget {
         ),
       ),
       body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            custom.SearchBar(),
-            Expanded(
-              child: GridView.builder(
-                itemCount: 8,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 170.w / 284.h,
-                ),
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: _CategoryDetailBook(productId: index),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              HomeSearchBar(),
+              Expanded(
+                child: productAsync.when(
+                  error: (error, _) => Center(child: Text('Error: $error')),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  data: (products) => GridView.builder(
+                    itemCount: products.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 170.w / 284.h,
+                    ),
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: _CategoryDetailBook(product: products[index]),
+                    ),
+                  ),
                 ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }
 
 class _CategoryDetailBook extends ConsumerWidget {
-  final int productId; // ✅ productId parametresi eklendi!
+  final Product product; // ✅ product modeli ile güncellendi!
 
-  const _CategoryDetailBook({required this.productId});
+  const _CategoryDetailBook({required this.product});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String bookAssetImage = AssetsPath().bookAssetPath;
-
     return GestureDetector(
-      onTap: () => router
-          .push(BookDetailRoute(productId: productId)), // ✅ productId eklendi!
+      onTap: () => router.push(
+          BookDetailRoute(productId: product.id)), // ✅ product id kullanıldı
       child: Container(
         width: 170.w,
         height: 284.h,
@@ -79,7 +87,7 @@ class _CategoryDetailBook extends ConsumerWidget {
               Flexible(
                 child: AspectRatio(
                   aspectRatio: 150.h / 225.w,
-                  child: _BookCoverImage(bookAssetImage: bookAssetImage),
+                  child: _BookCoverImage(fileName: product.cover),
                 ),
               ),
               Row(
@@ -87,20 +95,13 @@ class _CategoryDetailBook extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _TitleText(
-                        bookTitle: 'Dune',
-                      ),
-                      _AuthorText(
-                        bookAuthor: 'Frank Herbert',
-                      ),
+                      _TitleText(bookTitle: product.name),
+                      _AuthorText(bookAuthor: product.author),
                     ],
                   ),
-                  _PriceText(
-                    bookPrice: '87,75',
-                  ),
+                  _PriceText(bookPrice: product.price.toString()),
                 ],
               ),
             ],
@@ -111,23 +112,29 @@ class _CategoryDetailBook extends ConsumerWidget {
   }
 }
 
-class _BookCoverImage extends StatelessWidget {
-  const _BookCoverImage({
-    required String bookAssetImage,
-  }) : _bookAssetImage = bookAssetImage;
+class _BookCoverImage extends ConsumerWidget {
+  final String fileName;
 
-  final String _bookAssetImage;
+  const _BookCoverImage({required this.fileName});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final coverUrl = ref.watch(coverImageProvider(fileName));
+
     return SizedBox(
       width: min(150.w, 150),
       height: min(225.h, 225),
       child: AspectRatio(
         aspectRatio: 120.h / 80.w,
-        child: Image.asset(
-          _bookAssetImage,
-          fit: BoxFit.contain,
+        child: coverUrl.when(
+          data: (url) => Image.network(
+            url,
+            errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
+          ),
+          loading: () => Center(
+            child: CircularProgressIndicator(),
+          ),
+          error: (error, stackTrace) => Icon(Icons.error),
         ),
       ),
     );

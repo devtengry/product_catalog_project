@@ -20,7 +20,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
             page: CategoryDetailRoute.page,
             initial: false,
-            path: '/categoryDetail'),
+            path: '/:categoryId'),
         AutoRoute(page: BookDetailRoute.page, path: '/bookDetail/:productId'),
       ];
 }
