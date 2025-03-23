@@ -4,67 +4,100 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/features/home/data/models/category_model.dart';
 import 'package:product_catalog_project/features/home/presentation/widgets/home_widgets/category_section/category_card.dart';
-import 'package:product_catalog_project/features/home/presentation/provider/category_provider.dart';
 import 'package:product_catalog_project/features/home/presentation/widgets/home_widgets/filter_section/home_filter_chip.dart';
+import 'package:product_catalog_project/features/home/presentation/provider/category_provider.dart';
 import 'package:product_catalog_project/ui/widgets/search_bar/search_bar.dart';
 import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
 
 @RoutePage()
-class HomeScreen extends ConsumerStatefulWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedCategory = ref.watch(selectedCategoryProvider);
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
-  final String _logoAssetPath = AssetsPath().logoAssetPath;
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ProjectColors.whiteBackground,
       appBar: MainAppBar(
-        leadingIcon: Image.asset(_logoAssetPath),
+        leadingIcon: Image.asset(AssetsPath().logoAssetPath),
         suffixText: 'Catalog',
       ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(20.h),
-          child: ListView(
-            scrollDirection: Axis.vertical,
+          child: Column(
             children: [
+              // Filtre butonları
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  spacing: 10.w,
                   children: [
-                    //dummy filter
-                    HomeFilterChip(filterText: 'All'),
-                    HomeFilterChip(filterText: 'Best Seller'),
-                    HomeFilterChip(filterText: 'Classics'),
-                    HomeFilterChip(filterText: 'Children'),
-                    HomeFilterChip(filterText: 'Philosophy'),
+                    // "All" filtresi
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: HomeFilterChip(
+                        filterText: "All",
+                        categoryId: 0, // "All" için ID 0
+                      ),
+                    ),
+                    // API'den gelen kategoriler
+                    ...ref.watch(categoryProvider).when(
+                          data: (data) {
+                            final categories = data.category ?? [];
+                            return categories.map((category) {
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: HomeFilterChip(
+                                  filterText: category.name ?? '',
+                                  categoryId: category.id ?? 0,
+                                ),
+                              );
+                            }).toList();
+                          },
+                          loading: () => [const CircularProgressIndicator()],
+                          error: (err, stack) => [Text('Error: $err')],
+                        ),
                   ],
                 ),
               ),
-              HomeSearchBar(),
-              Column(
-                spacing: 20,
-                children: ref.watch(categoryProvider).when(
+              const SizedBox(height: 10),
+
+              const HomeSearchBar(),
+
+              const SizedBox(height: 20),
+
+              // ... Inside HomeScreen's Expanded section ...
+
+              Expanded(
+                child: ref.watch(categoryProvider).when(
                       data: (data) {
                         final categories = data.category ?? [];
-                        return categories.map((category) {
-                          return CategoryCard(
-                            category: category,
+
+                        if (selectedCategory == 0) {
+                          // Show all categories with their cards
+                          return ListView.builder(
+                            itemCount: categories.length,
+                            itemBuilder: (context, index) {
+                              final category = categories[index];
+                              return CategoryCard(
+                                  category: category); // Use CategoryCard
+                            },
                           );
-                        }).toList();
+                        } else {
+                          // Show only the selected category's card
+                          final selectedCat = categories.firstWhere(
+                            (cat) => cat.id == selectedCategory,
+                            orElse: () => Category(),
+                          );
+                          return CategoryCard(category: selectedCat);
+                        }
                       },
                       loading: () =>
-                          [const Center(child: CircularProgressIndicator())],
-                      error: (err, stack) =>
-                          [Center(child: Text('Error: $err'))],
+                          const Center(child: CircularProgressIndicator()),
+                      error: (err, stack) => Center(child: Text('Error: $err')),
                     ),
               ),
             ],
