@@ -8,7 +8,7 @@ import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/pages/widgets/buy_button.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/provider/product_detail_provider.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
-import 'package:product_catalog_project/features/like_dislike/widgets/like_button.dart';
+import 'package:product_catalog_project/features/like_dislike/presentation/widgets/like_button.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
 
