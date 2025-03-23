@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/app_theme.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 
-void main(List<String> args) {
+void main(List<String> args) async {
+  await dotenv.load(fileName: ".env");
   runApp(
     ProviderScope(
       child: MyApp(),

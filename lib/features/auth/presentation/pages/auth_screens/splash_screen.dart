@@ -103,7 +103,7 @@ class RotationNotifier extends StateNotifier<double> {
 
       if (cyclePosition < 1000) {
         // 1 saniyelik dönüş animasyonu
-        state = (cyclePosition / 1000) * 2 * pi;
+        state = (cyclePosition / 2000) * 2 * pi;
       } else {
         // 0.5 saniye sabit açıda kal
         state = 2 * pi;

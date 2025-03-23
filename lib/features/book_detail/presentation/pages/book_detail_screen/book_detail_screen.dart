@@ -8,6 +8,7 @@ import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/pages/widgets/buy_button.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/provider/product_detail_provider.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
+import 'package:product_catalog_project/features/like_dislike/widgets/like_button.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
 
@@ -80,7 +81,9 @@ class BookDetailScreen extends ConsumerWidget {
                       Positioned(
                         top: 0.h,
                         right: 0.w,
-                        child: _LikeButton(),
+                        child: LikeButton(
+                          productId: productId,
+                        ),
                       ),
                     ],
                   ),
@@ -114,32 +117,6 @@ class _BookImage extends ConsumerWidget {
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (_, __) => const Icon(Icons.error),
-      ),
-    );
-  }
-}
-
-final likeButtonProvider = StateProvider<bool>((ref) => false);
-
-class _LikeButton extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final isClicked = ref.watch(likeButtonProvider);
-
-    return Container(
-      width: 44.w,
-      height: 44.h,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: ProjectColors.likeButtonContainer,
-      ),
-      child: IconButton(
-        icon: Icon(
-          isClicked ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-          color: ProjectColors.likeButtonHeart,
-        ),
-        onPressed: () =>
-            ref.read(likeButtonProvider.notifier).state = !isClicked,
       ),
     );
   }
