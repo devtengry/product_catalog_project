@@ -22,32 +22,29 @@ class HomeFilterChip extends ConsumerWidget {
     final selectedCategory = ref.watch(selectedCategoryProvider);
     final isSelected = selectedCategory == categoryId;
 
-    return Padding(
-      padding: const EdgeInsets.only(right: 8),
-      child: FilterChip(
-        backgroundColor: ProjectColors.cardBackground,
-        selectedColor: ProjectColors.checkboxColor,
-        showCheckmark: false,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4),
-          side: BorderSide.none,
-        ),
-        side: const BorderSide(color: Colors.transparent),
-        label: Text(
-          filterText,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                fontSize: min(16.sp, 16),
-                fontWeight: FontWeight.w400,
-                color: isSelected
-                    ? ProjectColors.whiteText
-                    : ProjectColors.darkPurpleText.withOpacity(0.4),
-              ),
-        ),
-        selected: isSelected,
-        onSelected: (bool selected) {
-          ref.read(selectedCategoryProvider.notifier).state = categoryId;
-        },
+    return FilterChip(
+      backgroundColor: ProjectColors.cardBackground,
+      selectedColor: ProjectColors.checkboxColor,
+      showCheckmark: false,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4),
+        side: BorderSide.none,
       ),
+      side: const BorderSide(color: Colors.transparent),
+      label: Text(
+        filterText,
+        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              fontSize: min(16.sp, 16),
+              fontWeight: FontWeight.w400,
+              color: isSelected
+                  ? ProjectColors.whiteText
+                  : ProjectColors.darkPurpleText.withOpacity(0.4),
+            ),
+      ),
+      selected: isSelected,
+      onSelected: (bool selected) {
+        ref.read(selectedCategoryProvider.notifier).state = categoryId;
+      },
     );
   }
 }

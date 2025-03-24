@@ -29,6 +29,7 @@ class HomeScreen extends ConsumerWidget {
         child: Padding(
           padding: EdgeInsets.all(20.h),
           child: Column(
+            spacing: 20.w,
             children: [
               // Filtre butonları
               SingleChildScrollView(
@@ -63,14 +64,7 @@ class HomeScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
-
               const HomeSearchBar(),
-
-              const SizedBox(height: 20),
-
-              // ... Inside HomeScreen's Expanded section ...
-
               Flexible(
                 child: ref.watch(categoryProvider).when(
                       data: (data) {
