@@ -71,7 +71,7 @@ class HomeScreen extends ConsumerWidget {
 
               // ... Inside HomeScreen's Expanded section ...
 
-              Expanded(
+              Flexible(
                 child: ref.watch(categoryProvider).when(
                       data: (data) {
                         final categories = data.category ?? [];
