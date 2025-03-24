@@ -8,7 +8,7 @@ import 'package:product_catalog_project/features/home/data/models/product_model.
 import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
-import 'package:product_catalog_project/ui/widgets/search_bar/search_bar.dart';
+import 'package:product_catalog_project/features/search/presentation/widgets/search_bar/search_bar.dart';
 
 @RoutePage()
 class CategoryDetailScreen extends ConsumerWidget {
@@ -89,19 +89,22 @@ class _CategoryDetailBook extends ConsumerWidget {
                   child: _BookCoverImage(fileName: product.cover),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _TitleText(bookTitle: product.name),
-                      _AuthorText(bookAuthor: product.author),
-                    ],
-                  ),
-                  _PriceText(bookPrice: product.price.toString()),
-                ],
+              ConstrainedBox(
+                constraints: BoxConstraints(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _TitleText(bookTitle: product.name),
+                        _AuthorText(bookAuthor: product.author),
+                      ],
+                    ),
+                    _PriceText(bookPrice: product.price.toString()),
+                  ],
+                ),
               ),
             ],
           ),
