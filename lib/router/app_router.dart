@@ -11,7 +11,7 @@ part 'app_router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
 class AppRouter extends RootStackRouter {
-  final bool isAuthenticated; // Add a parameter to pass authentication status
+  final bool isAuthenticated;
 
   AppRouter({this.isAuthenticated = false});
 

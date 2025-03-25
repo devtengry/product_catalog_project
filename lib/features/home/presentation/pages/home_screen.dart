@@ -31,20 +31,17 @@ class HomeScreen extends ConsumerWidget {
           child: Column(
             spacing: 20.w,
             children: [
-              // Filtre butonları
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    // "All" filtresi
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: HomeFilterChip(
                         filterText: "All",
-                        categoryId: 0, // "All" için ID 0
+                        categoryId: 0,
                       ),
                     ),
-                    // API'den gelen kategoriler
                     ...ref.watch(categoryProvider).when(
                           data: (data) {
                             final categories = data.category ?? [];
@@ -71,17 +68,14 @@ class HomeScreen extends ConsumerWidget {
                         final categories = data.category ?? [];
 
                         if (selectedCategory == 0) {
-                          // Show all categories with their cards
                           return ListView.builder(
                             itemCount: categories.length,
                             itemBuilder: (context, index) {
                               final category = categories[index];
-                              return CategoryCard(
-                                  category: category); // Use CategoryCard
+                              return CategoryCard(category: category);
                             },
                           );
                         } else {
-                          // Show only the selected category's card
                           final selectedCat = categories.firstWhere(
                             (cat) => cat.id == selectedCategory,
                             orElse: () => Category(),

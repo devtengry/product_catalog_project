@@ -42,7 +42,7 @@ class _SearchField extends ConsumerWidget {
     return TextField(
       keyboardType: textInputType,
       controller: controller,
-      textInputAction: TextInputAction.search, // Klavyede "Search" butonu
+      textInputAction: TextInputAction.search,
       decoration: InputDecoration(
         filled: true,
         fillColor: ProjectColors.textFieldBackground,

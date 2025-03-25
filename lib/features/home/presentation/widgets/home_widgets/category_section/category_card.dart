@@ -65,7 +65,7 @@ class _CategoryHeader extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _CategoryText(category: category),
-        _CategoryTextButton(categoryId: category.id!), // ✅ categoryId geçirildi
+        _CategoryTextButton(categoryId: category.id!),
       ],
     );
   }
@@ -90,7 +90,7 @@ class _CategoryText extends ConsumerWidget {
 }
 
 class _CategoryTextButton extends ConsumerWidget {
-  final int categoryId; // ✅ categoryId parametresi eklendi
+  final int categoryId;
 
   const _CategoryTextButton({required this.categoryId});
 
@@ -98,8 +98,8 @@ class _CategoryTextButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       child: TextButton(
-        onPressed: () => router.push(CategoryDetailRoute(
-            categoryId: categoryId)), // ✅ categoryId eklendi
+        onPressed: () =>
+            router.push(CategoryDetailRoute(categoryId: categoryId)),
         child: Text(
           'View All',
           style: Theme.of(context).textTheme.labelLarge?.copyWith(

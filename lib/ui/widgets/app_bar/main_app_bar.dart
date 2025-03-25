@@ -21,15 +21,15 @@ class MainAppBar extends ConsumerWidget implements PreferredSizeWidget {
       backgroundColor: ProjectColors.whiteBackground,
       surfaceTintColor: ProjectColors.whiteBackground,
       leading: Padding(
-        padding: const EdgeInsets.only(left: 20.0), // Sol tarafa padding ekle
+        padding: const EdgeInsets.only(left: 20.0),
         child: SizedBox(
-          width: 50.w, // IconButton için sabit bir genişlik belirle
+          width: 50.w,
           height: 32.h,
           child: leadingIcon,
         ),
       ),
       title: Padding(
-        padding: const EdgeInsets.only(right: 20.0), // Sağ tarafa padding ekle
+        padding: const EdgeInsets.only(right: 20.0),
         child: Align(
           alignment: Alignment.centerRight,
           child: Text(

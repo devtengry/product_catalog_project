@@ -240,12 +240,12 @@ class _NameTextBox extends StatelessWidget {
         isPassword: false,
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Name cannot be empty!'; // Sadece hata mesajı döndür
+            return 'Name cannot be empty!';
           }
           if (!isLength(value, 2, 50)) {
             return 'Name must be between 2 and 50 characters!';
           }
-          return null; // Geçerliyse null döndür
+          return null;
         });
   }
 }
@@ -279,10 +279,6 @@ class _WelcomeText extends StatelessWidget {
               alpha: 0.6,
             ),
           ),
-      //  style: Theme.of(context)
-      //      .textTheme
-      //      .bodyMedium
-      //      ?.copyWith(fontWeight: FontWeight.w700),
     );
   }
 }

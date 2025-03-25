@@ -17,7 +17,6 @@ class NetworkService {
       ),
     );
 
-    // Interceptor ekleyerek her isteğe token ekliyoruz
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
         final token = await AuthStorage.getToken();

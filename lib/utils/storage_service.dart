@@ -1,4 +1,3 @@
-// storage_service.dart
 import 'package:riverpod/riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,14 +20,12 @@ class StorageService {
   String? getPassword() => prefs.getString('password');
 }
 
-// providers.dart
 final sharedPreferencesProvider =
     FutureProvider<SharedPreferences>((ref) async {
   return await SharedPreferences.getInstance();
 });
 
 final storageServiceProvider = Provider<StorageService>((ref) {
-  // SharedPreferences'in yüklenmesini bekle
   final prefs = ref.watch(sharedPreferencesProvider).requireValue;
   return StorageService(prefs);
 });

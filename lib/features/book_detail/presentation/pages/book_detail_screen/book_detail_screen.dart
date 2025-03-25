@@ -36,8 +36,7 @@ class BookDetailScreen extends ConsumerWidget {
       ),
       body: productDetailAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stackTrace) =>
-            Center(child: Text('Error: $error')), // Hata durumunu göster
+        error: (error, stackTrace) => Center(child: Text('Error: $error')),
         data: (productDetail) {
           final product = productDetail.productByPk;
 

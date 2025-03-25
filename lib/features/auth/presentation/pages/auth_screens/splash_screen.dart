@@ -98,14 +98,11 @@ class RotationNotifier extends StateNotifier<double> {
     _timer = Timer.periodic(const Duration(milliseconds: 16), (_) {
       final elapsed = _stopwatch.elapsedMilliseconds;
 
-      // 1.5 saniyelik döngü (1s dönüş + 0.5s bekleme)
       final cyclePosition = elapsed % 1500;
 
       if (cyclePosition < 1000) {
-        // 1 saniyelik dönüş animasyonu
         state = (cyclePosition / 2000) * 2 * pi;
       } else {
-        // 0.5 saniye sabit açıda kal
         state = 2 * pi;
       }
     });

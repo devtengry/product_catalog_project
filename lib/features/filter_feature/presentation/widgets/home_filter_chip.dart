@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 
-/// Varsayılan olarak "All" (ID: 0) seçili olacak
 final selectedCategoryProvider = StateProvider<int>((ref) => 0);
 
 class HomeFilterChip extends ConsumerWidget {

@@ -1,5 +1,4 @@
 class TextConstants {
-  // Login ekranı metinleri
   static const String nameHintText = 'John Doe';
   static const String emailHintText = 'john@mail.com';
   static const String passwordHintText = '........';

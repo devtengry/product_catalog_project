@@ -49,7 +49,7 @@ class LikeButton extends ConsumerWidget {
     try {
       notifier.state = !currentState;
 
-      final token = await AuthStorage.getToken(); // Güncellendi ✅
+      final token = await AuthStorage.getToken();
 
       if (token == null) {
         throw Exception('Please login first!');

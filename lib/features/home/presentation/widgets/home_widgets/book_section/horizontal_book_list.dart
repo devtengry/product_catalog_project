@@ -28,8 +28,8 @@ class HorizontalBookList extends ConsumerWidget {
                   (product) => Padding(
                     padding: const EdgeInsets.only(right: 10),
                     child: SizedBox(
-                      width: 240.w, // Burada genişlik veriyoruz
-                      height: 150.h, // Burada yükseklik veriyoruz
+                      width: 240.w,
+                      height: 150.h,
                       child: AspectRatio(
                         aspectRatio: 240.w / 150.h,
                         child: ScrollableBookRow(product: product),

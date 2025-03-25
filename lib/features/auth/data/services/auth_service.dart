@@ -10,7 +10,6 @@ class AuthService extends StateNotifier<AuthState> {
 
   AuthService(this._authRepository) : super(AuthState());
 
-  /// Kullanıcı giriş yaparsa token'ı kaydeder ve oturumu açar
   Future<void> login(String email, String password) async {
     state = state.copyWith(isLoading: true, errorMessage: null);
 
@@ -51,29 +50,25 @@ class AuthService extends StateNotifier<AuthState> {
     }
   }
 
-  /// Uygulama açıldığında oturumu kontrol eder
   Future<void> checkSession() async {
     final token = await AuthStorage.getToken();
     if (token != null) {
       final tokenTime = await AuthStorage.getTokenTime();
       final currentTime = DateTime.now().millisecondsSinceEpoch;
 
-      // If the token hasn't expired
       if (currentTime - tokenTime! <= 5 * 60 * 1000) {
         state = state.copyWith(isAuthenticated: true);
       } else {
         state = state.copyWith(isAuthenticated: false);
-        await AuthStorage
-            .deleteToken(); // Make sure this is the method you are using.
+        await AuthStorage.deleteToken();
       }
     } else {
       state = state.copyWith(isAuthenticated: false);
     }
   }
 
-  /// Kullanıcı çıkış yaparsa oturumu kapatır ve token'ı siler
   Future<void> logout() async {
     await AuthStorage.deleteToken();
-    state = AuthState(); // Oturumu kapat
+    state = AuthState();
   }
 }
