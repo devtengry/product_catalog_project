@@ -38,7 +38,7 @@ class HomeFilterChip extends ConsumerWidget {
               fontWeight: FontWeight.w400,
               color: isSelected
                   ? ProjectColors.whiteText
-                  : ProjectColors.darkPurpleText.withOpacity(0.4),
+                  : ProjectColors.darkPurpleText.withValues(alpha: 0.4),
             ),
       ),
       selected: isSelected,
