@@ -9,21 +9,16 @@ import 'package:product_catalog_project/features/auth/presentation/provider/auth
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Load environment variables
   await dotenv.load(fileName: ".env");
 
-  // Initialize the ProviderContainer before checking the session
   final container = ProviderContainer();
 
-  // Perform session check asynchronously after container is ready
   await container.read(authNotifierProvider.notifier).checkSession();
 
   runApp(
     ProviderScope(
-      overrides: [
-        // You can override providers here if necessary
-      ],
-      child: MyApp(), // Pass the container to MyApp
+      overrides: [],
+      child: MyApp(),
     ),
   );
 }
