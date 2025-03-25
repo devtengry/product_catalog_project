@@ -23,15 +23,13 @@ void main() async {
       overrides: [
         // You can override providers here if necessary
       ],
-      child: MyApp(container: container), // Pass the container to MyApp
+      child: MyApp(), // Pass the container to MyApp
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  final ProviderContainer container;
-
-  const MyApp({super.key, required this.container});
+  const MyApp({super.key, required});
 
   @override
   Widget build(BuildContext context) {
