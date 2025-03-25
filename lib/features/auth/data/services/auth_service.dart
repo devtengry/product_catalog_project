@@ -1,19 +1,16 @@
 import 'dart:io';
 import 'package:product_catalog_project/core/constants/app_constants.dart';
+import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
 import 'package:product_catalog_project/features/auth/presentation/states/auth_state.dart';
 import 'package:product_catalog_project/features/auth/repos/auth_repository.dart';
-import 'package:product_catalog_project/utils/shared_preferences_helper.dart';
 import 'package:riverpod/riverpod.dart';
 
 class AuthService extends StateNotifier<AuthState> {
   final AuthRepository _authRepository;
-  Future<void> saveToken(String token) async {
-    final prefs = await getSharedPreferences();
-    await prefs.setString(AppConstants.tokenKey, token);
-  }
 
   AuthService(this._authRepository) : super(AuthState());
 
+  /// Kullanıcı giriş yaparsa token'ı kaydeder ve oturumu açar
   Future<void> login(String email, String password) async {
     state = state.copyWith(isLoading: true, errorMessage: null);
 
@@ -24,7 +21,7 @@ class AuthService extends StateNotifier<AuthState> {
       final token = data[AppConstants.actionLoginDataKey]
           ?[AppConstants.tokenKey] as String?;
       if (response.statusCode == HttpStatus.ok && token != null) {
-        await saveToken(token);
+        await AuthStorage.saveToken(token);
         state = state.copyWith(isAuthenticated: true);
       } else {
         state = state.copyWith(errorMessage: 'Login failed or token is null!');
@@ -54,7 +51,29 @@ class AuthService extends StateNotifier<AuthState> {
     }
   }
 
-  void logout() {
-    state = AuthState();
+  /// Uygulama açıldığında oturumu kontrol eder
+  Future<void> checkSession() async {
+    final token = await AuthStorage.getToken();
+    if (token != null) {
+      final tokenTime = await AuthStorage.getTokenTime();
+      final currentTime = DateTime.now().millisecondsSinceEpoch;
+
+      // If the token hasn't expired
+      if (currentTime - tokenTime! <= 5 * 60 * 1000) {
+        state = state.copyWith(isAuthenticated: true);
+      } else {
+        state = state.copyWith(isAuthenticated: false);
+        await AuthStorage
+            .deleteToken(); // Make sure this is the method you are using.
+      }
+    } else {
+      state = state.copyWith(isAuthenticated: false);
+    }
+  }
+
+  /// Kullanıcı çıkış yaparsa oturumu kapatır ve token'ı siler
+  Future<void> logout() async {
+    await AuthStorage.deleteToken();
+    state = AuthState(); // Oturumu kapat
   }
 }

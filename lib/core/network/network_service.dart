@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:product_catalog_project/config/secrets.dart';
+import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
 
 class NetworkService {
   late final Dio _dio;
@@ -15,6 +16,23 @@ class NetworkService {
         },
       ),
     );
+
+    // Interceptor ekleyerek her isteğe token ekliyoruz
+    _dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) async {
+        final token = await AuthStorage.getToken();
+        if (token != null) {
+          options.headers['Authorization'] = 'Bearer $token';
+        }
+        handler.next(options);
+      },
+      onError: (DioException e, handler) {
+        if (e.response?.statusCode == 401) {
+          print("Unauthorized! Token might be expired.");
+        }
+        handler.next(e);
+      },
+    ));
   }
 
   static final NetworkService _instance = NetworkService._internal();
@@ -22,20 +40,22 @@ class NetworkService {
   factory NetworkService() {
     return _instance;
   }
+
   Dio get dio => _dio;
 
-  Future<Response> getRequest(String endpoint) async {
+  Future<Response> getRequest(String endpoint,
+      {Map<String, dynamic>? queryParameters}) async {
     try {
-      return await _dio.get(endpoint);
+      return await _dio.get(endpoint, queryParameters: queryParameters);
     } catch (e) {
       rethrow;
     }
   }
 
   Future<Response> postRequest(
-      String enpoint, Map<String, dynamic> data) async {
+      String endpoint, Map<String, dynamic> data) async {
     try {
-      return await _dio.post(enpoint, data: data);
+      return await _dio.post(endpoint, data: data);
     } catch (e) {
       rethrow;
     }

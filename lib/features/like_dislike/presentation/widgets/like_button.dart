@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:product_catalog_project/core/constants/app_constants.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
 import 'package:product_catalog_project/features/like_dislike/providers/like_providers.dart';
-import 'package:product_catalog_project/utils/shared_preferences_helper.dart';
 
 final likeButtonProvider =
     StateProvider.family<bool, int>((ref, productId) => false);
@@ -50,8 +49,7 @@ class LikeButton extends ConsumerWidget {
     try {
       notifier.state = !currentState;
 
-      final prefs = await getSharedPreferences();
-      final token = prefs.getString(AppConstants.tokenKey);
+      final token = await AuthStorage.getToken(); // Güncellendi ✅
 
       if (token == null) {
         throw Exception('Please login first!');
@@ -64,7 +62,6 @@ class LikeButton extends ConsumerWidget {
           );
     } catch (e) {
       notifier.state = currentState;
-      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(e.toString()),

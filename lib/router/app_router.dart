@@ -11,12 +11,18 @@ part 'app_router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
 class AppRouter extends RootStackRouter {
+  final bool isAuthenticated; // Add a parameter to pass authentication status
+
+  AppRouter({this.isAuthenticated = false});
+
   @override
   List<AutoRoute> get routes => [
         AutoRoute(page: SplashRoute.page, initial: false, path: '/'),
-        AutoRoute(page: LoginRoute.page, initial: true, path: '/login'),
+        AutoRoute(
+            page: LoginRoute.page, initial: !isAuthenticated, path: '/login'),
         AutoRoute(page: RegisterRoute.page, initial: false, path: '/register'),
-        AutoRoute(page: HomeRoute.page, initial: false, path: '/home'),
+        AutoRoute(
+            page: HomeRoute.page, initial: isAuthenticated, path: '/home'),
         AutoRoute(
             page: CategoryDetailRoute.page,
             initial: false,

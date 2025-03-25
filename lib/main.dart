@@ -4,18 +4,34 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/app_theme.dart';
 import 'package:product_catalog_project/router/app_router.dart';
+import 'package:product_catalog_project/features/auth/presentation/provider/auth_provider.dart';
 
-void main(List<String> args) async {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Load environment variables
   await dotenv.load(fileName: ".env");
+
+  // Initialize the ProviderContainer before checking the session
+  final container = ProviderContainer();
+
+  // Perform session check asynchronously after container is ready
+  await container.read(authNotifierProvider.notifier).checkSession();
+
   runApp(
     ProviderScope(
-      child: MyApp(),
+      overrides: [
+        // You can override providers here if necessary
+      ],
+      child: MyApp(container: container), // Pass the container to MyApp
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final ProviderContainer container;
+
+  const MyApp({super.key, required this.container});
 
   @override
   Widget build(BuildContext context) {
