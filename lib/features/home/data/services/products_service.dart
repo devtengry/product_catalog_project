@@ -11,7 +11,6 @@ class ProductsService {
       return response.data['product'];
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
-        print("Unauthorized request! Clearing session.");
         await AuthStorage.deleteToken();
       }
       throw Exception('API Error: ${e.message}');

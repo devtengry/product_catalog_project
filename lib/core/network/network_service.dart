@@ -26,9 +26,7 @@ class NetworkService {
         handler.next(options);
       },
       onError: (DioException e, handler) {
-        if (e.response?.statusCode == 401) {
-          print("Unauthorized! Token might be expired.");
-        }
+        if (e.response?.statusCode == 401) {}
         handler.next(e);
       },
     ));

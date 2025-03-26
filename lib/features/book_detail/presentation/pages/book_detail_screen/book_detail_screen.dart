@@ -30,7 +30,7 @@ class BookDetailScreen extends ConsumerWidget {
       appBar: MainAppBar(
         suffixText: 'Book Details',
         leadingIcon: IconButton(
-          onPressed: () => context.router.popForced(),
+          onPressed: () => context.router.pop(),
           icon: const Icon(Icons.arrow_back_ios_new_outlined),
         ),
       ),
