@@ -3,6 +3,7 @@ import 'package:product_catalog_project/core/constants/app_constants.dart';
 import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
 import 'package:product_catalog_project/features/auth/presentation/states/auth_state.dart';
 import 'package:product_catalog_project/features/auth/repos/auth_repository.dart';
+import 'package:product_catalog_project/router/app_router.dart';
 import 'package:riverpod/riverpod.dart';
 
 class AuthService extends StateNotifier<AuthState> {
@@ -58,12 +59,16 @@ class AuthService extends StateNotifier<AuthState> {
 
       if (currentTime - tokenTime! <= 5 * 60 * 1000) {
         state = state.copyWith(isAuthenticated: true);
+        router.replace(const HomeRoute()); // Oturum geçerliyse Home'a yönlendir
       } else {
         state = state.copyWith(isAuthenticated: false);
         await AuthStorage.deleteToken();
+        router.replace(
+            const LoginRoute()); // Oturum süresi dolmuşsa Login'e yönlendir
       }
     } else {
       state = state.copyWith(isAuthenticated: false);
+      router.replace(const LoginRoute());
     }
   }
 
