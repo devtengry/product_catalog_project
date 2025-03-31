@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:product_catalog_project/config/secrets.dart';
 import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
 
-//test
 class NetworkService {
   late final Dio _dio;
 
