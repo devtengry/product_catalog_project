@@ -59,16 +59,15 @@ class AuthService extends StateNotifier<AuthState> {
 
       if (currentTime - tokenTime! <= 5 * 60 * 1000) {
         state = state.copyWith(isAuthenticated: true);
-        router.replace(const HomeRoute()); // Oturum geçerliyse Home'a yönlendir
+        router.replace(const HomeRoute());
       } else {
         state = state.copyWith(isAuthenticated: false);
         await AuthStorage.deleteToken();
-        router.replace(
-            const LoginRoute()); // Oturum süresi dolmuşsa Login'e yönlendir
+        router.replace(const LoginRoute());
       }
     } else {
       state = state.copyWith(isAuthenticated: false);
-      router.replace(const LoginRoute());
+      router.replace(const SplashRoute());
     }
   }
 
