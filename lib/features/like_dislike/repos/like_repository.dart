@@ -43,22 +43,4 @@ class LikeRepository {
       throw Exception('Unexpected error: $e');
     }
   }
-
-  Exception _handleDioError(DioException e) {
-    final statusCode = e.response?.statusCode;
-    final data = e.response?.data?.toString() ?? 'Unknown error';
-
-    switch (statusCode) {
-      case 400:
-        return Exception(data.contains('duplicate key')
-            ? 'This product is already liked'
-            : 'Invalid request');
-      case 401:
-        return Exception('Unauthorized operation - Please log in again');
-      case 404:
-        return Exception('Resource not found');
-      default:
-        return Exception('Error code $statusCode: $data');
-    }
-  }
 }
