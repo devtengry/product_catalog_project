@@ -32,7 +32,13 @@ class LikeRepository {
         ),
       );
     } on DioException catch (e) {
-      throw _handleDioError(e);
+      final errorData = e.response?.data?.toString() ?? 'Unknown error';
+
+      if (errorData.contains('duplicate key')) {
+        throw Exception('duplicate key');
+      }
+
+      throw Exception('Error: $errorData');
     } catch (e) {
       throw Exception('Unexpected error: $e');
     }
