@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:product_catalog_project/utils/jwt_helper.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class LikeRepository {
   final Dio _dio = Dio();
+  final String _baseUrl = dotenv.env['BASE_URL']!;
 
   Future<void> toggleLike(int productId, String token, bool isLiked) async {
     try {
@@ -14,9 +16,10 @@ class LikeRepository {
       }
 
       final endpoint = isLiked ? 'like' : 'unlike';
+      final url = '$_baseUrl/$endpoint';
 
       await _dio.post(
-        'https://assign-api.piton.com.tr/api/rest/$endpoint',
+        url,
         data: {
           'user_id': userId,
           'product_id': productId,

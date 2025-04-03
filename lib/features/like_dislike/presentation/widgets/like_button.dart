@@ -28,7 +28,7 @@ class LikeButton extends ConsumerWidget {
       ),
       child: IconButton(
         icon: Icon(
-          isLiked ? Icons.favorite_border_rounded : Icons.favorite_rounded,
+          isLiked ? Icons.favorite_rounded : Icons.favorite_border_rounded,
           color: ProjectColors.likeButtonHeart,
           size: size * 0.6,
         ),
