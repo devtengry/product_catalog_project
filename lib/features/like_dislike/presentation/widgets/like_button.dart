@@ -5,9 +5,6 @@ import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
 import 'package:product_catalog_project/features/like_dislike/providers/like_providers.dart';
 
-final likeButtonProvider =
-    StateProvider.family<bool, int>((ref, productId) => false);
-
 class LikeButton extends ConsumerWidget {
   final int productId;
   final double size;
@@ -31,10 +28,8 @@ class LikeButton extends ConsumerWidget {
       ),
       child: IconButton(
         icon: Icon(
-          isLiked ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-          color: isLiked
-              ? ProjectColors.likeButtonHeart
-              : ProjectColors.likeButtonHeart,
+          isLiked ? Icons.favorite_border_rounded : Icons.favorite_rounded,
+          color: ProjectColors.likeButtonHeart,
           size: size * 0.6,
         ),
         onPressed: () => _handleLike(ref, context),
