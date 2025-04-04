@@ -18,11 +18,11 @@ class BookDetailRoute extends PageRouteInfo<BookDetailRouteArgs> {
     required int productId,
     List<PageRouteInfo>? children,
   }) : super(
-         BookDetailRoute.name,
-         args: BookDetailRouteArgs(key: key, productId: productId),
-         rawPathParams: {'productId': productId},
-         initialChildren: children,
-       );
+          BookDetailRoute.name,
+          args: BookDetailRouteArgs(key: key, productId: productId),
+          rawPathParams: {'productId': productId},
+          initialChildren: children,
+        );
 
   static const String name = 'BookDetailRoute';
 
@@ -31,9 +31,8 @@ class BookDetailRoute extends PageRouteInfo<BookDetailRouteArgs> {
     builder: (data) {
       final pathParams = data.inheritedPathParams;
       final args = data.argsAs<BookDetailRouteArgs>(
-        orElse:
-            () =>
-                BookDetailRouteArgs(productId: pathParams.getInt('productId')),
+        orElse: () =>
+            BookDetailRouteArgs(productId: pathParams.getInt('productId')),
       );
       return BookDetailScreen(key: args.key, productId: args.productId);
     },
@@ -61,10 +60,10 @@ class CategoryDetailRoute extends PageRouteInfo<CategoryDetailRouteArgs> {
     required int categoryId,
     List<PageRouteInfo>? children,
   }) : super(
-         CategoryDetailRoute.name,
-         args: CategoryDetailRouteArgs(key: key, categoryId: categoryId),
-         initialChildren: children,
-       );
+          CategoryDetailRoute.name,
+          args: CategoryDetailRouteArgs(key: key, categoryId: categoryId),
+          initialChildren: children,
+        );
 
   static const String name = 'CategoryDetailRoute';
 
@@ -94,7 +93,7 @@ class CategoryDetailRouteArgs {
 /// [HomeScreen]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
-    : super(HomeRoute.name, initialChildren: children);
+      : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
@@ -110,7 +109,7 @@ class HomeRoute extends PageRouteInfo<void> {
 /// [LoginScreen]
 class LoginRoute extends PageRouteInfo<void> {
   const LoginRoute({List<PageRouteInfo>? children})
-    : super(LoginRoute.name, initialChildren: children);
+      : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
@@ -126,7 +125,7 @@ class LoginRoute extends PageRouteInfo<void> {
 /// [RegisterScreen]
 class RegisterRoute extends PageRouteInfo<void> {
   const RegisterRoute({List<PageRouteInfo>? children})
-    : super(RegisterRoute.name, initialChildren: children);
+      : super(RegisterRoute.name, initialChildren: children);
 
   static const String name = 'RegisterRoute';
 
@@ -142,7 +141,7 @@ class RegisterRoute extends PageRouteInfo<void> {
 /// [SplashScreen]
 class SplashRoute extends PageRouteInfo<void> {
   const SplashRoute({List<PageRouteInfo>? children})
-    : super(SplashRoute.name, initialChildren: children);
+      : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
