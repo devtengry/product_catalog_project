@@ -14,3 +14,5 @@ final authNotifierProvider = StateNotifierProvider<AuthService, AuthState>(
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepository(NetworkService());
 });
+
+final rememberMeProvider = StateProvider<bool>((ref) => false);
