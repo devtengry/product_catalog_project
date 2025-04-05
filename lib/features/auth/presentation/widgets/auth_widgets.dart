@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:auto_route/auto_route.dart';
@@ -9,6 +8,7 @@ import 'package:product_catalog_project/features/auth/presentation/widgets/auth_
 import 'package:product_catalog_project/features/auth/presentation/widgets/auth_text_button.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/auth_text_field.dart';
 import 'package:validators2/validators2.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart'; // SnackBarManager importu
 
 class AuthButton extends StatelessWidget {
   const AuthButton({
@@ -125,10 +125,14 @@ class AuthEmailField extends StatelessWidget {
       validator: customValidator ??
           (value) {
             if (value == null || value.isEmpty) {
-              return 'E-Mail cannot be empty!';
+              SnackBarManager(context)
+                  .showErrorSnackBar('E-Mail cannot be empty!');
+              return null;
             }
             if (!isEmail(value)) {
-              return 'Please enter a valid e-mail!';
+              SnackBarManager(context)
+                  .showErrorSnackBar('Please enter a valid e-mail!');
+              return null;
             }
             return null;
           },
@@ -157,7 +161,9 @@ class AuthPasswordField extends StatelessWidget {
       validator: customValidator ??
           (value) {
             if (value == null || value.isEmpty) {
-              return 'Password cannot be empty!';
+              SnackBarManager(context)
+                  .showErrorSnackBar('Password cannot be empty!');
+              return null;
             }
             return null;
           },
@@ -183,10 +189,13 @@ class AuthNameField extends StatelessWidget {
       hintTextString: TextConstants.nameHintText,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Name cannot be empty!';
+          SnackBarManager(context).showErrorSnackBar('Name cannot be empty!');
+          return null;
         }
         if (!isLength(value, 2, 50)) {
-          return 'Name must be between 2 and 50 characters!';
+          SnackBarManager(context)
+              .showErrorSnackBar('Name must be between 2 and 50 characters!');
+          return null;
         }
         return null;
       },

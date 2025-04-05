@@ -1,18 +1,17 @@
 import 'dart:async';
 import 'package:product_catalog_project/core/localizations/text_constants.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/auth_widgets.dart';
-
-import '../../states/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/auth/presentation/provider/auth_provider.dart';
-import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/remember_me_checkbox.dart';
+import 'package:product_catalog_project/utils/error_handling.dart';
 
 @RoutePage()
 class LoginScreen extends ConsumerStatefulWidget {
@@ -40,6 +39,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   void _onLoginPressed() async {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      // Eğer alanlardan biri boşsa, SnackBar ile kullanıcıya uyarı göster
+      SnackBarManager(context).showErrorSnackBar('Please fill out all fields!');
+      return;
+    }
+
     if (_formKey.currentState!.validate()) {
       final authNotifier = ref.read(authNotifierProvider.notifier);
       await authNotifier.login(
@@ -56,20 +61,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
-    final snackBarManager = SnackBarManager(context);
 
-    ref.listen<AuthState>(authNotifierProvider, (previous, next) {
-      if (mounted &&
-          next.errorMessage != null &&
-          next.errorMessage != previous?.errorMessage) {
-        _snackBarTimer?.cancel();
-        _snackBarTimer = Timer(const Duration(seconds: 2), () {
-          if (mounted) {
-            snackBarManager.showErrorSnackBar(next.errorMessage!);
-          }
-        });
-      }
-    });
+    listenForErrors(ref, context, _snackBarTimer);
 
     return Scaffold(
       backgroundColor: ProjectColors.whiteBackground,

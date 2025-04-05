@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:product_catalog_project/core/localizations/text_constants.dart';
 import 'package:product_catalog_project/features/auth/presentation/provider/auth_provider.dart';
-import 'package:product_catalog_project/features/auth/presentation/states/auth_state.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/auth_widgets.dart';
-import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/utils/error_handling.dart';
 import 'package:validators2/validators2.dart';
 
 @RoutePage()
@@ -41,9 +41,19 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   }
 
   void _onRegisterPressed() async {
+    // Form alanlarının boş olup olmadığını kontrol et
+    if (_nameController.text.isEmpty ||
+        _emailController.text.isEmpty ||
+        _passwordController.text.isEmpty) {
+      // Eğer alanlardan biri boşsa, SnackBar ile kullanıcıya uyarı göster
+      SnackBarManager(context).showErrorSnackBar('Please fill out all fields!');
+      return; // Formu submit etme, yönlendirme yapma
+    }
+
     if (_formKey.currentState!.validate()) {
       final authNotifier = ref.read(authNotifierProvider.notifier);
 
+      // Kayıt işlemini gerçekleştir
       await authNotifier.register(
         _emailController.text,
         _passwordController.text,
@@ -51,6 +61,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       );
 
       final authState = ref.read(authNotifierProvider);
+
+      // Kullanıcı başarıyla kaydedildiyse yönlendirme yap
       if (authState.isAuthenticated && mounted) {
         context.router.replace(const LoginRoute());
       }
@@ -60,20 +72,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
-    final snackBarManager = SnackBarManager(context);
 
-    ref.listen<AuthState>(authNotifierProvider, (previous, next) {
-      if (mounted &&
-          next.errorMessage != null &&
-          next.errorMessage != previous?.errorMessage) {
-        _snackBarTimer?.cancel();
-        _snackBarTimer = Timer(const Duration(seconds: 2), () {
-          if (mounted) {
-            snackBarManager.showErrorSnackBar(next.errorMessage!);
-          }
-        });
-      }
-    });
+    listenForErrors(ref, context, _snackBarTimer);
 
     return Scaffold(
       backgroundColor: ProjectColors.whiteBackground,
@@ -103,14 +103,20 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         controller: _passwordController,
                         customValidator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Password cannot be empty!';
+                            SnackBarManager(context)
+                                .showErrorSnackBar('Password cannot be empty!');
+                            return null;
                           }
                           if (!isLength(value, 6, 20)) {
-                            return 'Password must be between 6 and 20 characters!';
+                            SnackBarManager(context).showErrorSnackBar(
+                                'Password must be between 6 and 20 characters!');
+                            return null;
                           }
                           if (!matches(value,
                               r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$')) {
-                            return 'Password must contain at least one letter and one number!';
+                            SnackBarManager(context).showErrorSnackBar(
+                                'Password must contain at least one letter and one number!');
+                            return null;
                           }
                           return null;
                         },

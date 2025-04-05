@@ -24,4 +24,6 @@ class ProjectColors {
   static const Color cardBackground = Color(0xFFF4F4FF);
   //icon colors
   static const Color iconColor = Color(0xFF090937);
+  //snackbar colors
+  static const Color snacBarColor = Color(0xFF6251DD);
 }
