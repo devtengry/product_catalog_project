@@ -7,10 +7,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/pages/widgets/buy_button.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/provider/product_detail_provider.dart';
-import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
 import 'package:product_catalog_project/features/like_dislike/presentation/widgets/like_button.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
+import 'package:product_catalog_project/ui/widgets/product_widgets/product_widgets.dart';
 
 @RoutePage()
 class BookDetailScreen extends ConsumerWidget {
@@ -58,9 +58,18 @@ class BookDetailScreen extends ConsumerWidget {
                             children: [
                               Column(
                                 children: [
-                                  _BookImage(fileName: product.cover ?? ''),
-                                  _BookTitle(bookTitle: product.name ?? ''),
-                                  _BookAuthor(bookAuthor: product.author ?? ''),
+                                  ProductCoverImage(
+                                      fileName: product.cover ?? ''),
+                                  ProductNameText(
+                                    title: product.name ?? '',
+                                    fontSize: min(20.sp, 20),
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  ProductAuthorText(
+                                    author: product.author ?? '',
+                                    fontSize: min(16.sp, 16),
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ],
                               ),
                               _BookSummary(
@@ -68,7 +77,7 @@ class BookDetailScreen extends ConsumerWidget {
                                 bookSummary: product.description ??
                                     'No description available.',
                               ),
-                              _BuyButton(
+                              _ProductDetailBuyButton(
                                 buttonText: 'Buy Now',
                                 bookPrice:
                                     product.price?.toStringAsFixed(2) ?? '0.00',
@@ -91,54 +100,6 @@ class BookDetailScreen extends ConsumerWidget {
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class _BookImage extends ConsumerWidget {
-  final String fileName;
-
-  const _BookImage({required this.fileName});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final coverUrl = ref.watch(coverImageProvider(fileName));
-
-    return SizedBox(
-      width: 150.w,
-      height: 225.h,
-      child: coverUrl.when(
-        data: (url) => Image.network(
-          url,
-          fit: BoxFit.contain,
-          errorBuilder: (_, __, ___) => const Icon(Icons.error),
-        ),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, __) => const Icon(Icons.error),
-      ),
-    );
-  }
-}
-
-class _BuyButton extends ConsumerWidget {
-  final String buttonText;
-  final String bookPrice;
-
-  const _BuyButton({
-    required this.buttonText,
-    required this.bookPrice,
-  });
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-      width: 350.w,
-      height: 60.h,
-      child: BuyButton(
-        buttonText: buttonText,
-        bookPrice: '$bookPrice \$',
-        onPressed: () => router.push(HomeRoute()),
       ),
     );
   }
@@ -181,38 +142,25 @@ class _BookSummary extends ConsumerWidget {
   }
 }
 
-class _BookAuthor extends ConsumerWidget {
-  final String bookAuthor;
+class _ProductDetailBuyButton extends ConsumerWidget {
+  final String buttonText;
+  final String bookPrice;
 
-  const _BookAuthor({required this.bookAuthor});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Text(
-      bookAuthor,
-      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontSize: min(16.sp, 16),
-            fontWeight: FontWeight.w600,
-            color: ProjectColors.darkPurpleText.withValues(alpha: 0.6),
-          ),
-    );
-  }
-}
-
-class _BookTitle extends ConsumerWidget {
-  final String bookTitle;
-
-  const _BookTitle({required this.bookTitle});
+  const _ProductDetailBuyButton({
+    required this.buttonText,
+    required this.bookPrice,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Text(
-      bookTitle,
-      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontSize: min(20.sp, 20),
-            fontWeight: FontWeight.w700,
-            color: ProjectColors.darkPurpleText,
-          ),
+    return SizedBox(
+      width: 350.w,
+      height: 60.h,
+      child: BuyButton(
+        buttonText: buttonText,
+        bookPrice: '$bookPrice \$',
+        onPressed: () => router.push(HomeRoute()),
+      ),
     );
   }
 }

@@ -42,12 +42,15 @@ class ProductCoverImage extends ConsumerWidget {
 class ProductNameText extends StatelessWidget {
   final String title;
   final double fontSize;
+  final FontWeight fontWeight;
+
   final int maxLines;
 
   const ProductNameText({
     required this.title,
     this.fontSize = 12,
     this.maxLines = 2,
+    this.fontWeight = FontWeight.w600,
     super.key,
   });
 
@@ -60,7 +63,7 @@ class ProductNameText extends StatelessWidget {
       maxLines: maxLines,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
             fontSize: min(fontSize.sp, fontSize),
-            fontWeight: FontWeight.w600,
+            fontWeight: fontWeight,
             color: ProjectColors.darkPurpleText,
           ),
     );
@@ -70,10 +73,12 @@ class ProductNameText extends StatelessWidget {
 class ProductAuthorText extends StatelessWidget {
   final String author;
   final double fontSize;
+  final FontWeight fontWeight;
 
   const ProductAuthorText({
     required this.author,
     this.fontSize = 10,
+    this.fontWeight = FontWeight.w700,
     super.key,
   });
 
@@ -86,7 +91,7 @@ class ProductAuthorText extends StatelessWidget {
       maxLines: 1,
       style: Theme.of(context).textTheme.labelMedium?.copyWith(
             fontSize: min(fontSize.sp, fontSize),
-            fontWeight: FontWeight.w700,
+            fontWeight: fontWeight,
             color: ProjectColors.darkPurpleText.withValues(alpha: 0.6),
           ),
     );
@@ -96,10 +101,12 @@ class ProductAuthorText extends StatelessWidget {
 class ProductPriceText extends StatelessWidget {
   final String price;
   final double fontSize;
+  final FontWeight fontWeight;
 
   const ProductPriceText({
     required this.price,
     this.fontSize = 12,
+    this.fontWeight = FontWeight.w700,
     super.key,
   });
 
@@ -109,7 +116,7 @@ class ProductPriceText extends StatelessWidget {
       '$price \$',
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
             fontSize: min(fontSize.sp, fontSize),
-            fontWeight: FontWeight.w700,
+            fontWeight: fontWeight,
             color: ProjectColors.priceText,
           ),
     );
