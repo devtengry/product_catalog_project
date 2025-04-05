@@ -54,12 +54,12 @@ class BookDetailScreen extends ConsumerWidget {
                       Positioned(
                         child: Center(
                           child: Column(
-                            spacing: 40.h,
                             children: [
                               Column(
                                 children: [
                                   ProductCoverImage(
                                       fileName: product.cover ?? ''),
+                                  SizedBox(height: 16.h),
                                   ProductNameText(
                                     title: product.name ?? '',
                                     fontSize: min(20.sp, 20),
@@ -72,15 +72,11 @@ class BookDetailScreen extends ConsumerWidget {
                                   ),
                                 ],
                               ),
+                              SizedBox(height: 30.h),
                               _BookSummary(
                                 summaryTitle: 'Summary',
                                 bookSummary: product.description ??
                                     'No description available.',
-                              ),
-                              _ProductDetailBuyButton(
-                                buttonText: 'Buy Now',
-                                bookPrice:
-                                    product.price?.toStringAsFixed(2) ?? '0.00',
                               ),
                             ],
                           ),
@@ -100,6 +96,26 @@ class BookDetailScreen extends ConsumerWidget {
             ),
           );
         },
+      ),
+      bottomNavigationBar: productDetailAsync.maybeWhen(
+        data: (productDetail) {
+          final product = productDetail.productByPk;
+          if (product == null) return const SizedBox.shrink();
+
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.h),
+            child: SizedBox(
+              width: min(350.w, 350),
+              height: min(60.h, 60),
+              child: BuyButton(
+                buttonText: 'Buy Now',
+                bookPrice: product.price?.toStringAsFixed(2) ?? '0.00',
+                onPressed: () => router.push(HomeRoute()),
+              ),
+            ),
+          );
+        },
+        orElse: () => const SizedBox.shrink(),
       ),
     );
   }
@@ -138,29 +154,6 @@ class _BookSummary extends ConsumerWidget {
               ),
         ),
       ],
-    );
-  }
-}
-
-class _ProductDetailBuyButton extends ConsumerWidget {
-  final String buttonText;
-  final String bookPrice;
-
-  const _ProductDetailBuyButton({
-    required this.buttonText,
-    required this.bookPrice,
-  });
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-      width: 350.w,
-      height: 60.h,
-      child: BuyButton(
-        buttonText: buttonText,
-        bookPrice: '$bookPrice \$',
-        onPressed: () => router.push(HomeRoute()),
-      ),
     );
   }
 }
