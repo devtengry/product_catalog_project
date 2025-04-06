@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 
@@ -79,9 +80,7 @@ class _SearchField extends ConsumerWidget {
       final firstProduct = filteredProducts.first;
       context.router.push(BookDetailRoute(productId: firstProduct.id));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('No matching products found.')),
-      );
+      SnackBarManager(context).showErrorSnackBar('No matching products found.');
     }
   }
 }

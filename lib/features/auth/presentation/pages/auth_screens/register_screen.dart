@@ -117,26 +117,28 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           return null;
                         },
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: const [
-                          AuthSwitchTextButton(
-                            text: TextConstants.loginText,
-                            route: LoginRoute(),
-                          ),
-                        ],
-                      ),
                     ],
                   ),
-                  SizedBox(height: 55.h),
-                  AuthButton(
-                    onPressed: authState.isLoading ? null : _onRegisterPressed,
-                    text: TextConstants.authButtonTextRegisterText,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [
+                      AuthSwitchTextButton(
+                        text: TextConstants.loginText,
+                        route: LoginRoute(),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
           ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: AuthButton(
+          onPressed: authState.isLoading ? null : _onRegisterPressed,
+          text: TextConstants.authButtonTextRegisterText,
         ),
       ),
     );

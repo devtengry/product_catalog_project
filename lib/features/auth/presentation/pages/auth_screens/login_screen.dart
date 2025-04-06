@@ -129,15 +129,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 55.h),
-                  AuthButton(
-                    onPressed: authState.isLoading ? null : _onLoginPressed,
-                    text: TextConstants.authButtonTextLoginText,
-                  ),
                 ],
               ),
             ),
           ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: AuthButton(
+          onPressed: authState.isLoading ? null : _onLoginPressed,
+          text: TextConstants.authButtonTextLoginText,
         ),
       ),
     );

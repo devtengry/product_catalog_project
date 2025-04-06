@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:product_catalog_project/features/like_dislike/providers/like_providers.dart';
 
 class LikeButton extends ConsumerWidget {
@@ -35,12 +36,7 @@ class LikeButton extends ConsumerWidget {
           try {
             await ref.read(likeButtonProvider(productId).notifier).toggleLike();
           } catch (e) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(e.toString()),
-                backgroundColor: ProjectColors.elevatedButton,
-              ),
-            );
+            SnackBarManager(context).showErrorSnackBar(e.toString());
           }
         },
       ),
