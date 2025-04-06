@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
+import 'package:product_catalog_project/ui/widgets/custom_loading_indicator.dart';
 
 class ProductCoverImage extends ConsumerWidget {
   final String fileName;
@@ -32,8 +33,8 @@ class ProductCoverImage extends ConsumerWidget {
           fit: fit,
           errorBuilder: (_, __, ___) => const Icon(Icons.error),
         ),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, __) => const Icon(Icons.error),
+        loading: () => const Center(child: CustomLoadingIndicator()),
+        error: (_, __) => const Icon(Icons.file_download_off_outlined),
       ),
     );
   }

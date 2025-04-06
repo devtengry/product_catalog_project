@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/home/data/models/product_model.dart';
 import 'package:product_catalog_project/router/app_router.dart';
-import 'package:product_catalog_project/ui/widgets/product_widgets/product_widgets.dart';
+import 'package:product_catalog_project/ui/widgets/product_widgets.dart';
 
 class CategoryDetailProducts extends ConsumerWidget {
   final Product product;

@@ -10,7 +10,9 @@ import 'package:product_catalog_project/features/home/presentation/widgets/home_
 import 'package:product_catalog_project/features/filter_feature/presentation/widgets/home_filter_chip.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/category_provider.dart';
 import 'package:product_catalog_project/features/search/presentation/widgets/search_bar/search_bar.dart';
-import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
+import 'package:product_catalog_project/ui/widgets/custom_loading_indicator.dart';
+import 'package:product_catalog_project/ui/widgets/main_app_bar.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 @RoutePage()
 class HomeScreen extends ConsumerWidget {
@@ -60,7 +62,7 @@ class HomeScreen extends ConsumerWidget {
                             SizedBox(
                               width: 10.w,
                               height: 10.h,
-                              child: const CircularProgressIndicator(),
+                              child: const CustomLoadingIndicator(),
                             )
                           ],
                           error: (err, stack) =>
@@ -92,7 +94,7 @@ class HomeScreen extends ConsumerWidget {
                         }
                       },
                       loading: () =>
-                          const Center(child: CircularProgressIndicator()),
+                          const Center(child: CustomLoadingIndicator()),
                       error: (err, stack) => Center(child: Text('$err')),
                     ),
               ),

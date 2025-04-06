@@ -5,7 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/category_detail/presentation/widgets/category_detail_products.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
-import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
+import 'package:product_catalog_project/ui/widgets/custom_loading_indicator.dart';
+import 'package:product_catalog_project/ui/widgets/main_app_bar.dart';
 import 'package:product_catalog_project/features/search/presentation/widgets/search_bar/search_bar.dart';
 
 @RoutePage()
@@ -30,8 +31,7 @@ class CategoryDetailScreen extends ConsumerWidget {
               Expanded(
                 child: productAsync.when(
                   error: (error, _) => Center(child: Text('Error: $error')),
-                  loading: () =>
-                      const Center(child: CircularProgressIndicator()),
+                  loading: () => const Center(child: CustomLoadingIndicator()),
                   data: (products) => GridView.builder(
                     itemCount: products.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

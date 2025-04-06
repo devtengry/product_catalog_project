@@ -26,4 +26,8 @@ class ProjectColors {
   static const Color iconColor = Color(0xFF090937);
   //snackbar colors
   static const Color snacBarColor = Color(0xFF6251DD);
+  //loading colors
+  static const Color purpleLoading = Color(0xFF6251DD);
+  static const Color orangeLoading = Color(0xFFEF6B4A);
+  static const Color darkPurpleLoading = Color(0xFF1D1D4E);
 }

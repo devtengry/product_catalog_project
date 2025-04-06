@@ -9,8 +9,9 @@ import 'package:product_catalog_project/features/book_detail/presentation/widget
 import 'package:product_catalog_project/features/book_detail/presentation/provider/product_detail_provider.dart';
 import 'package:product_catalog_project/features/like_dislike/presentation/widgets/like_button.dart';
 import 'package:product_catalog_project/router/app_router.dart';
-import 'package:product_catalog_project/ui/widgets/app_bar/main_app_bar.dart';
-import 'package:product_catalog_project/ui/widgets/product_widgets/product_widgets.dart';
+import 'package:product_catalog_project/ui/widgets/custom_loading_indicator.dart';
+import 'package:product_catalog_project/ui/widgets/main_app_bar.dart';
+import 'package:product_catalog_project/ui/widgets/product_widgets.dart';
 
 @RoutePage()
 class BookDetailScreen extends ConsumerWidget {
@@ -35,7 +36,7 @@ class BookDetailScreen extends ConsumerWidget {
         ),
       ),
       body: productDetailAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const Center(child: CustomLoadingIndicator()),
         error: (error, stackTrace) => Center(child: Text('$error')),
         data: (productDetail) {
           final product = productDetail.productByPk;
