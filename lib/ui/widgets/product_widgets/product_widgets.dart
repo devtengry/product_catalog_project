@@ -88,7 +88,7 @@ class ProductAuthorText extends StatelessWidget {
       author,
       softWrap: true,
       overflow: TextOverflow.ellipsis,
-      maxLines: 1,
+      maxLines: 2,
       style: Theme.of(context).textTheme.labelMedium?.copyWith(
             fontSize: min(fontSize.sp, fontSize),
             fontWeight: fontWeight,

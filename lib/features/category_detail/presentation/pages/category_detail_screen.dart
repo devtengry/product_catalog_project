@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,8 +25,10 @@ class CategoryDetailScreen extends ConsumerWidget {
       appBar: MainAppBar(
         suffixText: 'Best Seller',
         leadingIcon: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.arrow_back_ios_new_outlined),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios_new_outlined),
         ),
       ),
       body: SafeArea(
@@ -35,10 +36,10 @@ class CategoryDetailScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              const HomeSearchBar(),
+              HomeSearchBar(),
               Expanded(
                 child: productAsync.when(
-                  error: (error, _) => Center(child: Text('$error')),
+                  error: (error, _) => Center(child: Text('Error: $error')),
                   loading: () =>
                       const Center(child: CircularProgressIndicator()),
                   data: (products) => GridView.builder(
@@ -49,7 +50,7 @@ class CategoryDetailScreen extends ConsumerWidget {
                     ),
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.all(5),
-                      child: CategoryDetailBookCard(product: products[index]),
+                      child: _CategoryDetailBook(product: products[index]),
                     ),
                   ),
                 ),
@@ -62,13 +63,13 @@ class CategoryDetailScreen extends ConsumerWidget {
   }
 }
 
-class CategoryDetailBookCard extends StatelessWidget {
+class _CategoryDetailBook extends ConsumerWidget {
   final Product product;
 
-  const CategoryDetailBookCard({super.key, required this.product});
+  const _CategoryDetailBook({required this.product});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () => router.push(BookDetailRoute(productId: product.id)),
       child: Container(
@@ -78,42 +79,39 @@ class CategoryDetailBookCard extends StatelessWidget {
           color: ProjectColors.cardBackground,
           borderRadius: BorderRadius.circular(4.0),
         ),
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Flexible(
-              child: AspectRatio(
-                aspectRatio: 150.h / 225.w,
-                child:
-                    Expanded(child: ProductCoverImage(fileName: product.cover)),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Flexible(
+                child: AspectRatio(
+                  aspectRatio: 150.h / 225.w,
+                  child: ProductCoverImage(fileName: product.cover),
+                ),
               ),
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ProductNameText(
-                        title: product.name,
-                        fontSize: min(10.sp, 10),
+              ConstrainedBox(
+                constraints: BoxConstraints(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ProductNameText(title: product.name),
+                          ProductAuthorText(author: product.author),
+                        ],
                       ),
-                      ProductAuthorText(
-                        author: product.author,
-                        fontSize: min(8.sp, 8),
-                      ),
-                    ],
-                  ),
+                    ),
+                    Flexible(
+                        child:
+                            ProductPriceText(price: product.price.toString())),
+                  ],
                 ),
-                ProductPriceText(
-                  price: product.price.toString(),
-                  fontSize: min(12.sp, 12),
-                ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );
