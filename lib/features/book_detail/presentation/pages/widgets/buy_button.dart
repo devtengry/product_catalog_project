@@ -38,7 +38,7 @@ class BuyButton extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            bookPrice,
+            '$bookPrice \$',
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
                 fontWeight: FontWeight.w600,
                 fontSize: min(16.sp, 16),
