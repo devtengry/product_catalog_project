@@ -14,7 +14,7 @@ class HorizontalBookList extends ConsumerWidget {
     final productAsync = ref.watch(categoryProductsProvider(categoryId));
 
     return productAsync.when(
-      error: (error, _) => Center(child: Text('Error: $error')),
+      error: (error, _) => Center(child: Text('Failed to load products')),
       loading: () => const Center(child: CircularProgressIndicator()),
       data: (products) {
         if (products.isEmpty) {

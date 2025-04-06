@@ -14,10 +14,10 @@ class ProductDetailRepository {
       if (response.statusCode == 200) {
         return ProductDetailModel.fromJson(response.data);
       } else {
-        throw Exception('Failed to load product detail');
+        throw 'Failed to load product detail';
       }
     } catch (e) {
-      throw Exception('Error: $e');
+      throw 'An error occured!';
     }
   }
 }

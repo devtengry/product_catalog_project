@@ -1,5 +1,4 @@
 // ignore_for_file: library_private_types_in_public_api
-
 import 'dart:async';
 import 'package:product_catalog_project/core/localizations/text_constants.dart';
 import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
@@ -44,7 +43,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         _emailController.text = credentials['email'] ?? '';
         _passwordController.text = credentials['password'] ?? '';
       });
-      // Checkbox durumunu güncelle
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (credentials['email']?.isNotEmpty == true &&
             credentials['password']?.isNotEmpty == true) {

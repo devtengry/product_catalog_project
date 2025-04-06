@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
-import 'package:product_catalog_project/features/book_detail/presentation/pages/widgets/buy_button.dart';
+import 'package:product_catalog_project/features/book_detail/presentation/widgets/buy_button.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/provider/product_detail_provider.dart';
 import 'package:product_catalog_project/features/like_dislike/presentation/widgets/like_button.dart';
 import 'package:product_catalog_project/router/app_router.dart';
@@ -36,7 +36,7 @@ class BookDetailScreen extends ConsumerWidget {
       ),
       body: productDetailAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stackTrace) => Center(child: Text('Error: $error')),
+        error: (error, stackTrace) => Center(child: Text('$error')),
         data: (productDetail) {
           final product = productDetail.productByPk;
 

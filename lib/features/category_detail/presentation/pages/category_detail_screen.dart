@@ -38,7 +38,7 @@ class CategoryDetailScreen extends ConsumerWidget {
               const HomeSearchBar(),
               Expanded(
                 child: productAsync.when(
-                  error: (error, _) => Center(child: Text('Error: $error')),
+                  error: (error, _) => Center(child: Text('$error')),
                   loading: () =>
                       const Center(child: CircularProgressIndicator()),
                   data: (products) => GridView.builder(

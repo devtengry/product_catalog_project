@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/features/filter_feature/presentation/providers/selected_category_provider.dart';
 import 'package:product_catalog_project/features/home/data/models/category_model.dart';
 import 'package:product_catalog_project/features/home/presentation/widgets/home_widgets/category_section/category_card.dart';
 import 'package:product_catalog_project/features/filter_feature/presentation/widgets/home_filter_chip.dart';
@@ -55,8 +56,15 @@ class HomeScreen extends ConsumerWidget {
                               );
                             }).toList();
                           },
-                          loading: () => [const CircularProgressIndicator()],
-                          error: (err, stack) => [Text('Error: $err')],
+                          loading: () => [
+                            SizedBox(
+                              width: 10.w,
+                              height: 10.h,
+                              child: const CircularProgressIndicator(),
+                            )
+                          ],
+                          error: (err, stack) =>
+                              [Text('Failed to load filters!')],
                         ),
                   ],
                 ),
@@ -85,7 +93,7 @@ class HomeScreen extends ConsumerWidget {
                       },
                       loading: () =>
                           const Center(child: CircularProgressIndicator()),
-                      error: (err, stack) => Center(child: Text('Error: $err')),
+                      error: (err, stack) => Center(child: Text('$err')),
                     ),
               ),
             ],

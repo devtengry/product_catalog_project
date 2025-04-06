@@ -7,6 +7,10 @@ final categoryServiceProvider = Provider((ref) => CategoryService());
 final categoryProvider = FutureProvider<CategoryModel>(
   (ref) async {
     final service = ref.watch(categoryServiceProvider);
-    return service.fetchCategories();
+    try {
+      return await service.fetchCategories();
+    } catch (e) {
+      throw "Failed to load categories. Please try again.";
+    }
   },
 );

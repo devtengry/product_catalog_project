@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
-
-final selectedCategoryProvider = StateProvider<int>((ref) => 0);
+import 'package:product_catalog_project/features/filter_feature/presentation/providers/selected_category_provider.dart';
 
 class HomeFilterChip extends ConsumerWidget {
   const HomeFilterChip({

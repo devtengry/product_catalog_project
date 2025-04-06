@@ -41,19 +41,16 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   }
 
   void _onRegisterPressed() async {
-    // Form alanlarının boş olup olmadığını kontrol et
     if (_nameController.text.isEmpty ||
         _emailController.text.isEmpty ||
         _passwordController.text.isEmpty) {
-      // Eğer alanlardan biri boşsa, SnackBar ile kullanıcıya uyarı göster
       SnackBarManager(context).showErrorSnackBar('Please fill out all fields!');
-      return; // Formu submit etme, yönlendirme yapma
+      return;
     }
 
     if (_formKey.currentState!.validate()) {
       final authNotifier = ref.read(authNotifierProvider.notifier);
 
-      // Kayıt işlemini gerçekleştir
       await authNotifier.register(
         _emailController.text,
         _passwordController.text,
@@ -62,7 +59,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
       final authState = ref.read(authNotifierProvider);
 
-      // Kullanıcı başarıyla kaydedildiyse yönlendirme yap
       if (authState.isAuthenticated && mounted) {
         context.router.replace(const LoginRoute());
       }
