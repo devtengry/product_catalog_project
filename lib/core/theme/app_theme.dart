@@ -5,7 +5,7 @@ import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
-        //
+
         // Text Theme
         textTheme: TextTheme(
           titleSmall: GoogleFonts.manrope(color: ProjectColors.darkPurpleText),
@@ -31,7 +31,6 @@ class AppTheme {
           labelLarge: GoogleFonts.manrope(color: ProjectColors.priceText),
         ),
 
-        //
         // Card Theme
         cardTheme: CardTheme(
           shadowColor: Colors.transparent,

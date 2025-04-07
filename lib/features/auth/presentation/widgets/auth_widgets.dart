@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:product_catalog_project/core/localizations/text_constants.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/auth_elevated_button.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/auth_text_button.dart';

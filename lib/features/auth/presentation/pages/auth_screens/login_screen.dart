@@ -1,6 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'dart:async';
-import 'package:product_catalog_project/core/localizations/text_constants.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/auth_widgets.dart';
 import 'package:flutter/material.dart';

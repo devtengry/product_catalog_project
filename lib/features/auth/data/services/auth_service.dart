@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:product_catalog_project/core/constants/app_constants.dart';
+import 'package:product_catalog_project/core/constants/key_constants.dart';
 import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
 import 'package:product_catalog_project/features/auth/presentation/states/auth_state.dart';
 import 'package:product_catalog_project/features/auth/repos/auth_repository.dart';

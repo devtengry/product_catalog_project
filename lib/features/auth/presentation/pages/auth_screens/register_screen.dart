@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:product_catalog_project/core/localizations/text_constants.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/features/auth/presentation/provider/auth_provider.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/auth_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
