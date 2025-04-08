@@ -17,7 +17,6 @@ class RememberMeCheckbox extends ConsumerWidget {
     return InkWell(
       onTap: () {
         ref.read(rememberMeProvider.notifier).state = !rememberMe;
-        // Eğer checkbox işareti kaldırılırsa kayıtlı bilgileri temizle
         if (!rememberMe) {
           AuthStorage.clearCredentials();
         }

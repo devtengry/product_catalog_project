@@ -7,11 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
+import 'package:product_catalog_project/features/search/presentation/providers/search_provider.dart';
 import 'package:product_catalog_project/router/app_router.dart';
-
-final searchControllerProvider = StateProvider<TextEditingController>(
-  (ref) => TextEditingController(),
-);
 
 class HomeSearchBar extends ConsumerWidget {
   const HomeSearchBar({super.key});

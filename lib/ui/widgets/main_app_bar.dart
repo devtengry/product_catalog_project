@@ -18,8 +18,6 @@ class MainAppBar extends ConsumerWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppBar(
-      backgroundColor: ProjectColors.whiteBackground,
-      surfaceTintColor: ProjectColors.whiteBackground,
       leading: Padding(
         padding: const EdgeInsets.only(left: 20.0),
         child: SizedBox(

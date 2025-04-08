@@ -12,7 +12,6 @@ import 'package:product_catalog_project/features/home/presentation/provider/cate
 import 'package:product_catalog_project/features/search/presentation/widgets/search_bar/search_bar.dart';
 import 'package:product_catalog_project/ui/widgets/custom_loading_indicator.dart';
 import 'package:product_catalog_project/ui/widgets/main_app_bar.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 @RoutePage()
 class HomeScreen extends ConsumerWidget {

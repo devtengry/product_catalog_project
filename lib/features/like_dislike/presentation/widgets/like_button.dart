@@ -35,6 +35,11 @@ class LikeButton extends ConsumerWidget {
         onPressed: () async {
           try {
             await ref.read(likeButtonProvider(productId).notifier).toggleLike();
+            if (isLiked == false) {
+              SnackBarManager(context).showErrorSnackBar('Product liked.');
+            } else {
+              SnackBarManager(context).showErrorSnackBar('Product unliked.');
+            }
           } catch (e) {
             SnackBarManager(context).showErrorSnackBar(e.toString());
           }

@@ -7,10 +7,8 @@ class SnackBarManager {
   SnackBarManager(this.context);
 
   void showErrorSnackBar(String message) {
-    // Önceki SnackBar'ları temizle
     ScaffoldMessenger.of(context).clearSnackBars();
 
-    // Yeni SnackBar'ı göster
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:product_catalog_project/features/home/data/models/product_model.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
@@ -21,3 +22,6 @@ final filteredProductsProvider = Provider<List<Product>>((ref) {
     error: (e, _) => [],
   );
 });
+final searchControllerProvider = StateProvider<TextEditingController>(
+  (ref) => TextEditingController(),
+);

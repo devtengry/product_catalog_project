@@ -6,23 +6,14 @@ class AuthStorage {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(ConstantsKeys.authTokenKey, token);
     await prefs.setInt(
-        ConstantsKeys.tokenTimeKey, DateTime.now().millisecondsSinceEpoch);
+      ConstantsKeys.tokenTimeKey,
+      DateTime.now().millisecondsSinceEpoch,
+    );
   }
 
   static Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString(ConstantsKeys.authTokenKey);
-    final tokenTime = prefs.getInt(ConstantsKeys.tokenTimeKey);
-
-    if (token != null && tokenTime != null) {
-      final now = DateTime.now().millisecondsSinceEpoch;
-      if (now - tokenTime <= 5 * 60 * 1000) {
-        return token;
-      } else {
-        await deleteToken();
-      }
-    }
-    return null;
+    return prefs.getString(ConstantsKeys.authTokenKey);
   }
 
   static Future<int?> getTokenTime() async {

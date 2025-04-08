@@ -2,7 +2,7 @@
 <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:label="product_catalog_project"
+        android:label="Piton Technology Project"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

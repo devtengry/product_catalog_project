@@ -1,10 +1,37 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 
 class AppTheme {
+  // InputDecotation Theme
+  static InputDecoration textFieldDecoration(
+      BuildContext context, String hintTextString) {
+    return InputDecoration(
+      filled: true,
+      fillColor: ProjectColors.textFieldBackground,
+      hintText: hintTextString,
+      hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+            fontSize: min(16.sp, 16),
+            fontWeight: FontWeight.w700,
+            color: ProjectColors.darkPurpleText.withValues(alpha: 0.4),
+          ),
+      border: OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.circular(4),
+      ),
+    );
+  }
+
   static ThemeData get lightTheme {
     return ThemeData(
+        // AppBar Theme
+        appBarTheme: AppBarTheme(
+          backgroundColor: ProjectColors.whiteBackground,
+          surfaceTintColor: ProjectColors.whiteBackground,
+        ),
 
         // Text Theme
         textTheme: TextTheme(
@@ -48,6 +75,7 @@ class AppTheme {
               ProjectColors.elevatedButton,
             ),
           ),
-        ));
+        ),
+        inputDecorationTheme: InputDecorationTheme());
   }
 }

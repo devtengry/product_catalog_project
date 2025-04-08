@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:product_catalog_project/core/constants/text_constants.dart';
-import 'package:product_catalog_project/features/auth/presentation/provider/auth_provider.dart';
-import 'package:product_catalog_project/features/auth/presentation/widgets/auth_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
-import 'package:product_catalog_project/router/app_router.dart';
+import 'package:validators2/validators2.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/features/auth/presentation/provider/auth_provider.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/auth_widgets.dart';
+import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
+import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/utils/error_handling.dart';
-import 'package:validators2/validators2.dart';
 
 @RoutePage()
 class RegisterScreen extends ConsumerStatefulWidget {
@@ -22,12 +22,12 @@ class RegisterScreen extends ConsumerStatefulWidget {
 }
 
 class _RegisterScreenState extends ConsumerState<RegisterScreen> {
-  final String _logoAssetPath = AssetsPath().logoAssetPath;
-
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _logoAssetPath = AssetsPath().logoAssetPath;
 
   Timer? _snackBarTimer;
 
@@ -57,12 +57,28 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
         _nameController.text,
       );
 
-      final authState = ref.read(authNotifierProvider);
-
-      if (authState.isAuthenticated && mounted) {
+      if (ref.read(authNotifierProvider).isAuthenticated && mounted) {
         context.router.replace(const LoginRoute());
       }
     }
+  }
+
+  String? _passwordValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      SnackBarManager(context).showErrorSnackBar('Password cannot be empty!');
+      return null;
+    }
+    if (!isLength(value, 6, 20)) {
+      SnackBarManager(context)
+          .showErrorSnackBar('Password must be between 6 and 20 characters!');
+      return null;
+    }
+    if (!matches(value, r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$')) {
+      SnackBarManager(context).showErrorSnackBar(
+          'Password must contain at least one letter and one number!');
+      return null;
+    }
+    return null;
   }
 
   @override
@@ -82,7 +98,6 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               key: _formKey,
               child: Column(
                 children: [
-                  SizedBox(height: 20.h),
                   AuthLogo(logoAssetPath: _logoAssetPath),
                   SizedBox(height: 115.h),
                   const AuthTextHeader(
@@ -97,25 +112,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       AuthEmailField(controller: _emailController),
                       AuthPasswordField(
                         controller: _passwordController,
-                        customValidator: (value) {
-                          if (value == null || value.isEmpty) {
-                            SnackBarManager(context)
-                                .showErrorSnackBar('Password cannot be empty!');
-                            return null;
-                          }
-                          if (!isLength(value, 6, 20)) {
-                            SnackBarManager(context).showErrorSnackBar(
-                                'Password must be between 6 and 20 characters!');
-                            return null;
-                          }
-                          if (!matches(value,
-                              r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$')) {
-                            SnackBarManager(context).showErrorSnackBar(
-                                'Password must contain at least one letter and one number!');
-                            return null;
-                          }
-                          return null;
-                        },
+                        customValidator: _passwordValidator,
                       ),
                     ],
                   ),
