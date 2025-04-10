@@ -112,6 +112,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       AuthPasswordField(controller: _passwordController),
                     ],
                   ),
+                  SizedBox(height: 10.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
