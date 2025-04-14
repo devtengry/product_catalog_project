@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
-import 'package:product_catalog_project/features/search/presentation/providers/search_provider.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 
 class HomeSearchBar extends ConsumerWidget {
@@ -15,7 +13,7 @@ class HomeSearchBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final searchController = ref.watch(searchControllerProvider);
+    final searchController = TextEditingController();
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
       child: _SearchField(
@@ -57,23 +55,22 @@ class _SearchField extends ConsumerWidget {
             ),
         suffixIcon: const _SearchIcons(icon: Icons.tune),
       ),
-      onSubmitted: (value) {
-        _handleSearch(context, ref, value);
+      onSubmitted: (value) async {
+        await _handleSearch(context, ref, value);
       },
     );
   }
 
-  void _handleSearch(BuildContext context, WidgetRef ref, String query) {
-    final filteredProducts = ref
-        .read(allProductsProvider)
-        .asData
-        ?.value
+  Future<void> _handleSearch(
+      BuildContext context, WidgetRef ref, String query) async {
+    final productsAsync = await ref.read(allProductsProvider.future);
+    final filteredProducts = productsAsync
         .where((product) =>
             product.name.toLowerCase().contains(query.toLowerCase()) ||
             product.author.toLowerCase().contains(query.toLowerCase()))
         .toList();
 
-    if (filteredProducts != null && filteredProducts.isNotEmpty) {
+    if (filteredProducts.isNotEmpty) {
       final firstProduct = filteredProducts.first;
       context.router.push(BookDetailRoute(productId: firstProduct.id));
     } else {

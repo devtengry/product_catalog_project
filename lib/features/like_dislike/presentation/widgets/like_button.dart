@@ -41,7 +41,8 @@ class LikeButton extends ConsumerWidget {
               SnackBarManager(context).showErrorSnackBar('Product unliked.');
             }
           } catch (e) {
-            SnackBarManager(context).showErrorSnackBar(e.toString());
+            SnackBarManager(context)
+                .showErrorSnackBar('Some error occured, please try deneyin.');
           }
         },
       ),

@@ -14,6 +14,7 @@ import 'package:product_catalog_project/features/auth/presentation/provider/auth
 import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/utils/error_handling.dart';
+import 'package:product_catalog_project/utils/validator_utils.dart';
 
 @RoutePage()
 class LoginScreen extends ConsumerStatefulWidget {
@@ -87,6 +88,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final authState = ref.watch(authNotifierProvider);
     listenForErrors(ref, context, _snackBarTimer);
 
+    String? emailValidator(String? value) {
+      return ValidatorUtils.validateEmail(value, (error) {
+        SnackBarManager(context).showErrorSnackBar(error);
+      });
+    }
+
+    String? passwordValidator(String? value) {
+      return ValidatorUtils.validatePassword(value, (error) {
+        SnackBarManager(context).showErrorSnackBar(error);
+      });
+    }
+
     return Scaffold(
       backgroundColor: ProjectColors.whiteBackground,
       body: SafeArea(
@@ -108,8 +121,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   Column(
                     spacing: 24,
                     children: [
-                      AuthEmailField(controller: _emailController),
-                      AuthPasswordField(controller: _passwordController),
+                      AuthEmailField(
+                        controller: _emailController,
+                        customValidator: emailValidator,
+                      ),
+                      AuthPasswordField(
+                        controller: _passwordController,
+                        customValidator: passwordValidator,
+                      ),
                     ],
                   ),
                   SizedBox(height: 10.h),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:validators2/validators2.dart';
+import 'package:product_catalog_project/utils/validator_utils.dart';
 import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
@@ -63,29 +63,23 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     }
   }
 
-  String? _passwordValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      SnackBarManager(context).showErrorSnackBar('Password cannot be empty!');
-      return null;
-    }
-    if (!isLength(value, 6, 20)) {
-      SnackBarManager(context)
-          .showErrorSnackBar('Password must be between 6 and 20 characters!');
-      return null;
-    }
-    if (!matches(value, r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$')) {
-      SnackBarManager(context).showErrorSnackBar(
-          'Password must contain at least one letter and one number!');
-      return null;
-    }
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
 
     listenForErrors(ref, context, _snackBarTimer);
+
+    String? emailValidator(String? value) {
+      return ValidatorUtils.validateEmail(value, (error) {
+        SnackBarManager(context).showErrorSnackBar(error);
+      });
+    }
+
+    String? passwordValidator(String? value) {
+      return ValidatorUtils.validatePassword(value, (error) {
+        SnackBarManager(context).showErrorSnackBar(error);
+      });
+    }
 
     return Scaffold(
       backgroundColor: ProjectColors.whiteBackground,
@@ -109,10 +103,13 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     spacing: 24,
                     children: [
                       AuthNameField(controller: _nameController),
-                      AuthEmailField(controller: _emailController),
+                      AuthEmailField(
+                        controller: _emailController,
+                        customValidator: emailValidator,
+                      ),
                       AuthPasswordField(
                         controller: _passwordController,
-                        customValidator: _passwordValidator,
+                        customValidator: passwordValidator,
                       ),
                     ],
                   ),
