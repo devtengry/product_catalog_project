@@ -62,7 +62,7 @@ class _CategoryDetailAppBar extends ConsumerWidget
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MainAppBar(
-      suffixText: 'Detail',
+      suffixText: '',
       leadingIcon: IconButton(
         onPressed: () {
           Navigator.pop(context);
