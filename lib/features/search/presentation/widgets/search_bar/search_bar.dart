@@ -64,6 +64,11 @@ class _SearchField extends ConsumerWidget {
 
   Future<void> _handleSearch(
       BuildContext context, WidgetRef ref, String query) async {
+    if (query.trim().isEmpty) {
+      SnackBarManager(context)
+          .showErrorSnackBar('Please enter a product name first.');
+      return;
+    }
     final productsAsync = await ref.read(allProductsProvider.future);
     final filteredProducts = productsAsync
         .where((product) =>
