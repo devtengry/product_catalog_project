@@ -13,7 +13,7 @@ class CustomLoadingIndicator extends ConsumerWidget {
       child: LoadingAnimationWidget.flickr(
         leftDotColor: ProjectColors.orangeLoading,
         rightDotColor: ProjectColors.purpleLoading,
-        size: 25.dg,
+        size: 15.dg,
       ),
     );
   }
