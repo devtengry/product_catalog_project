@@ -21,6 +21,7 @@ class SnackBarManager {
           borderRadius: BorderRadius.circular(4),
         ),
         backgroundColor: ProjectColors.snacBarColor,
+        elevation: 0,
         action: SnackBarAction(
           label: 'Close',
           textColor: Colors.white,
