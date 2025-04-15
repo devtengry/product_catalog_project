@@ -14,8 +14,9 @@ class HomeSearchBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchController = TextEditingController();
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 30),
+    return Flexible(
+      flex: 0,
+      fit: FlexFit.tight,
       child: _SearchField(
         controller: searchController,
         textInputType: TextInputType.text,

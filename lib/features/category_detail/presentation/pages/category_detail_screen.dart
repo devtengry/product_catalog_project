@@ -26,6 +26,7 @@ class CategoryDetailScreen extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
+            spacing: 30.h,
             children: [
               HomeSearchBar(),
               Expanded(
