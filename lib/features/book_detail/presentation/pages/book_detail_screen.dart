@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +7,7 @@ import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/widgets/buy_button.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/provider/product_detail_provider.dart';
 import 'package:product_catalog_project/features/like_dislike/presentation/widgets/like_button.dart';
+import 'package:product_catalog_project/features/like_dislike/providers/like_providers.dart';
 import 'package:product_catalog_project/router/app_router.dart';
 import 'package:product_catalog_project/ui/widgets/custom_loading_indicator.dart';
 import 'package:product_catalog_project/ui/widgets/main_app_bar.dart';
@@ -25,6 +25,7 @@ class BookDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final productDetailAsync = ref.watch(productDetailProvider(productId));
+    ref.watch(productLikesProvider(productId));
 
     return Scaffold(
       backgroundColor: ProjectColors.whiteBackground,
@@ -56,22 +57,17 @@ class BookDetailScreen extends ConsumerWidget {
                         child: Center(
                           child: Column(
                             children: [
-                              Column(
-                                children: [
-                                  ProductCoverImage(
-                                      fileName: product.cover ?? ''),
-                                  SizedBox(height: 16.h),
-                                  ProductNameText(
-                                    title: product.name ?? '',
-                                    fontSize: min(20.sp, 20),
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  ProductAuthorText(
-                                    author: product.author ?? '',
-                                    fontSize: min(16.sp, 16),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ],
+                              ProductCoverImage(fileName: product.cover ?? ''),
+                              SizedBox(height: 16.h),
+                              ProductNameText(
+                                title: product.name ?? '',
+                                fontSize: min(20.sp, 20),
+                                fontWeight: FontWeight.w700,
+                              ),
+                              ProductAuthorText(
+                                author: product.author ?? '',
+                                fontSize: min(16.sp, 16),
+                                fontWeight: FontWeight.w600,
                               ),
                               SizedBox(height: 30.h),
                               _BookSummary(
