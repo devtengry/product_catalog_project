@@ -19,8 +19,7 @@ class AuthService extends StateNotifier<AuthState> {
       final response = await _authRepository.login(email, password);
       final data = response.data;
 
-      final token = data[ConstantsKeys.actionLoginDataKey]
-          ?[ConstantsKeys.tokenKey] as String?;
+      final token = data[actionLoginDataKey]?[tokenKey] as String?;
       if (response.statusCode == HttpStatus.ok && token != null) {
         await _sessionManager.saveSession(token);
         state = state.copyWith(isAuthenticated: true);

@@ -1,12 +1,9 @@
-class ConstantsKeys {
-  //auth service keys
-  static const String tokenKey = 'token';
-  static const String actionLoginDataKey = 'action_login';
+//auth service keys
+const String tokenKey = 'token';
+const String actionLoginDataKey = 'action_login';
 
-  //auth storage keys
-  //TODO: Staticleri sil
-  static const authTokenKey = 'auth_token';
-  static const tokenTimeKey = 'auth_token_time';
-  static const emailKey = 'remembered_email';
-  static const passwordKey = 'remembered_password';
-}
+//auth storage keys
+const authTokenKey = 'auth_token';
+const tokenTimeKey = 'auth_token_time';
+const emailKey = 'remembered_email';
+const passwordKey = 'remembered_password';

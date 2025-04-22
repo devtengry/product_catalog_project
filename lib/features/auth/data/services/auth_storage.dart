@@ -4,46 +4,46 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthStorage {
   static Future<void> saveToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(ConstantsKeys.authTokenKey, token);
+    await prefs.setString(authTokenKey, token);
     await prefs.setInt(
-      ConstantsKeys.tokenTimeKey,
+      tokenTimeKey,
       DateTime.now().millisecondsSinceEpoch,
     );
   }
 
   static Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(ConstantsKeys.authTokenKey);
+    return prefs.getString(authTokenKey);
   }
 
   static Future<int?> getTokenTime() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(ConstantsKeys.tokenTimeKey);
+    return prefs.getInt(tokenTimeKey);
   }
 
   static Future<void> deleteToken() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(ConstantsKeys.authTokenKey);
-    await prefs.remove(ConstantsKeys.tokenTimeKey);
+    await prefs.remove(authTokenKey);
+    await prefs.remove(tokenTimeKey);
   }
 
   static Future<void> saveCredentials(String email, String password) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(ConstantsKeys.emailKey, email);
-    await prefs.setString(ConstantsKeys.passwordKey, password);
+    await prefs.setString(emailKey, email);
+    await prefs.setString(passwordKey, password);
   }
 
   static Future<Map<String, String?>> getCredentials() async {
     final prefs = await SharedPreferences.getInstance();
     return {
-      'email': prefs.getString(ConstantsKeys.emailKey),
-      'password': prefs.getString(ConstantsKeys.passwordKey),
+      'email': prefs.getString(emailKey),
+      'password': prefs.getString(passwordKey),
     };
   }
 
   static Future<void> clearCredentials() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(ConstantsKeys.emailKey);
-    await prefs.remove(ConstantsKeys.passwordKey);
+    await prefs.remove(emailKey);
+    await prefs.remove(passwordKey);
   }
 }
