@@ -1,4 +1,4 @@
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/splash_screen.dart';
+import 'package:product_catalog_project/splash_screen.dart';
 import 'package:riverpod/riverpod.dart';
 
 final rotationProvider =

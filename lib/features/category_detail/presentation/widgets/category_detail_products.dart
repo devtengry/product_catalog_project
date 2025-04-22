@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/core/theme/project_colors.dart';
 import 'package:product_catalog_project/features/home/data/models/product_model.dart';
 import 'package:product_catalog_project/router/app_router.dart';
-import 'package:product_catalog_project/ui/widgets/product_widgets.dart';
+import 'package:product_catalog_project/custom/widgets/product_widgets.dart';
 
 class CategoryDetailProducts extends ConsumerWidget {
   final Product product;
@@ -19,7 +19,7 @@ class CategoryDetailProducts extends ConsumerWidget {
         width: 170.w,
         height: 284.h,
         decoration: BoxDecoration(
-          color: ProjectColors.cardBackground,
+          color: kCardBackground,
           borderRadius: BorderRadius.circular(4.0),
         ),
         child: Padding(

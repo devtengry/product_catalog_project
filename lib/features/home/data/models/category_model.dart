@@ -22,6 +22,7 @@ class CategoryModel {
 }
 
 class Category {
+  //TODO: aşağıdaki kısımları çıkar
   int? id;
   String? name;
   String? createdAt;

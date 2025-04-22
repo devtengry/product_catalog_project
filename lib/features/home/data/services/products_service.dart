@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:product_catalog_project/core/network/network_service.dart';
+import 'package:product_catalog_project/network/network_service.dart';
 import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
 
 class ProductsService {

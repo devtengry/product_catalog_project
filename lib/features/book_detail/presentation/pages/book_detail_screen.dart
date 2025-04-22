@@ -3,15 +3,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/core/theme/project_colors.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/widgets/buy_button.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/provider/product_detail_provider.dart';
-import 'package:product_catalog_project/features/book_detail/utils/like_dislike/presentation/widgets/like_button.dart';
-import 'package:product_catalog_project/features/book_detail/utils/like_dislike/providers/like_providers.dart';
+import 'package:product_catalog_project/features/book_detail/presentation/widgets/like_button.dart';
+import 'package:product_catalog_project/features/book_detail/presentation/provider/like_providers.dart';
 import 'package:product_catalog_project/router/app_router.dart';
-import 'package:product_catalog_project/ui/widgets/custom_loading_indicator.dart';
-import 'package:product_catalog_project/ui/widgets/main_app_bar.dart';
-import 'package:product_catalog_project/ui/widgets/product_widgets.dart';
+import 'package:product_catalog_project/custom/widgets/custom_loading_indicator.dart';
+import 'package:product_catalog_project/custom/widgets/main_app_bar.dart';
+import 'package:product_catalog_project/custom/widgets/product_widgets.dart';
 
 @RoutePage()
 class BookDetailScreen extends ConsumerWidget {
@@ -28,7 +28,7 @@ class BookDetailScreen extends ConsumerWidget {
     ref.watch(productLikesProvider(productId));
 
     return Scaffold(
-      backgroundColor: ProjectColors.whiteBackground,
+      backgroundColor: kWhiteBackground,
       appBar: MainAppBar(
         suffixText: 'Book Details',
         leadingIcon: IconButton(
@@ -137,7 +137,7 @@ class _BookSummary extends ConsumerWidget {
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
                 fontSize: min(20.sp, 20),
                 fontWeight: FontWeight.w700,
-                color: ProjectColors.darkPurpleText,
+                color: kDarkPurpleText,
               ),
         ),
         SizedBox(height: 10.h),
@@ -147,7 +147,7 @@ class _BookSummary extends ConsumerWidget {
                 fontSize: min(16.sp, 16),
                 height: 1.6,
                 fontWeight: FontWeight.w400,
-                color: ProjectColors.darkPurpleText.withValues(alpha: 0.6),
+                color: kDarkPurpleText.withValues(alpha: 0.6),
               ),
         ),
       ],

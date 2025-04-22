@@ -1,6 +1,7 @@
 import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
 
 class SessionManager {
+  //TODO: burada sadece tanımla ve tanımların içini kullandığın yerde doldur
   const SessionManager();
 
   static const int _sessionTimeout = 5 * 60 * 1000;
@@ -21,17 +22,5 @@ class SessionManager {
 
   Future<void> clearSession() async {
     await AuthStorage.deleteToken();
-  }
-
-  Future<void> saveCredentials(String email, String password) async {
-    await AuthStorage.saveCredentials(email, password);
-  }
-
-  Future<Map<String, String?>> getCredentials() async {
-    return await AuthStorage.getCredentials();
-  }
-
-  Future<void> clearCredentials() async {
-    await AuthStorage.clearCredentials();
   }
 }

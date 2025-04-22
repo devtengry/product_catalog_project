@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:product_catalog_project/core/constants/key_constants.dart';
-import 'package:product_catalog_project/features/auth/presentation/states/auth_state.dart';
+import 'package:product_catalog_project/features/auth/states/auth_state.dart';
 import 'package:product_catalog_project/features/auth/repos/auth_repository.dart';
 import 'package:product_catalog_project/features/auth/domain/session_manager.dart';
 import 'package:product_catalog_project/router/app_router.dart';

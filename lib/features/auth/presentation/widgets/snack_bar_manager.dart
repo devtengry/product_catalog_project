@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/core/theme/project_colors.dart';
 
 class SnackBarManager {
   final BuildContext context;
@@ -20,7 +20,7 @@ class SnackBarManager {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
         ),
-        backgroundColor: ProjectColors.snacBarColor,
+        backgroundColor: kSnackBarColor,
         elevation: 0,
         action: SnackBarAction(
           label: 'Close',

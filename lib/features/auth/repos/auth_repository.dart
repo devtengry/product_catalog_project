@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:product_catalog_project/core/network/network_service.dart';
+import 'package:product_catalog_project/network/network_service.dart';
 
 class AuthRepository {
   final NetworkService _networkService;

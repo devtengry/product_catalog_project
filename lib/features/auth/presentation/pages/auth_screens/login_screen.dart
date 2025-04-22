@@ -1,117 +1,72 @@
-// ignore_for_file: library_private_types_in_public_api
 import 'dart:async';
-import 'package:flutter/material.dart';
+
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:product_catalog_project/gen/assets.gen.dart';
 import 'package:product_catalog_project/core/constants/text_constants.dart';
-import 'package:product_catalog_project/core/constants/assets_path.dart';
-import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/core/theme/project_colors.dart';
 import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
+import 'package:product_catalog_project/features/auth/presentation/provider/auth_provider.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/auth_widgets.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/remember_me_checkbox.dart';
-import 'package:product_catalog_project/features/auth/presentation/provider/auth_provider.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:product_catalog_project/router/app_router.dart';
-import 'package:product_catalog_project/utils/error_handling.dart';
 import 'package:product_catalog_project/utils/validator_utils.dart';
+import 'package:product_catalog_project/utils/error_handling.dart';
+import 'package:product_catalog_project/features/auth/presentation/hooks/use_auth_form_controllers.dart';
+import 'package:product_catalog_project/features/auth/presentation/hooks/use_auth_action.dart';
 
 @RoutePage()
-class LoginScreen extends ConsumerStatefulWidget {
+class LoginScreen extends HookConsumerWidget {
   const LoginScreen({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends ConsumerState<LoginScreen> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-  Timer? _snackBarTimer;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadSavedCredentials();
-  }
-
-  Future<void> _loadSavedCredentials() async {
-    final credentials = await AuthStorage.getCredentials();
-    if (!mounted) return;
-
-    _emailController.text = credentials['email'] ?? '';
-    _passwordController.text = credentials['password'] ?? '';
-
-    final remember = credentials['email']?.isNotEmpty == true &&
-        credentials['password']?.isNotEmpty == true;
-
-    ref.read(rememberMeProvider.notifier).state = remember;
-  }
-
-  Future<void> _onLoginPressed() async {
-    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-      SnackBarManager(context).showErrorSnackBar('Please fill out all fields!');
-      return;
-    }
-
-    if (_formKey.currentState?.validate() ?? false) {
-      final authNotifier = ref.read(authNotifierProvider.notifier);
-      await authNotifier.login(
-        _emailController.text,
-        _passwordController.text,
-      );
-
-      final authState = ref.read(authNotifierProvider);
-      if (authState.isAuthenticated && mounted) {
-        final shouldRemember = ref.read(rememberMeProvider);
-        shouldRemember
-            ? await AuthStorage.saveCredentials(
-                _emailController.text, _passwordController.text)
-            : await AuthStorage.clearCredentials();
-
-        context.router.replace(const HomeRoute());
-      }
-    }
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    _snackBarTimer?.cancel();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final formControllers = useAuthFormControllers();
+    final authNotifier = ref.read(authNotifierProvider.notifier);
     final authState = ref.watch(authNotifierProvider);
-    listenForErrors(ref, context, _snackBarTimer);
 
-    String? emailValidator(String? value) {
-      return ValidatorUtils.validateEmail(value, (error) {
-        SnackBarManager(context).showErrorSnackBar(error);
-      });
-    }
+    useEffect(() {
+      Future.microtask(() async {
+        final credentials = await AuthStorage.getCredentials();
+        formControllers.email.text = credentials['email'] ?? '';
+        formControllers.password.text = credentials['password'] ?? '';
 
-    String? passwordValidator(String? value) {
-      return ValidatorUtils.validatePassword(value, (error) {
-        SnackBarManager(context).showErrorSnackBar(error);
+        final remember = credentials['email']?.isNotEmpty == true &&
+            credentials['password']?.isNotEmpty == true;
+        ref.read(rememberMeProvider.notifier).state = remember;
       });
-    }
+      return null;
+    }, []);
+
+    final onLoginPressed = useAuthAction(
+      context: context,
+      ref: ref,
+      action: (email, password, [name]) => authNotifier.login(email, password),
+      email: formControllers.email,
+      password: formControllers.password,
+      formKey: formControllers.formKey,
+      redirectRoute: const HomeRoute(),
+    );
+    final snackBarTimerRef = useRef<Timer?>(null);
+
+    listenForErrors(ref, context, snackBarTimerRef.value);
 
     return Scaffold(
-      backgroundColor: ProjectColors.whiteBackground,
+      backgroundColor: kWhiteBackground,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             physics: const BouncingScrollPhysics(),
             child: Form(
-              key: _formKey,
+              key: formControllers.formKey,
               child: Column(
                 children: [
-                  AuthLogo(logoAssetPath: AssetsPath().logoAssetPath),
+                  AuthLogo(logoAssetPath: Assets.images.logo.path),
                   SizedBox(height: 115.h),
                   const AuthTextHeader(
                     title: TextConstants.loginToYourAccountText,
@@ -119,15 +74,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   SizedBox(height: 80.h),
                   Column(
-                    spacing: 24,
                     children: [
                       AuthEmailField(
-                        controller: _emailController,
-                        customValidator: emailValidator,
+                        controller: formControllers.email,
+                        customValidator: (val) =>
+                            ValidatorUtils.validateEmail(val, (e) {
+                          SnackBarManager(context).showErrorSnackBar(e);
+                        }),
                       ),
+                      SizedBox(height: 24.h),
                       AuthPasswordField(
-                        controller: _passwordController,
-                        customValidator: passwordValidator,
+                        controller: formControllers.password,
+                        customValidator: (val) =>
+                            ValidatorUtils.validatePassword(val, (e) {
+                          SnackBarManager(context).showErrorSnackBar(e);
+                        }),
                       ),
                     ],
                   ),
@@ -151,7 +112,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
         child: AuthButton(
-          onPressed: authState.isLoading ? null : _onLoginPressed,
+          onPressed: authState.isLoading ? null : onLoginPressed,
           text: TextConstants.authButtonTextLoginText,
         ),
       ),

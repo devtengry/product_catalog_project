@@ -2,12 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/core/theme/project_colors.dart';
 import 'package:product_catalog_project/features/category_detail/presentation/widgets/category_detail_products.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
-import 'package:product_catalog_project/ui/widgets/custom_loading_indicator.dart';
-import 'package:product_catalog_project/ui/widgets/main_app_bar.dart';
-import 'package:product_catalog_project/utils/search_feature/presentation/widgets/search_bar/search_bar.dart';
+import 'package:product_catalog_project/custom/widgets/custom_loading_indicator.dart';
+import 'package:product_catalog_project/custom/widgets/main_app_bar.dart';
+import 'package:product_catalog_project/common/search_action/widgets/search_bar/search_bar.dart';
 
 @RoutePage()
 class CategoryDetailScreen extends ConsumerWidget {
@@ -20,7 +20,7 @@ class CategoryDetailScreen extends ConsumerWidget {
     final productAsync = ref.watch(categoryProductsProvider(categoryId));
 
     return Scaffold(
-      backgroundColor: ProjectColors.whiteBackground,
+      backgroundColor: kWhiteBackground,
       appBar: _CategoryDetailAppBar(),
       body: SafeArea(
         child: Padding(

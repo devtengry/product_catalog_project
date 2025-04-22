@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/core/theme/project_colors.dart';
 
 class AuthTextButton extends ConsumerWidget {
   final String buttonText;
@@ -18,7 +18,7 @@ class AuthTextButton extends ConsumerWidget {
         style: Theme.of(context).textTheme.labelLarge?.copyWith(
             fontSize: min(12.sp, 12),
             fontWeight: FontWeight.w700,
-            color: ProjectColors.purpleTextButton),
+            color: kPurpleTextButton),
       ),
     );
   }

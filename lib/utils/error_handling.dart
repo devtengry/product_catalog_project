@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:product_catalog_project/features/auth/presentation/provider/auth_provider.dart';
-import 'package:product_catalog_project/features/auth/presentation/states/auth_state.dart';
+import 'package:product_catalog_project/features/auth/states/auth_state.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

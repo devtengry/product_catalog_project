@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/app_theme.dart';
-import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/core/theme/project_colors.dart';
 
 class AuthTextField extends ConsumerWidget {
   final String hintTextString;
@@ -39,7 +39,7 @@ class AuthTextField extends ConsumerWidget {
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
               fontSize: min(14.sp, 14),
               fontWeight: FontWeight.w600,
-              color: ProjectColors.darkPurpleText),
+              color: kDarkPurpleText),
         ),
         ConstrainedBox(
           constraints: BoxConstraints(

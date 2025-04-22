@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/core/theme/project_colors.dart';
 
 class SkipTextButton extends ConsumerWidget {
   final VoidCallback onPressed;
@@ -23,7 +23,7 @@ class SkipTextButton extends ConsumerWidget {
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
                 fontSize: min(16.sp, 16),
                 fontWeight: FontWeight.w700,
-                color: ProjectColors.purpleTextButton,
+                color: kPurpleTextButton,
               ),
         ),
       ),

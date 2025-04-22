@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
 import 'package:product_catalog_project/features/home/presentation/widgets/home_widgets/book_section/scrollable_book_row.dart';
-import 'package:product_catalog_project/ui/widgets/custom_loading_indicator.dart';
+import 'package:product_catalog_project/custom/widgets/custom_loading_indicator.dart';
 
 class HorizontalBookList extends ConsumerWidget {
   final int categoryId;

@@ -2,16 +2,16 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:product_catalog_project/core/constants/assets_path.dart';
-import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
-import 'package:product_catalog_project/features/home/utils/filter_feature/presentation/providers/selected_category_provider.dart';
+import 'package:product_catalog_project/gen/assets.gen.dart';
+import 'package:product_catalog_project/core/theme/project_colors.dart';
+import 'package:product_catalog_project/features/home/presentation/provider/selected_category_provider.dart';
 import 'package:product_catalog_project/features/home/data/models/category_model.dart';
 import 'package:product_catalog_project/features/home/presentation/widgets/home_widgets/category_section/category_card.dart';
-import 'package:product_catalog_project/features/home/utils/filter_feature/presentation/widgets/home_filter_chip.dart';
+import 'package:product_catalog_project/features/home/presentation/widgets/home_widgets/home_filter_chip.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/category_provider.dart';
-import 'package:product_catalog_project/utils/search_feature/presentation/widgets/search_bar/search_bar.dart';
-import 'package:product_catalog_project/ui/widgets/custom_loading_indicator.dart';
-import 'package:product_catalog_project/ui/widgets/main_app_bar.dart';
+import 'package:product_catalog_project/common/search_action/widgets/search_bar/search_bar.dart';
+import 'package:product_catalog_project/custom/widgets/custom_loading_indicator.dart';
+import 'package:product_catalog_project/custom/widgets/main_app_bar.dart';
 
 @RoutePage()
 class HomeScreen extends ConsumerWidget {
@@ -22,9 +22,9 @@ class HomeScreen extends ConsumerWidget {
     final selectedCategory = ref.watch(selectedCategoryProvider);
 
     return Scaffold(
-      backgroundColor: ProjectColors.whiteBackground,
+      backgroundColor: kWhiteBackground,
       appBar: MainAppBar(
-        leadingIcon: Image.asset(AssetsPath().logoAssetPath),
+        leadingIcon: Image.asset(Assets.images.logo.path),
         suffixText: 'Catalog',
       ),
       body: SafeArea(

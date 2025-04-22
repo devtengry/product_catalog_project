@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:product_catalog_project/core/constants/text_constants.dart';
-import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/core/theme/project_colors.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/auth_elevated_button.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/auth_text_button.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/auth_text_field.dart';
@@ -71,7 +71,7 @@ class AuthTextHeader extends StatelessWidget {
               style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     fontSize: min(16.sp, 16),
                     fontWeight: FontWeight.w600,
-                    color: ProjectColors.darkPurpleText.withAlpha(150),
+                    color: kDarkPurpleText.withAlpha(150),
                   ),
             ),
             Text(
@@ -79,7 +79,7 @@ class AuthTextHeader extends StatelessWidget {
               style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     fontSize: min(20.sp, 20),
                     fontWeight: FontWeight.w700,
-                    color: ProjectColors.darkPurpleText,
+                    color: kDarkPurpleText,
                   ),
             ),
           ],

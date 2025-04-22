@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/core/theme/project_colors.dart';
 
 class BuyButton extends ConsumerWidget {
   final String buttonText;
@@ -30,9 +30,7 @@ class BuyButton extends ConsumerWidget {
             borderRadius: BorderRadius.circular(4),
           ),
         ),
-        backgroundColor: WidgetStateProperty.all(
-          ProjectColors.elevatedButton,
-        ),
+        backgroundColor: WidgetStateProperty.all(kElevatedButton),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,14 +40,14 @@ class BuyButton extends ConsumerWidget {
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
                 fontWeight: FontWeight.w600,
                 fontSize: min(16.sp, 16),
-                color: ProjectColors.whiteText),
+                color: kWhiteText),
           ),
           Text(
             buttonText,
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
                 fontSize: min(16.sp, 16),
                 fontWeight: FontWeight.w700,
-                color: ProjectColors.whiteText),
+                color: kWhiteText),
           ),
         ],
       ),

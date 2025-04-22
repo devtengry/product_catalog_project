@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
+import 'package:product_catalog_project/core/theme/project_colors.dart';
 import 'package:product_catalog_project/features/home/data/models/category_model.dart';
 import 'package:product_catalog_project/features/home/presentation/widgets/home_widgets/book_section/horizontal_book_list.dart';
 import 'package:product_catalog_project/router/app_router.dart';
@@ -83,7 +83,7 @@ class _CategoryText extends ConsumerWidget {
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
             fontSize: min(20.sp, 20),
             fontWeight: FontWeight.w600,
-            color: ProjectColors.darkPurpleText,
+            color: kDarkPurpleText,
           ),
     );
   }
@@ -105,7 +105,7 @@ class _CategoryTextButton extends ConsumerWidget {
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
               fontSize: min(12.sp, 12),
               fontWeight: FontWeight.w600,
-              color: ProjectColors.orangeTextButton),
+              color: kOrangeTextButton),
         ),
       ),
     );

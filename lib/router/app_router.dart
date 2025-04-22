@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/login_screen.dart';
 import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/register_screen.dart';
-import 'package:product_catalog_project/features/auth/presentation/pages/auth_screens/splash_screen.dart';
+import 'package:product_catalog_project/splash_screen.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/pages/book_detail_screen.dart';
 import 'package:product_catalog_project/features/category_detail/presentation/pages/category_detail_screen.dart';
 import 'package:product_catalog_project/features/home/presentation/pages/home_screen.dart';
