@@ -36,7 +36,7 @@ class _RememberMeText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      TextConstants.rememberMeText,
+      rememberMeText,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
           fontSize: min(12.sp, 12),
           fontWeight: FontWeight.w700,

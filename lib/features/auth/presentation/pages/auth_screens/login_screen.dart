@@ -69,8 +69,8 @@ class LoginScreen extends HookConsumerWidget {
                   AuthLogo(logoAssetPath: Assets.images.logo.path),
                   SizedBox(height: 115.h),
                   const AuthTextHeader(
-                    title: TextConstants.loginToYourAccountText,
-                    subtitle: TextConstants.welcomeBackText,
+                    title: loginToYourAccountText,
+                    subtitle: welcomeBackText,
                   ),
                   SizedBox(height: 80.h),
                   Column(
@@ -98,7 +98,7 @@ class LoginScreen extends HookConsumerWidget {
                     children: const [
                       RememberMeCheckbox(),
                       AuthSwitchTextButton(
-                        text: TextConstants.registerText,
+                        text: registerText,
                         route: RegisterRoute(),
                       ),
                     ],
@@ -113,7 +113,7 @@ class LoginScreen extends HookConsumerWidget {
         color: Colors.transparent,
         child: AuthButton(
           onPressed: authState.isLoading ? null : onLoginPressed,
-          text: TextConstants.authButtonTextLoginText,
+          text: authButtonTextLoginText,
         ),
       ),
     );

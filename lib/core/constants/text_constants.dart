@@ -1,22 +1,16 @@
-class TextConstants {
-  static const String nameHintText = 'John Doe';
-  static const String emailHintText = 'john@mail.com';
-  static const String passwordHintText = '........';
-
-  static const String nameLabelText = 'Name';
-  static const String emailLabelText = 'E-Mail';
-  static const String passwordLabelText = 'Password';
-
-  static const String authButtonTextLoginText = 'Login';
-  static const String authButtonTextRegisterText = 'Register';
-
-  static const String welcomeText = 'Welcome';
-  static const String registerAnAccountText = 'Register an account';
-  static const String welcomeBackText = 'Welcome back!';
-  static const String loginToYourAccountText = 'Login to your account';
-
-  static const String loginText = 'Login';
-  static const String registerText = 'Register';
-  static const String rememberMeText = 'Remember Me';
-  static const String skipText = 'Skip';
-}
+const String nameHintText = 'John Doe';
+const String emailHintText = 'john@mail.com';
+const String passwordHintText = '........';
+const String nameLabelText = 'Name';
+const String emailLabelText = 'E-Mail';
+const String passwordLabelText = 'Password';
+const String authButtonTextLoginText = 'Login';
+const String authButtonTextRegisterText = 'Register';
+const String welcomeText = 'Welcome';
+const String registerAnAccountText = 'Register an account';
+const String welcomeBackText = 'Welcome back!';
+const String loginToYourAccountText = 'Login to your account';
+const String loginText = 'Login';
+const String registerText = 'Register';
+const String rememberMeText = 'Remember Me';
+const String skipText = 'Skip';

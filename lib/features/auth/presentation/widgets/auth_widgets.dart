@@ -120,8 +120,8 @@ class AuthEmailField extends StatelessWidget {
       controller: controller,
       textInputType: TextInputType.emailAddress,
       isPassword: false,
-      labelTextString: TextConstants.emailLabelText,
-      hintTextString: TextConstants.emailHintText,
+      labelTextString: emailLabelText,
+      hintTextString: emailHintText,
       validator: customValidator ??
           (value) {
             if (value == null || value.isEmpty) {
@@ -156,8 +156,8 @@ class AuthPasswordField extends StatelessWidget {
       controller: controller,
       textInputType: TextInputType.text,
       isPassword: true,
-      labelTextString: TextConstants.passwordLabelText,
-      hintTextString: TextConstants.passwordHintText,
+      labelTextString: passwordLabelText,
+      hintTextString: passwordHintText,
       validator: customValidator ??
           (value) {
             if (value == null || value.isEmpty) {
@@ -185,8 +185,8 @@ class AuthNameField extends StatelessWidget {
       controller: controller,
       textInputType: TextInputType.text,
       isPassword: false,
-      labelTextString: TextConstants.nameLabelText,
-      hintTextString: TextConstants.nameHintText,
+      labelTextString: nameLabelText,
+      hintTextString: nameHintText,
       validator: (value) {
         if (value == null || value.isEmpty) {
           SnackBarManager(context).showErrorSnackBar('Name cannot be empty!');

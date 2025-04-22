@@ -56,8 +56,8 @@ class RegisterScreen extends HookConsumerWidget {
                   AuthLogo(logoAssetPath: Assets.images.logo.path),
                   SizedBox(height: 115.h),
                   const AuthTextHeader(
-                    title: TextConstants.registerAnAccountText,
-                    subtitle: TextConstants.welcomeText,
+                    title: registerAnAccountText,
+                    subtitle: welcomeText,
                   ),
                   SizedBox(height: 80.h),
                   Column(
@@ -85,7 +85,7 @@ class RegisterScreen extends HookConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: const [
                       AuthSwitchTextButton(
-                        text: TextConstants.loginText,
+                        text: loginText,
                         route: LoginRoute(),
                       ),
                     ],
@@ -100,7 +100,7 @@ class RegisterScreen extends HookConsumerWidget {
         color: Colors.transparent,
         child: AuthButton(
           onPressed: authState.isLoading ? null : onRegisterPressed,
-          text: TextConstants.authButtonTextRegisterText,
+          text: authButtonTextRegisterText,
         ),
       ),
     );

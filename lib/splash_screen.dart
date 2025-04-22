@@ -54,12 +54,12 @@ class SplashScreen extends ConsumerWidget {
                 children: [
                   AuthElevatedButton(
                     onPressed: () => context.router.replace(const LoginRoute()),
-                    buttonText: TextConstants.authButtonTextLoginText,
+                    buttonText: authButtonTextLoginText,
                   ),
                   const SizedBox(height: 10),
                   SkipTextButton(
                     onPressed: () => context.router.replace(const LoginRoute()),
-                    skipTextButton: TextConstants.skipText,
+                    skipTextButton: skipText,
                   ),
                 ],
               ),
