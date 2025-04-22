@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:product_catalog_project/features/like_dislike/repos/like_repository.dart';
+import 'package:product_catalog_project/features/book_detail/utils/like_dislike/repos/like_repository.dart';
 import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
 
 class LikeButtonNotifier extends StateNotifier<bool> {

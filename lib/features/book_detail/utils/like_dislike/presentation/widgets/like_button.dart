@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
-import 'package:product_catalog_project/features/like_dislike/providers/like_providers.dart';
+import 'package:product_catalog_project/features/book_detail/utils/like_dislike/providers/like_providers.dart';
 
 class LikeButton extends ConsumerWidget {
   final int productId;

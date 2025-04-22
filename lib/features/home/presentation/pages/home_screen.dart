@@ -4,12 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/constants/assets_path.dart';
 import 'package:product_catalog_project/core/theme/colors/project_colors.dart';
-import 'package:product_catalog_project/features/filter_feature/presentation/providers/selected_category_provider.dart';
+import 'package:product_catalog_project/features/home/utils/filter_feature/presentation/providers/selected_category_provider.dart';
 import 'package:product_catalog_project/features/home/data/models/category_model.dart';
 import 'package:product_catalog_project/features/home/presentation/widgets/home_widgets/category_section/category_card.dart';
-import 'package:product_catalog_project/features/filter_feature/presentation/widgets/home_filter_chip.dart';
+import 'package:product_catalog_project/features/home/utils/filter_feature/presentation/widgets/home_filter_chip.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/category_provider.dart';
-import 'package:product_catalog_project/features/search/presentation/widgets/search_bar/search_bar.dart';
+import 'package:product_catalog_project/utils/search_feature/presentation/widgets/search_bar/search_bar.dart';
 import 'package:product_catalog_project/ui/widgets/custom_loading_indicator.dart';
 import 'package:product_catalog_project/ui/widgets/main_app_bar.dart';
 

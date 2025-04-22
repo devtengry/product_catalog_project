@@ -7,7 +7,7 @@ import 'package:product_catalog_project/features/category_detail/presentation/wi
 import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
 import 'package:product_catalog_project/ui/widgets/custom_loading_indicator.dart';
 import 'package:product_catalog_project/ui/widgets/main_app_bar.dart';
-import 'package:product_catalog_project/features/search/presentation/widgets/search_bar/search_bar.dart';
+import 'package:product_catalog_project/utils/search_feature/presentation/widgets/search_bar/search_bar.dart';
 
 @RoutePage()
 class CategoryDetailScreen extends ConsumerWidget {
