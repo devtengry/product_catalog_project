@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
 import 'package:product_catalog_project/features/home/presentation/widgets/home_widgets/book_section/scrollable_book_row.dart';
 import 'package:product_catalog_project/custom/widgets/custom_loading_indicator.dart';
@@ -15,11 +16,11 @@ class HorizontalBookList extends ConsumerWidget {
     final productAsync = ref.watch(categoryProductsProvider(categoryId));
 
     return productAsync.when(
-      error: (error, _) => Center(child: Text('Failed to load products')),
+      error: (error, _) => Center(child: Text(productDetailFailText)),
       loading: () => const Center(child: CustomLoadingIndicator()),
       data: (products) {
         if (products.isEmpty) {
-          return const Center(child: Text("No products found."));
+          return const Center(child: Text(noProducts));
         }
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,

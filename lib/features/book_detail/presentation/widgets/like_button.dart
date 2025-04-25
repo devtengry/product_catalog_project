@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/core/theme/project_colors.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/provider/like_providers.dart';
@@ -51,10 +52,10 @@ class LikeButton extends ConsumerWidget {
                   final newLikeStatus = updated.isLiked;
 
                   SnackBarManager(context).showErrorSnackBar(
-                    newLikeStatus ? 'Product liked.' : 'Product unliked.',
+                    newLikeStatus ? likedText : unlikedText,
                   );
                 } catch (e) {
-                  SnackBarManager(context).showErrorSnackBar('Error occurred.');
+                  SnackBarManager(context).showErrorSnackBar(anErrorText);
                 }
               },
       ),

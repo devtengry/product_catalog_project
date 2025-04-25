@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/features/book_detail/repos/like_repository.dart';
 import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
 import 'package:product_catalog_project/features/book_detail/states/like_state.dart';
@@ -13,7 +14,7 @@ class LikeButtonNotifier extends StateNotifier<LikeState> {
   Future<void> toggleLike() async {
     final token = await AuthStorage.getToken();
     if (token == null) {
-      state = state.copyWith(errorMessage: 'Please login first!');
+      state = state.copyWith(errorMessage: loginFirstText);
       return;
     }
 
@@ -34,7 +35,7 @@ class LikeButtonNotifier extends StateNotifier<LikeState> {
 
       state = state.copyWith(
         isLoading: false,
-        errorMessage: 'Failed to update like status: $errorMessage',
+        errorMessage: '$likeUpdateFailText: $errorMessage',
       );
     }
   }

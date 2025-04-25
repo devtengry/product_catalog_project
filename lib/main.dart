@@ -13,7 +13,7 @@ void main() async {
 
   final container = ProviderContainer();
 
-  await container.read(authNotifierProvider.notifier).checkSession();
+  await container.read(authServiceProvider.notifier).checkSession();
 
   runApp(
     ProviderScope(

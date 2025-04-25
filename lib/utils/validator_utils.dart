@@ -1,17 +1,18 @@
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:validators2/validators2.dart';
 
 class ValidatorUtils {
   static String? validatePassword(String? value, Function(String) onError) {
     if (value == null || value.isEmpty) {
-      onError('Password cannot be empty!');
+      onError(validatorPasswordEmpty);
       return null;
     }
     if (!isLength(value, 6, 20)) {
-      onError('Password must be between 6 and 20 characters!');
+      onError(validatorPasswordLength);
       return null;
     }
     if (!matches(value, r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$')) {
-      onError('Password must contain at least one letter and one number!');
+      onError(validatorPasswordFormat);
       return null;
     }
     return null;
@@ -19,11 +20,12 @@ class ValidatorUtils {
 
   static String? validateEmail(String? value, Function(String) onError) {
     if (value == null || value.isEmpty) {
-      onError('Email cannot be empty!');
+      onError(validatorEmailEmpty);
       return null;
     }
+
     if (!matches(value, r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')) {
-      onError('Please enter a valid email address!');
+      onError(validatorEmailFormat);
       return null;
     }
     return null;
@@ -31,12 +33,11 @@ class ValidatorUtils {
 
   static String? validateName(String? value, Function(String) onError) {
     if (value == null || value.isEmpty) {
-      onError('Name cannot be empty!');
+      onError(validatorNameEmpty);
       return null;
     }
     if (!matches(value, r'^[a-zA-Z\s]{2,30}$')) {
-      onError(
-          'Name must be 2-30 characters and contain only letters and spaces!');
+      onError(validatorNameFormat);
       return null;
     }
     return null;

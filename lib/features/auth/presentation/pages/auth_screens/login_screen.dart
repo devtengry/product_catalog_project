@@ -26,8 +26,8 @@ class LoginScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formControllers = useAuthFormControllers();
-    final authNotifier = ref.read(authNotifierProvider.notifier);
-    final authState = ref.watch(authNotifierProvider);
+    final authNotifier = ref.read(authServiceProvider.notifier);
+    final authState = ref.watch(authServiceProvider);
 
     useEffect(() {
       Future.microtask(() async {

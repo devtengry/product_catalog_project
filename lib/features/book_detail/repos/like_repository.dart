@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/utils/jwt_helper.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -12,7 +13,7 @@ class LikeRepository {
       final userId = payload?['user_id'] as int?;
 
       if (userId == null) {
-        throw Exception('Invalid JWT token or user ID');
+        throw Exception(invalidJwtText);
       }
 
       final endpoint = isLiked ? 'like' : 'unlike';
@@ -32,7 +33,7 @@ class LikeRepository {
         ),
       );
     } on DioException catch (e) {
-      final errorData = e.response?.data?.toString() ?? 'Unknown error';
+      final errorData = e.response?.data?.toString() ?? anErrorText;
 
       if (errorData.contains('duplicate key')) {
         throw Exception('duplicate key');

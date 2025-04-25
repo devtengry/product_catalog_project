@@ -24,7 +24,7 @@ class RegisterScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final formControllers = useAuthFormControllers(includeName: true);
     final snackBarTimerRef = useRef<Timer?>(null);
-    final authNotifier = ref.read(authNotifierProvider.notifier);
+    final authNotifier = ref.read(authServiceProvider.notifier);
 
     final onRegisterPressed = useAuthAction(
       context: context,
@@ -33,12 +33,12 @@ class RegisterScreen extends HookConsumerWidget {
           authNotifier.register(email, password, name!),
       email: formControllers.email,
       password: formControllers.password,
-      name: formControllers.name, // Name kullanılıyor çünkü includeName: true
+      name: formControllers.name,
       formKey: formControllers.formKey,
       redirectRoute: const LoginRoute(),
     );
 
-    final authState = ref.watch(authNotifierProvider);
+    final authState = ref.watch(authServiceProvider);
 
     listenForErrors(ref, context, snackBarTimerRef.value);
 

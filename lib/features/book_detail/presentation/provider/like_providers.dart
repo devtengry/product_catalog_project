@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/features/book_detail/repos/like_repository.dart';
 import 'package:product_catalog_project/features/book_detail/states/like_state.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/product_provider.dart';
@@ -25,7 +26,7 @@ final productLikesProvider = Provider.family<bool, int>((ref, productId) {
     data: (products) {
       final product = products.firstWhere(
         (p) => p.id == productId,
-        orElse: () => throw Exception('Product not found'),
+        orElse: () => throw Exception(productNotFoundText),
       );
       return product.likes == 1;
     },

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/gen/assets.gen.dart';
 import 'package:product_catalog_project/core/theme/project_colors.dart';
 import 'package:product_catalog_project/features/home/presentation/provider/selected_category_provider.dart';
@@ -25,7 +26,7 @@ class HomeScreen extends ConsumerWidget {
       backgroundColor: kWhiteBackground,
       appBar: MainAppBar(
         leadingIcon: Image.asset(Assets.images.logo.path),
-        suffixText: 'Catalog',
+        suffixText: catalogText,
       ),
       body: SafeArea(
         child: Padding(
@@ -40,7 +41,7 @@ class HomeScreen extends ConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: HomeFilterChip(
-                        filterText: "All",
+                        filterText: allText,
                         categoryId: 0,
                       ),
                     ),
@@ -64,8 +65,7 @@ class HomeScreen extends ConsumerWidget {
                               child: const CustomLoadingIndicator(),
                             )
                           ],
-                          error: (err, stack) =>
-                              [Text('Failed to load filters!')],
+                          error: (err, stack) => [Text(filterFailText)],
                         ),
                   ],
                 ),

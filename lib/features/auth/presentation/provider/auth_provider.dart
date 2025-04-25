@@ -1,13 +1,21 @@
 import 'package:product_catalog_project/features/auth/data/services/auth_service.dart';
+import 'package:product_catalog_project/features/auth/data/services/concrete_session_manager.dart';
+import 'package:product_catalog_project/features/auth/domain/session_manager.dart';
 import 'package:product_catalog_project/features/auth/repos/auth_repository.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:product_catalog_project/network/network_service.dart';
 import '../../states/auth_state.dart';
 
-final authNotifierProvider = StateNotifierProvider<AuthService, AuthState>(
+final concreteSessionManagerProvider = Provider<SessionManager>((ref) {
+  return ConcreteSessionManager();
+});
+
+final authServiceProvider = StateNotifierProvider<AuthService, AuthState>(
   (ref) {
     final authRepository = ref.watch(authRepositoryProvider);
-    return AuthService(authRepository);
+    final sessionManager = ref.watch(concreteSessionManagerProvider);
+
+    return AuthService(authRepository, sessionManager);
   },
 );
 

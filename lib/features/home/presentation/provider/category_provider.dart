@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/features/home/data/models/category_model.dart';
 import 'package:product_catalog_project/features/home/data/services/category_service.dart';
 
@@ -10,7 +11,7 @@ final categoryProvider = FutureProvider<CategoryModel>(
     try {
       return await service.fetchCategories();
     } catch (e) {
-      throw "Failed to load categories. Please try again.";
+      throw categoryFailText;
     }
   },
 );

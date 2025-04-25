@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/features/book_detail/data/model/product_detail_model.dart';
 
 class ProductDetailRepository {
@@ -14,10 +15,10 @@ class ProductDetailRepository {
       if (response.statusCode == 200) {
         return ProductDetailModel.fromJson(response.data);
       } else {
-        throw 'Failed to load product detail';
+        throw productDetailFailText;
       }
     } catch (e) {
-      throw 'An error occured!';
+      throw anErrorText;
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/network/network_service.dart';
 import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
 
@@ -25,7 +26,7 @@ class ProductsService {
       );
       return response.data["action_product_image"]["url"];
     } on DioException catch (e) {
-      throw Exception('Failed to load cover image: ${e.message}');
+      throw Exception('$coverImageFailedText: ${e.message}');
     }
   }
 }

@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/core/theme/project_colors.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/widgets/buy_button.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/provider/product_detail_provider.dart';
@@ -30,7 +31,7 @@ class BookDetailScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: kWhiteBackground,
       appBar: MainAppBar(
-        suffixText: 'Book Details',
+        suffixText: bookDetailsText,
         leadingIcon: IconButton(
           onPressed: () => context.router.pop(),
           icon: const Icon(Icons.arrow_back_ios_new_outlined),
@@ -43,7 +44,7 @@ class BookDetailScreen extends ConsumerWidget {
           final product = productDetail.productByPk;
 
           if (product == null) {
-            return const Center(child: Text('Product not found.'));
+            return const Center(child: Text(productNotFoundText));
           }
 
           return SafeArea(
@@ -71,9 +72,9 @@ class BookDetailScreen extends ConsumerWidget {
                               ),
                               SizedBox(height: 30.h),
                               _BookSummary(
-                                summaryTitle: 'Summary',
-                                bookSummary: product.description ??
-                                    'No description available.',
+                                summaryTitle: summaryText,
+                                bookSummary:
+                                    product.description ?? noDescriptionText,
                               ),
                             ],
                           ),
@@ -105,7 +106,7 @@ class BookDetailScreen extends ConsumerWidget {
               width: min(350.w, 350),
               height: min(60.h, 60),
               child: BuyButton(
-                buttonText: 'Buy Now',
+                buttonText: buyNowText,
                 bookPrice: product.price?.toStringAsFixed(2) ?? '0.00',
                 onPressed: () => router.push(HomeRoute()),
               ),

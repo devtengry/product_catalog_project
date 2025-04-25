@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:product_catalog_project/features/auth/presentation/provider/auth_provider.dart';
 
@@ -21,14 +22,14 @@ VoidCallback useAuthAction({
     if (email.text.isEmpty ||
         password.text.isEmpty ||
         (name?.text.isEmpty ?? false)) {
-      SnackBarManager(context).showErrorSnackBar('Please fill out all fields!');
+      SnackBarManager(context).showErrorSnackBar(authActionErrorText);
       return;
     }
 
     if (formKey.currentState?.validate() ?? false) {
       await action(email.text, password.text, name?.text);
 
-      if (ref.read(authNotifierProvider).isAuthenticated && context.mounted) {
+      if (ref.read(authServiceProvider).isAuthenticated && context.mounted) {
         context.router.replace(redirectRoute);
       }
     }
