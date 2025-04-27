@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/core/theme/project_colors.dart';
+import 'package:product_catalog_project/custom/widgets/custom_loading_indicator.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:product_catalog_project/features/book_detail/presentation/provider/like_providers.dart';
 
@@ -27,10 +28,7 @@ class LikeButton extends ConsumerWidget {
       ),
       child: IconButton(
         icon: likeState.isLoading
-            ? const CircularProgressIndicator(
-                strokeWidth: 2,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
-              )
+            ? const CustomLoadingIndicator()
             : Icon(
                 likeState.isLiked
                     ? Icons.favorite_rounded
@@ -51,11 +49,11 @@ class LikeButton extends ConsumerWidget {
                   final updated = ref.read(likeButtonProvider(productId));
                   final newLikeStatus = updated.isLiked;
 
-                  SnackBarManager(context).showErrorSnackBar(
+                  SnackBarManager.showErrorSnackBar(
                     newLikeStatus ? likedText : unlikedText,
                   );
                 } catch (e) {
-                  SnackBarManager(context).showErrorSnackBar(anErrorText);
+                  SnackBarManager.showErrorSnackBar(anErrorText);
                 }
               },
       ),

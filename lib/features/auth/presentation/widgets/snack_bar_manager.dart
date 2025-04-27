@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:product_catalog_project/core/theme/project_colors.dart';
+import 'package:product_catalog_project/utils/keys.dart';
 
 class SnackBarManager {
-  final BuildContext context;
+  SnackBarManager._();
 
-  SnackBarManager(this.context);
+  static void showErrorSnackBar(String message) {
+    final scaffoldState = scaffoldMessengerKey.currentState;
 
-  void showErrorSnackBar(String message) {
-    ScaffoldMessenger.of(context).clearSnackBars();
+    if (scaffoldState == null) {
+      return;
+    }
 
-    ScaffoldMessenger.of(context).showSnackBar(
+    scaffoldState.clearSnackBars();
+
+    scaffoldState.showSnackBar(
       SnackBar(
         content: Text(
           message,
@@ -26,7 +31,7 @@ class SnackBarManager {
           label: 'Close',
           textColor: Colors.white,
           onPressed: () {
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            scaffoldMessengerKey.currentState?.hideCurrentSnackBar();
           },
         ),
       ),

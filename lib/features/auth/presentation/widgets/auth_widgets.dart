@@ -125,13 +125,11 @@ class AuthEmailField extends StatelessWidget {
       validator: customValidator ??
           (value) {
             if (value == null || value.isEmpty) {
-              SnackBarManager(context)
-                  .showErrorSnackBar('E-Mail cannot be empty!');
+              SnackBarManager.showErrorSnackBar(validatorEmailFormat);
               return null;
             }
             if (!isEmail(value)) {
-              SnackBarManager(context)
-                  .showErrorSnackBar('Please enter a valid e-mail!');
+              SnackBarManager.showErrorSnackBar(validatorEmailFormat);
               return null;
             }
             return null;
@@ -161,8 +159,7 @@ class AuthPasswordField extends StatelessWidget {
       validator: customValidator ??
           (value) {
             if (value == null || value.isEmpty) {
-              SnackBarManager(context)
-                  .showErrorSnackBar('Password cannot be empty!');
+              SnackBarManager.showErrorSnackBar(validatorEmailEmpty);
               return null;
             }
             return null;
@@ -189,12 +186,11 @@ class AuthNameField extends StatelessWidget {
       hintTextString: nameHintText,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          SnackBarManager(context).showErrorSnackBar('Name cannot be empty!');
+          SnackBarManager.showErrorSnackBar(validatorNameEmpty);
           return null;
         }
-        if (!isLength(value, 2, 50)) {
-          SnackBarManager(context)
-              .showErrorSnackBar('Name must be between 2 and 50 characters!');
+        if (!isLength(value, 2, 30)) {
+          SnackBarManager.showErrorSnackBar(validatorNameFormat);
           return null;
         }
         return null;

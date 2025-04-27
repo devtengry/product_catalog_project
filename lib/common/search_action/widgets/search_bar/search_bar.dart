@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/core/theme/project_colors.dart';
 import 'package:product_catalog_project/features/auth/presentation/widgets/snack_bar_manager.dart';
 import 'package:product_catalog_project/common/search_action/hooks/use_filtered_products.dart';
@@ -49,8 +50,7 @@ class HomeSearchBar extends HookConsumerWidget {
             context.router
                 .push(BookDetailRoute(productId: filteredProducts.first.id));
           } else {
-            SnackBarManager(context)
-                .showErrorSnackBar('No matching products found.');
+            SnackBarManager.showErrorSnackBar(noMatchingText);
           }
         },
       ),

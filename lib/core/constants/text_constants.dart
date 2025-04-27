@@ -19,7 +19,7 @@ const String productDetailFailText = 'Failed to load product detail';
 const String coverImageFailedText = 'Failed to load cover image';
 const String filterFailText = 'Failed to load filters!';
 const String categoryFailText = 'Failed to load categories. Please try again.';
-const String noProducts = 'No products found.';
+const String noProductsText = 'No products found.';
 
 // Hint and Label Text
 const String nameHintText = 'John Doe';
@@ -48,10 +48,12 @@ const String summaryText = 'Summary';
 const String buyNowText = 'Buy Now';
 const String likedText = 'Product liked.';
 const String unlikedText = 'Product unliked.';
+const String noMatchingText = 'No matching products found.';
 
 // Catalog/Filtering Text
 const String catalogText = 'Catalog';
 const String allText = 'All';
+const String viewAllText = 'View All';
 
 // Validator Messages
 const String validatorPasswordEmpty = 'Password cannot be empty!';

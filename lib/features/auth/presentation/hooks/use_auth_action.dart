@@ -22,7 +22,7 @@ VoidCallback useAuthAction({
     if (email.text.isEmpty ||
         password.text.isEmpty ||
         (name?.text.isEmpty ?? false)) {
-      SnackBarManager(context).showErrorSnackBar(authActionErrorText);
+      SnackBarManager.showErrorSnackBar(authActionErrorText);
       return;
     }
 

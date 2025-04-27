@@ -22,24 +22,37 @@ class CategoryModel {
 }
 
 class Category {
-  //TODO: aşağıdaki kısımları çıkar
+  CategoryFields? fields;
+
+  Category({this.fields});
+
+  Category.fromJson(Map<String, dynamic> json) {
+    fields = CategoryFields.fromJson(json);
+  }
+
+  Map<String, dynamic> toJson() {
+    return fields?.toJson() ?? {};
+  }
+}
+
+class CategoryFields {
   int? id;
   String? name;
   String? createdAt;
 
-  Category({this.id, this.name, this.createdAt});
+  CategoryFields({this.id, this.name, this.createdAt});
 
-  Category.fromJson(Map<String, dynamic> json) {
+  CategoryFields.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     createdAt = json['created_at'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['created_at'] = createdAt;
-    return data;
+    return {
+      'id': id,
+      'name': name,
+      'created_at': createdAt,
+    };
   }
 }

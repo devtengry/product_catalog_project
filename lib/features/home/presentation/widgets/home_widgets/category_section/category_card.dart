@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:product_catalog_project/core/constants/text_constants.dart';
 import 'package:product_catalog_project/core/theme/project_colors.dart';
 import 'package:product_catalog_project/features/home/data/models/category_model.dart';
 import 'package:product_catalog_project/features/home/presentation/widgets/home_widgets/book_section/horizontal_book_list.dart';
@@ -17,6 +18,7 @@ class CategoryCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    assert(category.fields != null, categoryFailText);
     return SizedBox(
       width: 350.w,
       height: 187.h,
@@ -34,6 +36,7 @@ class _CategoryCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    assert(category.fields != null, categoryFailText);
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       color: Colors.transparent,
@@ -44,7 +47,7 @@ class _CategoryCard extends ConsumerWidget {
         children: [
           _CategoryHeader(category: category),
           Expanded(
-            child: HorizontalBookList(categoryId: category.id!),
+            child: HorizontalBookList(categoryId: category.fields!.id ?? 0),
           ),
         ],
       ),
@@ -61,11 +64,12 @@ class _CategoryHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    assert(category.fields != null, categoryFailText);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _CategoryText(category: category),
-        _CategoryTextButton(categoryId: category.id!),
+        _CategoryTextButton(categoryId: category.fields!.id ?? 0),
       ],
     );
   }
@@ -78,8 +82,9 @@ class _CategoryText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    assert(category.fields != null, categoryFailText);
     return Text(
-      category.name ?? 'No Data',
+      category.fields!.name ?? 'No Data',
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
             fontSize: min(20.sp, 20),
             fontWeight: FontWeight.w600,
@@ -101,7 +106,7 @@ class _CategoryTextButton extends ConsumerWidget {
         onPressed: () =>
             router.push(CategoryDetailRoute(categoryId: categoryId)),
         child: Text(
-          'View All',
+          viewAllText,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
               fontSize: min(12.sp, 12),
               fontWeight: FontWeight.w600,

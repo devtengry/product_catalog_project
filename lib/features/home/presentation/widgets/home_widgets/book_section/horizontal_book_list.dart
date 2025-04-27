@@ -20,7 +20,7 @@ class HorizontalBookList extends ConsumerWidget {
       loading: () => const Center(child: CustomLoadingIndicator()),
       data: (products) {
         if (products.isEmpty) {
-          return const Center(child: Text(noProducts));
+          return const Center(child: Text(noProductsText));
         }
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,

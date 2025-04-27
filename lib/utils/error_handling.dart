@@ -23,7 +23,6 @@ void listenForErrors(
   BuildContext context,
   Timer? snackBarTimer,
 ) {
-  final snackBarManager = SnackBarManager(context);
   ref.listen<AuthState>(authServiceProvider, (previous, next) {
     if (next.errorMessage != null &&
         next.errorMessage != previous?.errorMessage) {
@@ -31,7 +30,7 @@ void listenForErrors(
       snackBarTimer = Timer(const Duration(seconds: 2), () {
         if (next.errorMessage != null) {
           String userFriendlyMessage = getErrorMessage(next.errorMessage!);
-          snackBarManager.showErrorSnackBar(userFriendlyMessage);
+          SnackBarManager.showErrorSnackBar(userFriendlyMessage);
         }
       });
     }

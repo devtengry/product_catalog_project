@@ -68,14 +68,14 @@ class RegisterScreen extends HookConsumerWidget {
                         controller: formControllers.email,
                         customValidator: (val) =>
                             ValidatorUtils.validateEmail(val, (e) {
-                          SnackBarManager(context).showErrorSnackBar(e);
+                          SnackBarManager.showErrorSnackBar(e);
                         }),
                       ),
                       AuthPasswordField(
                         controller: formControllers.password,
                         customValidator: (val) =>
                             ValidatorUtils.validatePassword(val, (e) {
-                          SnackBarManager(context).showErrorSnackBar(e);
+                          SnackBarManager.showErrorSnackBar(e);
                         }),
                       ),
                     ],

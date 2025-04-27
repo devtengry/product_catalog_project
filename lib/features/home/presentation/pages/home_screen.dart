@@ -49,11 +49,13 @@ class HomeScreen extends ConsumerWidget {
                           data: (data) {
                             final categories = data.category ?? [];
                             return categories.map((category) {
+                              assert(category.fields != null, anErrorText);
                               return Padding(
                                 padding: const EdgeInsets.only(right: 10),
                                 child: HomeFilterChip(
-                                  filterText: category.name ?? '',
-                                  categoryId: category.id ?? 0,
+                                  filterText:
+                                      category.fields!.name ?? anErrorText,
+                                  categoryId: category.fields!.id ?? 0,
                                 ),
                               );
                             }).toList();
@@ -81,12 +83,16 @@ class HomeScreen extends ConsumerWidget {
                             itemCount: categories.length,
                             itemBuilder: (context, index) {
                               final category = categories[index];
+                              assert(category.fields != null, anErrorText);
                               return CategoryCard(category: category);
                             },
                           );
                         } else {
                           final selectedCat = categories.firstWhere(
-                            (cat) => cat.id == selectedCategory,
+                            (cat) {
+                              assert(cat.fields != null, anErrorText);
+                              return cat.fields!.id == selectedCategory;
+                            },
                             orElse: () => Category(),
                           );
                           return CategoryCard(category: selectedCat);
