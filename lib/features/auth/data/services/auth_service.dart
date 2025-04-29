@@ -15,7 +15,6 @@ class AuthService extends StateNotifier<AuthState> {
 
   Future<void> login(String email, String password) async {
     state = state.copyWith(isLoading: true, errorMessage: null);
-    //test
     try {
       final response = await _authRepository.login(email, password);
       final data = response.data;

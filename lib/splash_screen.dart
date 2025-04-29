@@ -41,7 +41,6 @@ class SplashScreen extends ConsumerWidget {
 
     if (isTimerDone) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        // LoginRoute'a geçiş yap ve geri dönüşü engelle
         context.router.replace(const LoginRoute());
       });
     }
