@@ -1,11 +1,14 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:product_catalog_project/config/secrets.dart';
 import 'package:product_catalog_project/features/auth/data/services/auth_storage.dart';
+import 'package:product_catalog_project/network/i_network_service.dart';
 
-//TODO: interface olarak genel bir yapı oluşturulabilir ve burada o interface'ten implemenet alınabilir burada.
-class NetworkService {
+@LazySingleton(as: INetworkService)
+class NetworkService implements INetworkService {
   late final Dio _dio;
-  NetworkService._internal() {
+
+  NetworkService() {
     _dio = Dio(
       BaseOptions(
         baseUrl: Secrets.baseUrl,
@@ -26,20 +29,18 @@ class NetworkService {
         handler.next(options);
       },
       onError: (DioException e, handler) {
-        if (e.response?.statusCode == 401) {}
+        if (e.response?.statusCode == 401) {
+          // TODO: Token yenileme işlemleri yapılabilir
+        }
         handler.next(e);
       },
     ));
   }
 
-  static final NetworkService _instance = NetworkService._internal();
-
-  factory NetworkService() {
-    return _instance;
-  }
-
+  @override
   Dio get dio => _dio;
 
+  @override
   Future<Response> getRequest(String endpoint,
       {Map<String, dynamic>? queryParameters}) async {
     try {
@@ -49,6 +50,7 @@ class NetworkService {
     }
   }
 
+  @override
   Future<Response> postRequest(
       String endpoint, Map<String, dynamic> data) async {
     try {
