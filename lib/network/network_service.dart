@@ -29,9 +29,7 @@ class NetworkService implements INetworkService {
         handler.next(options);
       },
       onError: (DioException e, handler) {
-        if (e.response?.statusCode == 401) {
-          // TODO: Token yenileme işlemleri yapılabilir
-        }
+        if (e.response?.statusCode == 401) {}
         handler.next(e);
       },
     ));
