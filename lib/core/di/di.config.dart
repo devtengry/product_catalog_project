@@ -3,5 +3,5 @@ import 'package:injectable/injectable.dart';
 
 final getIt = GetIt.instance;
 
-@InjectableInit()
+@injectableInit
 Future<void> configureDependencies() async => getIt.reset();
